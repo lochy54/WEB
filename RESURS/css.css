@@ -1,0 +1,59 @@
+body{
+    background-color: white;
+}
+.bi{
+    font-size: 1rem;
+}
+
+.b2{
+    font-size: 5rem !important;
+    color:#DC3545;
+}
+
+.over{
+    overflow-y:scroll;
+    max-height: 75%;
+    top: 48%;
+
+}
+::-webkit-scrollbar {
+    display: none;
+  }
+
+.navbar{
+    position: absolute;
+    top: 0%;
+    z-index: 1;
+
+}
+.foot{
+    position: absolute;
+    bottom: 0%;
+
+}
+#myAlert{
+    z-index: 2;
+    display: none;
+    max-width: 70%;
+    left: 15%;
+}
+
+#gen{
+    height: 250px;
+    overflow: scroll;
+}
+
+
+
+.modplay{
+    overflow: scroll;
+    max-height: 400px;
+}
+
+.artist{
+    max-height: 250px;
+    overflow-y: scroll;
+}
+.mod{
+    overflow-y: scroll;
+}
