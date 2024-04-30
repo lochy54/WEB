@@ -1,5 +1,5 @@
 
-let token, user, nome, play, id , value;
+let token, user, nome, play, id , value, durata;
 
 
     async function logout(){
@@ -48,6 +48,17 @@ let token, user, nome, play, id , value;
         document.getElementById("dsc").value=post.res.descrizione;
         document.getElementById("Artista").value="";
         document.getElementById("status").checked=post.res.public;
+        durata = post.res.durata;
+        let minutes = Math.floor(Math.floor(post.res.durata / 1000) / 60);
+        let seconds = Math.floor(post.res.durata / 1000) % 60;
+
+        // Add leading zero if seconds is less than 10
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+
+
+        document.getElementById("duration").innerHTML=  minutes + ":" + seconds;
          id = post.res._id
       value=post.res.canzoni.tracks
       if(value==null){
@@ -170,10 +181,24 @@ add.value= value.id;
 add.onclick = function() {
   if(bnt=="REM"){
     container.removeChild(cardDiv)
-    console.log("di")
+    durata = durata - value.duration_ms
   }else{
     addRow(value,"artist2","REM")
+    durata = durata + value.duration_ms
+
   }
+
+  
+ let minutesd = Math.floor(Math.floor(durata / 1000) / 60);
+ let secondsd = Math.floor(durata / 1000) % 60;
+ 
+ // Add leading zero if seconds is less than 10
+ if (secondsd < 10) {
+     secondsd = "0" + secondsd;
+ }
+ 
+ document.getElementById("duration").innerHTML= minutesd + ":" + secondsd ;
+
 };
 
  // Append all elements to the card body
@@ -187,7 +212,6 @@ add.onclick = function() {
  // Append the card to the container
  container.appendChild(cardDiv);
  
-
     
     
    }
@@ -199,15 +223,15 @@ add.onclick = function() {
         var tbody = table.getElementsByTagName('div');
         var artistArray = [];
 
-        for (var i = 0; i < tbody.length; i=i+2) {
-          artistArray.push(tbody[i].childNodes[1].children[2].value)  
+        for (var i = 1; i < tbody.length; i=i+6) {
+          artistArray.push(tbody[i].childNodes[1].value)  
         }
         var nome = document.getElementById("nome").value;
         var tag = document.getElementById("tag").value.split(",");
         var desc = document.getElementById("dsc").value;
         var stat = document.getElementById("status").checked;
     
-        var data = { nome: nome , tag : tag  , descrizione : desc , canzoni : artistArray,public : stat, token: token, id:id} ;
+        var data = { nome: nome , tag : tag  , descrizione : desc , canzoni : artistArray,public : stat, token: token, id:id, durata:durata} ;
       
         const post = await fetch("http://localhost:3000/salvaMod", {
           method: 'POST',

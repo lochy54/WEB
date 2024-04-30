@@ -12,7 +12,8 @@ async function salva(userData, email){
         tag: z.array(z.string()).default([]),
         descrizione: z.string().min(2), 
         canzoni: z.array(z.string()).default([]),
-        public: z.boolean()
+        public: z.boolean(),
+        durata: z.number().positive()
     });
     
     try {
@@ -50,7 +51,9 @@ async function salva(userData, email){
             tag: z.array(z.string()).default([]),
             descrizione: z.string().min(2), 
             canzoni: z.array(z.string()).default([]),
-            public: z.boolean()
+            public: z.boolean(),
+            durata: z.number().positive()
+
         });
         
         try {
@@ -64,7 +67,8 @@ async function salva(userData, email){
                                                         tag:userData.tag,
                                                         descrizione:userData.descrizione,
                                                         canzoni: userData.canzoni,
-                                                        public: userData.public
+                                                        public: userData.public,
+                                                        durata: userData.durata
 
             
             }});

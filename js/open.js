@@ -114,7 +114,7 @@ var duration_formatted = minutes + ":" + seconds;
 
 
  cardText.className = "card-text row";
- cardText.innerHTML = "<div class='col-xxl-6 col-12'><t class='fs-4'>Album: </t>"+value.album.name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Date: </t>"+value.album.release_date +"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Nome: </t>"+value.artists[0].name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Durata: </t>"+duration_formatted+"</div> "
+ cardText.innerHTML = "<div class='col-xxl-6 col-12'><t class='fs-4'>Album: </t>"+value.album.name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Date: </t>"+value.album.release_date +"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Artista: </t>"+value.artists[0].name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Durata: </t>"+duration_formatted+"</div> "
 
 
  // Append all elements to the card body

@@ -1,5 +1,5 @@
 
-let token, user;
+let token, user, duration;
 
 async function logout(){
 
@@ -15,6 +15,7 @@ async function logout(){
 
 
 async function load() {
+    duration=0;
     user = sessionStorage.getItem("user");
     token = sessionStorage.getItem("token")
     if(user==null){
@@ -53,9 +54,7 @@ async function load() {
            item = post.tracks.tracks.items
         for (let index = 0; index < item.length; index++) {
             addRow(item[index],"artist1","ADD")
-          
         }
-      
       }
       }
       }
@@ -107,7 +106,7 @@ var duration_formatted = minutes + ":" + seconds;
 
 
  cardText.className = "card-text row";
- cardText.innerHTML = "<div class='col-xxl-6 col-12'><t class='fs-4'>Album: </t>"+value.album.name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Date: </t>"+value.album.release_date +"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Nome: </t>"+value.artists[0].name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Durata: </t>"+duration_formatted+"</div> "
+ cardText.innerHTML = "<div class='col-xxl-6 col-12'><t class='fs-4'>Album: </t>"+value.album.name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Date: </t>"+value.album.release_date +"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Artista: </t>"+value.artists[0].name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Durata: </t>"+duration_formatted+"</div> "
 
 
 
@@ -118,11 +117,25 @@ add.innerHTML = bnt;
 add.value= value.id;
 add.onclick = function() {
 if(bnt=="REM"){
+duration = duration - value.duration_ms
 container.removeChild(cardDiv)
-console.log("di")
 }else{
 addRow(value,"artist2","REM")
+duration = duration + value.duration_ms
 }
+
+
+let minutesd = Math.floor(Math.floor(duration / 1000) / 60);
+let secondsd = Math.floor(duration / 1000) % 60;
+
+// Add leading zero if seconds is less than 10
+if (secondsd < 10) {
+    secondsd = "0" + secondsd;
+}
+
+document.getElementById("duration").innerHTML= minutesd + ":" + secondsd;
+
+
 };
 
 // Append all elements to the card body
@@ -147,15 +160,15 @@ async function save(){
   var tbody = table.getElementsByTagName('div');
   var artistArray = [];
 
-  for (var i = 0; i < tbody.length; i=i+2) {
-    artistArray.push(tbody[i].childNodes[1].children[2].value)  
+  for (var i = 1; i < tbody.length; i=i+6) {
+    artistArray.push(tbody[i].childNodes[1].value)  
   }
   var nome = document.getElementById("nome").value;
   var tag = document.getElementById("tag").value.split(",");
   var desc = document.getElementById("dsc").value;
   var stat = document.getElementById("status").checked;
 
-  var data = { nome: nome , tag : tag  , descrizione : desc , canzoni : artistArray,public : stat, token: token} ;
+  var data = { nome: nome , tag : tag  , descrizione : desc , canzoni : artistArray,public : stat,durata: duration, token: token} ;
 
   const post = await fetch("http://localhost:3000/salva", {
     method: 'POST',

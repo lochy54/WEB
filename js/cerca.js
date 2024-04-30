@@ -16,7 +16,7 @@ async function logout(){
 function cerca(){
   element = document.getElementById("modplay").childNodes;
   for (let index = 1; index < element.length; index++) {
-    if(!((element[index].childNodes[0].innerHTML.includes(document.getElementById("Artista").value))||(element[index].childNodes[1].childNodes[0].innerHTML.split(": ")[1].includes(document.getElementById("Artista").value)))){
+    if(!((element[index].childNodes[0].innerHTML.includes(document.getElementById("Artista").value))||(element[index].childNodes[1].childNodes[0].childNodes[2].childNodes[1].data.includes(document.getElementById("Artista").value)))){
       element[index].style.display="none"
     }else{
       element[index].style.display="block"
@@ -85,14 +85,16 @@ async function load() {
    
     // Create the card text element
     var cardText = document.createElement("p");
-    cardText.className = "card-text";
-    cardText.textContent = "Tag: "+value.tag;
-
+    cardText.className = "card-text row";
+    let minutesd = Math.floor(Math.floor(value.durata / 1000) / 60);
+    let secondsd = Math.floor(value.durata / 1000) % 60;
     
-    // Create the card text element
-    var cardText1 = document.createElement("p");
-    cardText1.className = "card-text";
-    cardText1.textContent = "Utente: "+value.email;
+    // Add leading zero if seconds is less than 10
+    if (secondsd < 10) {
+        secondsd = "0" + secondsd;
+    }
+    cardText.innerHTML = "<div class='col-xxl-6 col-12'><t class='fs-4'>Utente: </t>"+value.email[0]+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Tag: </t>"+value.tag +"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Durata: </t>"+minutesd + ":" + secondsd +"</div>"
+
 
     // Create the "Go somewhere" button element
     var add = document.createElement("button");
@@ -106,7 +108,7 @@ async function load() {
 
     // Append all elements to the card body
     cardBody.appendChild(cardText);
-    cardBody.appendChild(cardText1);
+
 
     cardBody.appendChild(add);
 
