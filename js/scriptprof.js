@@ -48,11 +48,10 @@ if(post1.res==false){
     document.getElementById(data.generi[j]).checked=true;
   }
 
-  document.getElementById("myTable").getElementsByTagName('tbody')[0].innerHTML="";
 
 
   for (let j = 0; j < data.artisti.length; j++) {
-    addRow(document.createTextNode(data.artisti[j]));
+    addRow(data.artisti[j],"artist2","REM");
   }
 
   var isoDate = new Date(data.data);
@@ -100,47 +99,74 @@ function closeAlert() {
   document.getElementById("myAlert").style.display = "none";
 }
 
-function addArtist(){
-  if(document.getElementById('Artista').value==""){
-    return false;
+async function addArtist(){
+  var cercato = document.getElementById("Artista").value;
+  document.getElementById("artist1").innerHTML="";
+
+if(cercato!=""){
+
+const post = await fetch("http://localhost:3000/artisti", {
+    method: 'POST',
+headers: {
+'Content-Type': 'application/json;charset=utf-8'
+},
+body: JSON.stringify({cercato: cercato}) }).then(res => res.json());
+
+if(post.res===false){
+  if(post.code===400){
+    showAlert(post.code+" "+post.status , "danger");
   }
-  addRow(document.createTextNode(document.getElementById('Artista').value))
-  document.getElementById('Artista').value="";
+  }
+  art = post.artist.artists.items
+  for (let index = 0; index < art.length; index++) {
+    addRow(art[index].name,"artist1","ADD")
+  }
 
 }
 
-function addRow(value) {
-  var tableBody = document.getElementById("myTable").getElementsByTagName('tbody')[0];
-  var newRow = tableBody.insertRow();
-  
-  var cell1 = newRow.insertCell(0);
-  cell1.appendChild(value);
-  
-  var cell2 = newRow.insertCell(1);
-  var deleteButton = document.createElement("button");
-  deleteButton.innerHTML = "Elimina";
-  deleteButton.classList="btn btn-outline-danger btn-sm"
-  deleteButton.onclick = function() {
-    var row = this.parentNode.parentNode;
-    row.parentNode.removeChild(row);
-  };
-  cell2.appendChild(deleteButton);
+}
+
+function addRow(value,pos,bnt) {
+  var container = document.getElementById(pos);
+  // Create the outer div element for the card
+  var cardDiv = document.createElement("div");
+  cardDiv.className = "card mb-3 col-xxl-11 ms-xxl-4";
+    
+  // Create the card header element
+  var cardHeader = document.createElement("h5");
+  cardHeader.className = "card-header";
+  cardHeader.textContent = "Nome: "+value;
+ // Create the card body element
+ var cardBody = document.createElement("div");
+ cardBody.className = "card-body";
+
+
+  var add = document.createElement("button");
+  add.innerHTML=bnt
+  add.classList="btn btn-outline-danger btn-sm"
+  add.onclick = function() {
+    if(bnt=="REM"){
+    container.removeChild(cardDiv)
+    }else{
+      container.removeChild(cardDiv)
+      addRow(value,"artist2","REM")
+    }
+   }
+  cardBody.appendChild(add)
+  cardDiv.appendChild(cardHeader)
+  cardDiv.appendChild(cardBody)
+  container.appendChild(cardDiv)
 }
 
   
 
 function selectedArtist() {
-  var table = document.getElementById("myTable");
-  var tbody = table.getElementsByTagName('tbody')[0];
-  var rows = tbody.getElementsByTagName('tr');
+  var table = document.getElementById("artist2");
+  var tbody = table.getElementsByTagName('div');
   var artistArray = [];
 
-  for (var i = 0; i < rows.length; i++) {
-      var cells = rows[i].getElementsByTagName('td');
-      if (cells.length > 0) {
-          var artistName = cells[0].innerText;
-          artistArray.push(artistName);
-      }
+  for (var i = 0; i < tbody.length; i=i+2) {
+    artistArray.push(tbody[i].childNodes[0].innerHTML.split(":")[1])  
   }
 
   return artistArray;

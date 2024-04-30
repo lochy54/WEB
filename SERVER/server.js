@@ -6,7 +6,7 @@ import { login } from './RISPOSTE/login.js';
 import { forgot } from './RISPOSTE/login.js';
 import { mod , modData, modPass } from './RISPOSTE/mod.js';
 import {elimina} from './RISPOSTE/elimina.js';
-import {cercato} from './RISPOSTE/cercato.js';
+import {cercato, artisti} from './RISPOSTE/cercato.js';
 import {salva} from './RISPOSTE/salva.js';
 import {salvaMod} from './RISPOSTE/salva.js';
 import {modplaylist1} from './RISPOSTE/modplaylist.js';
@@ -235,6 +235,14 @@ app.post('/cerca', async (req, res) => {
     res.json({ res:false ,  code:500 , status: "Internal server error" });
   }
 });
+
+
+// cerca artisti
+app.post('/artisti', async (req, res) => {
+  console.log("cercato", req.body.cercato);
+    res.json(await artisti(req.body.cercato));
+});
+
 
 //salva playlist
 app.post('/salva', async (req, res) => {
