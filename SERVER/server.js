@@ -15,6 +15,7 @@ import {modplaylist2} from './RISPOSTE/modplaylist.js';
 import {modplaylist3} from './RISPOSTE/modplaylist.js';
 import {modplaylist4} from './RISPOSTE/modplaylist.js';
 import {ADDplay} from './RISPOSTE/modplaylist.js';
+import {delPlaylist} from './RISPOSTE/modplaylist.js';
 import {cercacanzone} from './RISPOSTE/carcacanzone.js';
 
 
@@ -58,6 +59,18 @@ app.post('/modplaylist1', async (req, res) => {
   
   if(chektoken(req.body.token)){
     res.json(await modplaylist1(findtoken(req.body.token)));
+  }else{
+    res.json({ res:false ,  code:500 , status: "Internal server error" });
+  }
+});
+
+
+//elimina una playlist
+app.post('/eliminaPlaylist', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  
+  if(chektoken(req.body.token)){
+    res.json(await delPlaylist(findtoken(req.body.token),req.body.nome));
   }else{
     res.json({ res:false ,  code:500 , status: "Internal server error" });
   }

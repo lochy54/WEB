@@ -87,9 +87,19 @@ async function load() {
       window.location.replace("/html/mod2.html");
     };
 
+  // Create the "Go somewhere" button element
+  var del = document.createElement("button");
+  del.classList="btn btn-outline-danger btn-sm ms-2"
+  del.innerHTML = "DEL";
+  del.onclick = async function() {
+    await elimina(value.nome)
+    container.innerHTML="";
+await load()  };
+
     // Append all elements to the card body
     cardBody.appendChild(cardText);
     cardBody.appendChild(add);
+    cardBody.appendChild(del);
 
     // Append card header and body to the card
     cardDiv.appendChild(cardHeader);
@@ -115,3 +125,21 @@ async function load() {
        
       }
       } 
+
+      async function elimina(nome){
+        const post = await fetch("http://localhost:3000/eliminaPlaylist", {
+          method: 'POST',
+      headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify({token:token, nome:nome}) }).then(res => res.json())
+      if(post.res===false){
+          if(post.code===400){
+            showAlert(post.code+" "+post.status , "danger");
+          }else{
+            logout()
+          }
+      
+      }else{
+        showAlert(post.code+" "+post.status , "success");
+      }}
