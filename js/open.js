@@ -97,19 +97,28 @@ let token, user, nome, play, id , value;
 
  // Create the card text element
  var cardText = document.createElement("p");
- cardText.className = "card-text";
- cardText.textContent = "Album : "+value.album.name;
 
- // Create the card text element
- var cardText1 = document.createElement("p");
- cardText1.className = "card-text";
- cardText1.textContent = "Artist : "+value.artists[0].name;
 
+
+// Calculate minutes and remaining seconds
+let minutes = Math.floor(Math.floor(value.duration_ms / 1000) / 60);
+let seconds = Math.floor(value.duration_ms / 1000) % 60;
+
+// Add leading zero if seconds is less than 10
+if (seconds < 10) {
+    seconds = "0" + seconds;
+}
+
+// Format the duration as "mm:ss"
+var duration_formatted = minutes + ":" + seconds;
+
+
+ cardText.className = "card-text row";
+ cardText.innerHTML = "<div class='col-xxl-6 col-12'><t class='fs-4'>Album: </t>"+value.album.name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Date: </t>"+value.album.release_date +"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Nome: </t>"+value.artists[0].name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Durata: </t>"+duration_formatted+"</div> "
 
 
  // Append all elements to the card body
  cardBody.appendChild(cardText);
- cardBody.appendChild(cardText1);
 
  // Append card header and body to the card
  cardDiv.appendChild(cardHeader);
