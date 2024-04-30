@@ -218,4 +218,20 @@ async function delPlaylist(email,nome){
 }
 
 
-export{modplaylist1,modplaylist2,modplaylist3,modplaylist4,ADDplay,delPlaylist};
+async function remPlaylist(email,nome){
+    try{
+
+        const client = await connectToCluster();
+        const db = client.db("Uni");
+        const col = db.collection("Playlist");
+        await col.updateOne({ "email": { $elemMatch: {$eq: email, $ne: { $arrayElemAt: ["$email", 0] } } }, "nome": nome }, { $pull: { email: email } });
+        await client.close();
+        return {res:true , code:200 , status: "ok"};
+   
+    }catch(error){
+        console.error(error);
+        return {res:false , code:500 , status: "Internal Server Error"};
+    }
+}
+
+export{modplaylist1,modplaylist2,modplaylist3,modplaylist4,ADDplay,delPlaylist,remPlaylist};

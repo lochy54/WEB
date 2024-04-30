@@ -4,7 +4,6 @@ import { register } from './RISPOSTE/register.js';
 import mongoSanitize from 'express-mongo-sanitize';
 import { login } from './RISPOSTE/login.js';
 import { forgot } from './RISPOSTE/login.js';
-
 import { mod , modData, modPass } from './RISPOSTE/mod.js';
 import {elimina} from './RISPOSTE/elimina.js';
 import {cercato} from './RISPOSTE/cercato.js';
@@ -16,6 +15,7 @@ import {modplaylist3} from './RISPOSTE/modplaylist.js';
 import {modplaylist4} from './RISPOSTE/modplaylist.js';
 import {ADDplay} from './RISPOSTE/modplaylist.js';
 import {delPlaylist} from './RISPOSTE/modplaylist.js';
+import {remPlaylist} from './RISPOSTE/modplaylist.js';
 import {cercacanzone} from './RISPOSTE/carcacanzone.js';
 
 
@@ -71,6 +71,17 @@ app.post('/eliminaPlaylist', async (req, res) => {
   
   if(chektoken(req.body.token)){
     res.json(await delPlaylist(findtoken(req.body.token),req.body.nome));
+  }else{
+    res.json({ res:false ,  code:500 , status: "Internal server error" });
+  }
+});
+
+//togli una playlist
+app.post('/togliPlaylist', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  
+  if(chektoken(req.body.token)){
+    res.json(await remPlaylist(findtoken(req.body.token),req.body.nome));
   }else{
     res.json({ res:false ,  code:500 , status: "Internal server error" });
   }
