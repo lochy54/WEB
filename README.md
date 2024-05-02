@@ -1,4 +1,5 @@
 PROGETTO WEB
+
 Il progetto si pone l’obiettivo di sviluppare l’applicazione web Social
 Network for Music (SNM) che implementa un sito di gestione di
 playlist musicali. SNM gestisce il processo di organizzazione di playlist
