@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(mongoSanitize());
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
 })
@@ -39,189 +39,189 @@ var tokenlis = [];
 // Route handlers
 app.get('/genere', (req, res) => {
   console.log("generi richiesti");
-  res.json(generi);
+  res.status(200).json(generi);
 });
 
 //elimina un profilo
-app.post('/elimina', async (req, res) => {
+app.delete('/elimina', async (req, res) => {
   console.log("Received elimination request with message:", req.body);
-  
   if(chektoken(req.body.token)){
-    res.json(await elimina(findtoken(req.body.token)));
+    let v = await elimina(findtoken(req.body.token))
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //trova playlist di un dato profilo (modifica playlist)
 app.post('/modplaylist1', async (req, res) => {
   console.log("Received mod request with message:", req.body);
-  
   if(chektoken(req.body.token)){
-    res.json(await modplaylist1(findtoken(req.body.token)));
+    let v = await modplaylist1(findtoken(req.body.token))
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.ststus(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 
 //elimina una playlist
-app.post('/eliminaPlaylist', async (req, res) => {
+app.delete('/eliminaPlaylist', async (req, res) => {
   console.log("Received mod request with message:", req.body);
-  
   if(chektoken(req.body.token)){
-    res.json(await delPlaylist(findtoken(req.body.token),req.body.nome));
+    let v = await delPlaylist(findtoken(req.body.token),req.body.nome)
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //togli una playlist
-app.post('/togliPlaylist', async (req, res) => {
+app.delete('/togliPlaylist', async (req, res) => {
   console.log("Received mod request with message:", req.body);
-  
   if(chektoken(req.body.token)){
-    res.json(await remPlaylist(findtoken(req.body.token),req.body.nome));
+    let v = await remPlaylist(findtoken(req.body.token),req.body.nome)
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.ststus(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //trova canzioni in una playlist di un dato profilo (modifica playlist)
 app.post('/modplaylist2', async (req, res) => {
   console.log("Received mod request with message:", req.body);
-  
   if(chektoken(req.body.token)){
-    res.json(await modplaylist2(findtoken(req.body.token) ,req.body.playlist));
+    let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //trova playlist che non sono state salvate da un profilo (libreria)
 app.post('/modplaylist3', async (req, res) => {
   console.log("Received mod request with message:", req.body);
-  
   if(chektoken(req.body.token)){
-    res.json(await modplaylist3(findtoken(req.body.token)));
+    let v = await modplaylist3(findtoken(req.body.token))
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //cerca playlist che non contengono la mail di un profilo (cerca)
 app.post('/cercacanzone', async (req, res) => {
   console.log("Received mod request with message:", req.body);
-  
   if(chektoken(req.body.token)){
-    res.json(await cercacanzone(findtoken(req.body.token)));
+    let v = await cercacanzone(findtoken(req.body.token))
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //trova canzioni in una playlist di un dato profilo (libreria) per via dell'array delle email l'implementazione è diversa
 app.post('/modplaylist4', async (req, res) => {
   console.log("Received mod request with message:", req.body);
-  
   if(chektoken(req.body.token)){
-    res.json(await modplaylist4(findtoken(req.body.token) ,req.body.playlist));
+    let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //trova canzioni in una playlist di un dato profilo (cerca)
 app.post('/modplaylist5', async (req, res) => {
   console.log("Received mod request with message:", req.body);
-  
   if(chektoken(req.body.token)){
-    res.json(await modplaylist2(req.body.emailpass,req.body.playlist));
+    let v = await modplaylist2(req.body.emailpass,req.body.playlist)
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //registra profilo
-app.post('/register', async (req, res) => {
+app.put('/register', async (req, res) => {
   console.log("Received registration request with message:", req.body);
-  var ris = await register(req.body,generi)
-  console.log(ris);
-  res.json(ris);
+  let v = await register(req.body,generi)
+  console.log(v);
+  res.status(v.code).json(v);
 });
+
 //login profilo , aggiungi token 
 app.post('/login', async (req, res) => {
   console.log("Received login request with message:", req.body);
-  var ris = await login(req.body)
-  console.log(ris);
-  res.json(ris);
-  if(ris.res!=false){
-
-   if(!chektoken(ris.res)){
-      tokenlis.push({token: ris.res , time: new Date() , user: req.body.email})
+  let v = await login(req.body)
+  console.log(v);
+  res.status(v.code).json(v);
+  if(v.res!=false){
+   if(!chektoken(v.res)){
+      tokenlis.push({token: v.res , time: new Date() , user: req.body.email})
       console.log(tokenlis);
   }}
 });
+
 //logout profilo
 app.post('/logout', (req, res) => {
   console.log("Received logout request with message:", req.body);
-
       for (let index = 0; index < tokenlis.length; index++) {
         if (tokenlis[index].token === req.body.token) {
             tokenlis.splice(index, 1);
             console.log("rimuovo "+req.body.token);
           }}  
-
-    res.json({ res:true , code:200 , status: "OK" });
+    res.status(200).json({ res:true , code:200 , mess: "OK" });
 });
 
 //modifica profilo (get data)
 app.post('/mod', async (req, res) => {
   console.log("Received mod request with message:", req.body);
-
   if(chektoken(req.body.token)){
-    res.json(await mod(findtoken(req.body.token)));
+    let v = await mod(findtoken(req.body.token))
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //aggiungi playlist a profilo (cerca)
-app.post('/ADDplaylist', async (req, res) => {
+app.put('/ADDplaylist', async (req, res) => {
   console.log("Received add request with message:", req.body);
-
   if(chektoken(req.body.token)){
-    res.json(await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist));
+    let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //cambia la password di un profilo
-app.post('/modPass', async(req, res) => {
+app.put('/modPass', async(req, res) => {
   console.log("modifica richiesta: ", req.body);
   if(chektoken(req.body.token)){
-    res.json( await modPass(req.body,findtoken(req.body.token)));
+    let v = await modPass(req.body,findtoken(req.body.token))
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //modifica i dati di un profilo
-app.post('/modData', async(req, res) => {
+app.put('/modData', async(req, res) => {
   var tokenre = req.body.token;
   delete req.body.token;
   console.log("modifica richiesta: ", req.body);
   if(chektoken(tokenre)){
-    res.json( await modData(req.body,findtoken(tokenre),generi));
-    
+    let v = await modData(req.body,findtoken(tokenre),generi)
+    res.status(v.code).json(v);
   for (let index = 0; index < tokenlis.length; index++) {
     if (tokenlis[index].token === tokenre) {
         tokenlis[index].user= req.body.email;
         console.log(tokenlis)
     }}
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
@@ -230,9 +230,10 @@ app.post('/modData', async(req, res) => {
 app.post('/cerca', async (req, res) => {
   console.log("cercato", req.body.cercato);
   if(chektoken(req.body.token)){
-    res.json(await cercato(req.body.cercato));
+    let v = await cercato(req.body.cercato)
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
@@ -240,31 +241,34 @@ app.post('/cerca', async (req, res) => {
 // cerca artisti
 app.post('/artisti', async (req, res) => {
   console.log("cercato", req.body.cercato);
-    res.json(await artisti(req.body.cercato));
+    let v = await artisti(req.body.cercato)
+    res.status(v.code).json(v);
 });
 
 
 //salva playlist
-app.post('/salva', async (req, res) => {
+app.put('/salva', async (req, res) => {
   console.log("salva playlist: ", req.body);
   if(chektoken(req.body.token)){
-    res.json(await salva(req.body, findtoken(req.body.token)));
+    let v = await salva(req.body, findtoken(req.body.token))
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
 //salva modifiche playlist
-app.post('/salvaMod', async (req, res) => {
+app.put('/salvaMod', async (req, res) => {
   console.log("salva playlist: ", req.body);
   if(chektoken(req.body.token)){
-    res.json(await salvaMod(req.body));
+    let v = await salvaMod(req.body)
+    res.status(v.code).json(v);
   }else{
-    res.json({ res:false ,  code:500 , status: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
   }
 });
 
-//salva playlist
+//forgot password
 app.post('/forgot', async (req, res) => {
   console.log("Forgot passwor: ", req.body);
     res.json(forgot(req.body.email));
