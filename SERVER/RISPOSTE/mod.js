@@ -16,7 +16,7 @@ async function mod(userData,email){
 
 }catch(error){
         console.error(error);
-        return {res:false , code:500 , status: "Internal Server Error"};
+        return {res:false , code:500 , mess: "Internal Server Error"};
     }
 }
 
@@ -76,7 +76,7 @@ try {
             await client.close();
             await updateplay(email,userData.email)
 
-            return {res:true , code:200 , status: "ok"};
+            return {res:true , code:200 , mess: "ok"};
         }
         for (let index = 0; index < userData.generi.length; index++) {
             if(!(generi['genres'].includes(userData.generi[index]))){
@@ -93,7 +93,7 @@ try {
         );
         await client.close();
         await updateplay(email,userData.email)
-        return {res:true , code:200 , status: "ok"};
+        return {res:true , code:200 , mess: "ok"};
 
 
     }
@@ -101,11 +101,11 @@ try {
 
 } catch (error) {
     console.error(error);
-    return {res:false , code:400 , status: "Bed request"};
+    return {res:false , code:400 , mess: "Bed request"};
 }
 }catch (error) {
     console.error(error);
-    return {res:false , code:500 , status: "Internal Server Error"};
+    return {res:false , code:500 , mess: "Internal Server Error"};
 
 
 
@@ -136,11 +136,11 @@ async function modPass(userData,email){
                 { $set:{ password: userData.passn} } // Update operation
             );
             await client.close();
-            return {res:true , code:200 , status: "ok"};
+            return {res:true , code:200 , mess: "ok"};
         
         }else{
             await client.close();
-            return {res:false , code:400 , status: "Bed request"};
+            return {res:false , code:400 , mess: "Bed request"};
 
         }
 
@@ -151,11 +151,11 @@ async function modPass(userData,email){
     
     } catch (error) {
         console.error(error);
-        return {res:false , code:400 , status: "Bed request"};
+        return {res:false , code:400 , mess: "Bed request"};
     }
     }catch (error) {
         console.error(error);
-        return {res:false , code:500 , status: "Internal Server Error"};
+        return {res:false , code:500 , mess: "Internal Server Error"};
     
     
     

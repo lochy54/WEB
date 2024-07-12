@@ -49,13 +49,13 @@ try {
         if(userData.generi.length==0){
             await col.insertOne(userData);
             await client.close();
-            return {res:true , code:201 , status: "Created"};
+            return {res:true , code:201 , mess: "Created"};
         }
         for (let index = 0; index < userData.generi.length; index++) {
             if(generi['genres'].includes(userData.generi[index])){
                 await col.insertOne(userData);
                 await client.close();
-                return {res:true , code:201 , status: "Created"};
+                return {res:true , code:201 , mess: "Created"};
             }
             
         }
@@ -64,11 +64,11 @@ try {
 
 } catch (error) {
     console.error(error);
-    return {res:false , code:400 , status: "Bed request"};
+    return {res:false , code:400 , mess: "Bed request"};
 }
 }catch (error) {
     console.error(error);
-    return {res:false , code:500 , status: "Internal Server Error"};
+    return {res:false , code:500 , mess: "Internal Server Error"};
 
 
 

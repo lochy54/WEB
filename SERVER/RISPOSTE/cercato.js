@@ -9,7 +9,7 @@ async function cercato(tra){
     return{tracks: tracks, code:200 , status:"ok"};}
     catch(e){
         console.log(e);
-        return { res:false ,  code:400 , status: "Bed Request" };
+        return { res:false ,  code:400 , mess: "Bed Request" };
     }
 
 }
@@ -19,10 +19,10 @@ async function artisti(tra){
     var spotifyApi = await getapi();
     var data = await spotifyApi.searchArtists(tra);
     var artist = data.body;
-    return{artist: artist, code:200 , status:"ok"};}
+    return{artist: artist, code:200 , mess:"ok"};}
     catch(e){
         console.log(e);
-        return { res:false ,  code:400 , status: "Bed Request" };
+        return { res:false ,  code:400 , mess: "Bed Request" };
     }
 
 }

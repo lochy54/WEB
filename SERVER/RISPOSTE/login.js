@@ -9,10 +9,10 @@ function forgot(email){
 
     try{
         userDataSchema.parse({"email":email});
-        return {res:true , code:200 , status: "Richiesta inviata"};
+        return {res:true , code:200 , mess: "Richiesta inviata"};
     }catch(error){
         console.error(error);
-        return {res:false , code:400 , status: "Bad Request"};
+        return {res:false , code:400 , mess: "Bad Request"};
     }
 }
 
@@ -45,10 +45,10 @@ async function login(userData){
     } catch (error) {
         await client.close();
         console.error(error);
-        return {res:false , code:500 , status: "Internal Server Error"};
+        return {res:false , code:500 , mess: "Internal Server Error"};
     }}catch(error){
         console.error(error);
-        return {res:false , code:500 , status: "Internal Server Error"};
+        return {res:false , code:500 , mess: "Internal Server Error"};
     }
 }
 
