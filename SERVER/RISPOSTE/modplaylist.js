@@ -15,15 +15,15 @@ async function modplaylist1(email){
             
             const playlist = await col.find({"email.0":email}).toArray()
             await client.close();
-            return {res: playlist, code:200 , mess:"ok"};
+            return {res: playlist, code:200};
 
         } catch (error) {
             await client.close();
             console.error(error);
-            return {res:false , code:500 , mess: "Internal Server Error"};
+            return {res:false , code:500};
         }}catch(error){
             console.error(error);
-            return {res:false , code:500 , mess: "Internal Server Error"};
+            return {res:false , code:500};
         }
     }
     
@@ -62,25 +62,25 @@ async function modplaylist2(email,nome){
              
            
             
-            return {res: playlist, code:200 , mess:"ok"};}
+            return {res: playlist, code:200};}
             catch(e){
                 console.log(e);
-                return { res:false ,  code:400 , mess: "Bed Request" };
+                return { res:false ,  code:400};
             }
         
         
         
 
 
-        return {res: playlist, code:200 , mess:"ok"};
+        return {res: playlist, code:200};
 
     } catch (error) {
         await client.close();
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }}catch(error){
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }
 }
 
@@ -98,15 +98,15 @@ async function modplaylist3(email){
         
         const playlist = await col.find({ "email": { $elemMatch: { $eq: email } } }).toArray()
         await client.close();
-        return {res: playlist, code:200 , mess:"ok"};
+        return {res: playlist, code:200};
 
     } catch (error) {
         await client.close();
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }}catch(error){
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }
 }
 
@@ -147,25 +147,25 @@ try {
          
        
         
-        return {res: playlist, code:200 , mess:"ok"};}
+        return {res: playlist, code:200};}
         catch(e){
             console.log(e);
-            return { res:false ,  code:400 , mess: "Bed Request" };
+            return { res:false ,  code:400};
         }
     
     
     
 
 
-    return {res: playlist, code:200 , mess:"ok"};
+    return {res: playlist, code:200};
 
 } catch (error) {
     await client.close();
     console.error(error);
-    return {res:false , code:500 , mess: "Internal Server Error"};
+    return {res:false , code:500 };
 }}catch(error){
     console.error(error);
-    return {res:false , code:500 , mess: "Internal Server Error"};
+    return {res:false , code:500 };
 }
 }
 
@@ -185,15 +185,15 @@ async function ADDplay(email,emailpass,nome){
         );
     
         await client.close();
-        return {res: true, code:200 , mess:"ok"};
+        return {res: true, code:200};
 
     } catch (error) {
         await client.close();
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }}catch(error){
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }
 
 
@@ -209,11 +209,11 @@ async function delPlaylist(email,nome){
         const col = db.collection("Playlist");
         await col.deleteOne({"email.0":email, "nome":nome});
         await client.close();
-        return {res:true , code:200 , mess: "ok"};
+        return {res:true , code:200};
    
     }catch(error){
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }
 }
 
@@ -226,11 +226,11 @@ async function remPlaylist(email,nome){
         const col = db.collection("Playlist");
         await col.updateOne({ "email": { $elemMatch: {$eq: email, $ne: { $arrayElemAt: ["$email", 0] } } }, "nome": nome }, { $pull: { email: email } });
         await client.close();
-        return {res:true , code:200 , mess: "ok"};
+        return {res:true , code:200 };
    
     }catch(error){
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }
 }
 

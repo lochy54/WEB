@@ -13,15 +13,15 @@ async function cercacanzone(email){
         
         const playlist = await col.find({ "email": { $not: { $elemMatch: { $eq: email }}}, public: true},{ projection: { email: { $slice: 1 } } }).toArray();
         await client.close();
-        return {res: playlist, code:200 , mess:"ok"};
+        return {res: playlist, code:200};
 
     } catch (error) {
         await client.close();
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }}catch(error){
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }
 }
 

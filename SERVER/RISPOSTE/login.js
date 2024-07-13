@@ -9,10 +9,10 @@ function forgot(email){
 
     try{
         userDataSchema.parse({"email":email});
-        return {res:true , code:200 , mess: "Richiesta inviata"};
+        return {res:true , code:200};
     }catch(error){
         console.error(error);
-        return {res:false , code:400 , mess: "Bad Request"};
+        return {res:false , code:400};
     }
 }
 
@@ -39,16 +39,16 @@ async function login(userData){
         const user = await col.findOne({"email": userData.email, "password": userData.password});
         await client.close();
         if(!user){
-            return {res:false , code:400 , status: "Bad Request"};
+            return {res:false , code:400};
         }
         return {res: createHash('sha256').update(userData.email+userData.password).digest('base64'), code:200 , status:"ok"};
     } catch (error) {
         await client.close();
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }}catch(error){
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }
 }
 

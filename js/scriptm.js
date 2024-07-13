@@ -9,17 +9,15 @@ async function login(){
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },
-  body: JSON.stringify(data) }).then(res => res.json());
-
-
-  if(post.res==false){
-    showAlert(post.code+" "+post.status , "danger");
+  body: JSON.stringify(data) })
+  console.log(post.)
+  if(post.body.res!=false){
+    showAlert(post.status+" "+post.status , "danger");
     }
   else{
     sessionStorage.setItem("token", post.res);
     sessionStorage.setItem("user", document.getElementById("email").value);
     window.location.replace("/html/user.html");
-
   }
   }
 

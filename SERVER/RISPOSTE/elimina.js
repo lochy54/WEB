@@ -10,11 +10,11 @@ async function elimina(email){
         const col = db.collection("Utenti");
         await col.deleteOne({"email": email});
         await client.close();
-        return {res:true , code:200 , mess: "ok"};
+        return {res:true , code:200};
    
     }catch(error){
         console.error(error);
-        return {res:false , code:500 , mess: "Internal Server Error"};
+        return {res:false , code:500};
     }
 }
 

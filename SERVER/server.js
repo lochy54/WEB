@@ -49,7 +49,7 @@ app.delete('/elimina', async (req, res) => {
     let v = await elimina(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -60,7 +60,7 @@ app.post('/modplaylist1', async (req, res) => {
     let v = await modplaylist1(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.ststus(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.ststus(500).json({ res:false ,  code:500});
   }
 });
 
@@ -72,7 +72,7 @@ app.delete('/eliminaPlaylist', async (req, res) => {
     let v = await delPlaylist(findtoken(req.body.token),req.body.nome)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500 });
   }
 });
 
@@ -83,7 +83,7 @@ app.delete('/togliPlaylist', async (req, res) => {
     let v = await remPlaylist(findtoken(req.body.token),req.body.nome)
     res.status(v.code).json(v);
   }else{
-    res.ststus(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.ststus(500).json({ res:false ,  code:500});
   }
 });
 
@@ -94,7 +94,7 @@ app.post('/modplaylist2', async (req, res) => {
     let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -105,7 +105,7 @@ app.post('/modplaylist3', async (req, res) => {
     let v = await modplaylist3(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -116,7 +116,7 @@ app.post('/cercacanzone', async (req, res) => {
     let v = await cercacanzone(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -127,7 +127,7 @@ app.post('/modplaylist4', async (req, res) => {
     let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -138,7 +138,7 @@ app.post('/modplaylist5', async (req, res) => {
     let v = await modplaylist2(req.body.emailpass,req.body.playlist)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -171,7 +171,7 @@ app.post('/logout', (req, res) => {
             tokenlis.splice(index, 1);
             console.log("rimuovo "+req.body.token);
           }}  
-    res.status(200).json({ res:true , code:200 , mess: "OK" });
+    res.status(200).json({ res:true , code:200});
 });
 
 //modifica profilo (get data)
@@ -181,7 +181,7 @@ app.post('/mod', async (req, res) => {
     let v = await mod(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -192,7 +192,7 @@ app.put('/ADDplaylist', async (req, res) => {
     let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -203,7 +203,7 @@ app.put('/modPass', async(req, res) => {
     let v = await modPass(req.body,findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -221,7 +221,7 @@ app.put('/modData', async(req, res) => {
         console.log(tokenlis)
     }}
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -233,7 +233,7 @@ app.post('/cerca', async (req, res) => {
     let v = await cercato(req.body.cercato)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -253,7 +253,7 @@ app.put('/salva', async (req, res) => {
     let v = await salva(req.body, findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -264,7 +264,7 @@ app.put('/salvaMod', async (req, res) => {
     let v = await salvaMod(req.body)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 , mess: "Internal server error" });
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
