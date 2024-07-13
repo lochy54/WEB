@@ -16,7 +16,7 @@ async function logout(){
      headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },
-  body: JSON.stringify({token:token}) }).then(res => res.json());
+  body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
     sessionStorage.clear();
     window.location.replace("/html/main.html");
 }

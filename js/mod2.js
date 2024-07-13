@@ -9,7 +9,7 @@ let token, user, nome, play, id , value, durata;
          headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify({token:token}) }).then(res => res.json());
+      body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
         sessionStorage.clear;
         window.location.replace("/html/main.html");
     }
@@ -29,11 +29,11 @@ let token, user, nome, play, id , value, durata;
     headers: {
     'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({playlist:play, token:token}) }).then(res => res.json());
+    body: JSON.stringify({playlist:play, token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
     
     if(post.res===false){
-      if(post.code===400){
-        showAlert(post.code+" "+post.status , "danger");
+      if(sta===400){
+        showAlert(sta+" "+stat , "danger");
       }else{
         logout()
       }
@@ -100,11 +100,11 @@ let token, user, nome, play, id , value, durata;
     headers: {
     'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({cercato: cercato, token:token}) }).then(res => res.json());
+    body: JSON.stringify({cercato: cercato, token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
     
     if(post.res===false){
-      if(post.code===400){
-        showAlert(post.code+" "+post.status , "danger");
+      if(sta===400){
+        showAlert(sta+" "+stat , "danger");
       }else{
         logout()
       }
@@ -234,20 +234,20 @@ add.onclick = function() {
         var data = { nome: nome , tag : tag  , descrizione : desc , canzoni : artistArray,public : stat, token: token, id:id, durata:durata} ;
       
         const post = await fetch("http://localhost:3000/salvaMod", {
-          method: 'POST',
+          method: 'PUT',
       headers: {
       'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify(data) }).then(res => res.json());
+      body: JSON.stringify(data) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
       
       if(post.res===false){
-        if(post.code===400){
-          showAlert(post.code+" "+post.status , "danger");
+        if(sta===400){
+          showAlert(sta+" "+stat , "danger");
         }else{
           logout()
         }
         }else{
-          showAlert(post.code+" "+post.status , "success");
+          showAlert(sta+" "+stat , "success");
     
         }
     

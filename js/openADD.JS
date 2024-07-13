@@ -9,7 +9,7 @@ let token, user, nome, play, id , value,emailpass;
          headers: {
         'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify({token:token}) }).then(res => res.json());
+      body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
         sessionStorage.clear;
         window.location.replace("/html/main.html");
     }
@@ -41,11 +41,11 @@ let token, user, nome, play, id , value,emailpass;
     headers: {
     'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({playlist:play, token:token , emailpass:emailpass}) }).then(res => res.json());
+    body: JSON.stringify({playlist:play, token:token , emailpass:emailpass}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
     
     if(post.res===false){
-      if(post.code===400){
-        showAlert(post.code+" "+post.status , "danger");
+      if(sta===400){
+        showAlert(sta+" "+stat , "danger");
       }else{
         logout()
       }
@@ -151,15 +151,15 @@ var duration_formatted = minutes + ":" + seconds;
    async function save(){
 
     const post = await fetch("http://localhost:3000/ADDplaylist", {
-      method: 'POST',
+      method: 'PUT',
   headers: {
   'Content-Type': 'application/json;charset=utf-8'
   },
-  body: JSON.stringify({playlist:play, token:token , emailpass:emailpass}) }).then(res => res.json());
+  body: JSON.stringify({playlist:play, token:token , emailpass:emailpass}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
   
   if(post.res===false){
-    if(post.code===400){
-      showAlert(post.code+" "+post.status , "danger");
+    if(sta===400){
+      showAlert(sta+" "+stat , "danger");
     }else{
       logout()
     }

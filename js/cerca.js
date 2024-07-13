@@ -8,7 +8,7 @@ async function logout(){
      headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },
-  body: JSON.stringify({token:token}) }).then(res => res.json());
+  body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
     sessionStorage.clear;
     window.location.replace("/html/main.html");
 }
@@ -37,10 +37,10 @@ async function load() {
     headers: {
     'Content-Type': 'application/json;charset=utf-8'
     },
-    body: JSON.stringify({token:token}) }).then(res => res.json())
+    body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
     if(post.res===false){
-        if(post.code===400){
-          showAlert(post.code+" "+post.status , "danger");
+        if(sta===400){
+          showAlert(sta+" "+stat , "danger");
         }else{
           logout()
         }

@@ -1,7 +1,7 @@
 let genres,size;
 
 async function load() {
-    const get = await fetch("http://localhost:3000/genere").then(res => res.json());
+    const get = await fetch("http://localhost:3000/genere").then(res => { sta = res.status; stat= res.statusText; return res.json() });
     genres = get.genres;
     const gen = document.getElementById("gen");
     for (let i = 0; i < genres.length; i++) {
@@ -34,12 +34,12 @@ async function load() {
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },
-  body: JSON.stringify(data) }).then(res => res.json());
+  body: JSON.stringify(data) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
 
     if(post.res==true){
-    showAlert(post.code+" "+post.status , "success");
+    showAlert(sta+" "+stat , "success");
     }else{
-    showAlert(post.code+" "+post.status  , "danger");}
+    showAlert(sta+" "+stat  , "danger");}
   }
 
 
@@ -81,11 +81,11 @@ const post = await fetch("http://localhost:3000/artisti", {
 headers: {
 'Content-Type': 'application/json;charset=utf-8'
 },
-body: JSON.stringify({cercato: cercato}) }).then(res => res.json());
+body: JSON.stringify({cercato: cercato}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
 
 if(post.res===false){
-  if(post.code===400){
-    showAlert(post.code+" "+post.status , "danger");
+  if(sta===400){
+    showAlert(sta+" "+stat , "danger");
   }
   }
   art = post.artist.artists.items

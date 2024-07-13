@@ -8,7 +8,7 @@ async function logout(){
      headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },
-  body: JSON.stringify({token:token}) }).then(res => res.json());
+  body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
     sessionStorage.clear;
     window.location.replace("/html/main.html");
 }
@@ -19,8 +19,8 @@ async function load() {
     if(user==null){
         window.location.replace("/html/main.html");
     }
-    const post = await fetch("http://localhost:3000/genere").then(res => res.json());
-    genres = post.genres;
+    const get = await fetch("http://localhost:3000/genere").then(res => { sta = res.status; stat= res.statusText; return res.json() });
+    genres = get.genres;
     const gen = document.getElementById("gen");
     for (let i = 0; i < genres.length; i++) {
   gen.innerHTML= gen.innerHTML+'<div class="col-6 col-xxl-3"><input class="form-check-input" type="checkbox" value="'+genres[i]+'"id="'+genres[i]+'"/> <label class="form-check-label"> '+genres[i]+'</label></div>';
@@ -32,7 +32,7 @@ async function load() {
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },
-  body: JSON.stringify({token: token}) }).then(res => res.json());
+  body: JSON.stringify({token: token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
 
 if(post1.res==false){
     logout();
@@ -110,11 +110,11 @@ const post = await fetch("http://localhost:3000/artisti", {
 headers: {
 'Content-Type': 'application/json;charset=utf-8'
 },
-body: JSON.stringify({cercato: cercato}) }).then(res => res.json());
+body: JSON.stringify({cercato: cercato}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
 
 if(post.res===false){
-  if(post.code===400){
-    showAlert(post.code+" "+post.status , "danger");
+  if(sta===400){
+    showAlert(sta+" "+stat , "danger");
   }
   }
   art = post.artist.artists.items
@@ -185,21 +185,21 @@ async function modData(){
     artisti: selectedArtist()
 };
 const post = await fetch("http://localhost:3000/modData", {
-    method: 'POST',
+    method: 'PUT',
 headers: {
 'Content-Type': 'application/json;charset=utf-8'
 },
-body: JSON.stringify(data) }).then(res => res.json());
+body: JSON.stringify(data) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
 
 
 if(post.res==true){
-  showAlert(post.code+" "+post.status , "success");
+  showAlert(sta+" "+stat , "success");
   sessionStorage.setItem("user",document.getElementById("email").value)
   }else{
-  if(post.code===500){
+  if(sta===500){
     logout();
   }
-  showAlert(post.code+" "+post.status  , "danger");}
+  showAlert(sta+" "+stat  , "danger");}
   load()
 }
 
@@ -212,32 +212,32 @@ async function modPass(){
 
 };
 const post = await fetch("http://localhost:3000/modPass", {
-    method: 'POST',
+    method: 'PUT',
 headers: {
 'Content-Type': 'application/json;charset=utf-8'
 },
-body: JSON.stringify(data) }).then(res => res.json());
+body: JSON.stringify(data) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
 
 
 if(post.res==true){
-  showAlert(post.code+" "+post.status , "success");
+  showAlert(sta+" "+stat , "success");
   }else{
-  if(post.code===500){
+  if(sta===500){
     logout();
   }
-  showAlert(post.code+" "+post.status  , "danger");}
+  showAlert(sta+" "+stat  , "danger");}
   load()
 }
 
 async function elimina(){
   const post = await fetch("http://localhost:3000/elimina", {
-    method: 'POST',
+    method: 'DELETE',
  headers: {
 'Content-Type': 'application/json;charset=utf-8'
 },
-body: JSON.stringify({token:token}) }).then(res => res.json());
-if(post.code===500){
-  showAlert(post.code+" "+post.status  , "danger");}
+body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
+if(sta===500){
+  showAlert(sta+" "+stat  , "danger");}
 else{
   logout()
 }

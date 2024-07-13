@@ -9,10 +9,9 @@ async function login(){
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },
-  body: JSON.stringify(data) })
-  console.log(post.)
-  if(post.body.res!=false){
-    showAlert(post.status+" "+post.status , "danger");
+  body: JSON.stringify(data) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
+  if(post.res==false){
+    showAlert(sta+" "+stat , "danger");
     }
   else{
     sessionStorage.setItem("token", post.res);

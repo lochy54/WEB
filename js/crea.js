@@ -8,7 +8,7 @@ async function logout(){
      headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },
-  body: JSON.stringify({token:token}) }).then(res => res.json());
+  body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
     sessionStorage.clear;
     window.location.replace("/html/main.html");
 }
@@ -42,11 +42,11 @@ async function load() {
       headers: {
       'Content-Type': 'application/json;charset=utf-8'
       },
-      body: JSON.stringify({cercato: cercato, token:token}) }).then(res => res.json());
+      body: JSON.stringify({cercato: cercato, token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
       
       if(post.res===false){
-        if(post.code===400){
-          showAlert(post.code+" "+post.status , "danger");
+        if(sta===400){
+          showAlert(sta+" "+stat , "danger");
         }else{
           logout()
         }
@@ -169,22 +169,22 @@ async function save(){
   var stat = document.getElementById("status").checked;
 
   var data = { nome: nome , tag : tag  , descrizione : desc , canzoni : artistArray,public : stat,durata: duration, token: token} ;
-
+  console.log(data)
   const post = await fetch("http://localhost:3000/salva", {
-    method: 'POST',
+    method: 'PUT',
 headers: {
 'Content-Type': 'application/json;charset=utf-8'
 },
-body: JSON.stringify(data) }).then(res => res.json());
+body: JSON.stringify(data) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
 
 if(post.res===false){
-  if(post.code===400){
-    showAlert(post.code+" "+post.status , "danger");
+  if(sta===400){
+    showAlert(sta+" "+stat , "danger");
   }else{
     logout()
   }
   }else{
-    showAlert(post.code+" "+post.status , "success");
+    showAlert(sta+" "+stat , "success");
 
   }
 

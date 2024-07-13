@@ -5,14 +5,14 @@ async function sendEmail(){
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },
-  body: JSON.stringify({email: document.getElementById("email").value}) }).then(res => res.json());
+  body: JSON.stringify({email: document.getElementById("email").value}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
 
 
   if(post.res==false){
-    showAlert(post.code+" "+post.status , "danger");
+    showAlert(sta+" "+stat , "danger");
     }
     else{
-    showAlert(post.code+" "+post.status , "success");
+    showAlert(sta+" "+stat , "success");
 
     }
   }
