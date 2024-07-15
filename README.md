@@ -128,3 +128,5 @@ Per rimuovere una playlist aggiunt abasterà premere rim. Una volta inviata la r
 Il tato open permette di aprire una playlist ,visuallizarne il contenuto e cercare delle canzioni.
 
 La ricerca potrà essere effettuata per tag o nome playlist
+## Server BACK-END
+###
