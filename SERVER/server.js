@@ -2,20 +2,12 @@ import express from "express"; // Importing express module
 import { getgenere } from './RISPOSTE/getgenere.js';
 import { register } from './RISPOSTE/register.js';
 import mongoSanitize from 'express-mongo-sanitize';
-import { login } from './RISPOSTE/login.js';
-import { forgot } from './RISPOSTE/login.js';
-import { mod , modData, modPass } from './RISPOSTE/mod.js';
+import {login,forgot} from './RISPOSTE/login.js';
+import {mod, modData, modPass} from './RISPOSTE/mod.js';
 import {elimina} from './RISPOSTE/elimina.js';
 import {cercato, artisti} from './RISPOSTE/cercato.js';
-import {salva} from './RISPOSTE/salva.js';
-import {salvaMod} from './RISPOSTE/salva.js';
-import {modplaylist1} from './RISPOSTE/modplaylist.js';
-import {modplaylist2} from './RISPOSTE/modplaylist.js';
-import {modplaylist3} from './RISPOSTE/modplaylist.js';
-import {modplaylist4} from './RISPOSTE/modplaylist.js';
-import {ADDplay} from './RISPOSTE/modplaylist.js';
-import {delPlaylist} from './RISPOSTE/modplaylist.js';
-import {remPlaylist} from './RISPOSTE/modplaylist.js';
+import {salva,salvaMod} from './RISPOSTE/salva.js';
+import {modplaylist1,modplaylist2,modplaylist3,modplaylist4,ADDplay,delPlaylist,remPlaylist} from './RISPOSTE/modplaylist.js';
 import {cercacanzone} from './RISPOSTE/carcacanzone.js';
 
 
@@ -53,7 +45,7 @@ app.delete('/elimina', async (req, res) => {
   }
 });
 
-//trova playlist di un dato profilo (modifica playlist)
+//trova playlist di un dato profilo
 app.post('/modplaylist1', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -76,7 +68,7 @@ app.delete('/eliminaPlaylist', async (req, res) => {
   }
 });
 
-//togli una playlist
+//togli una playlist da un profilo
 app.delete('/togliPlaylist', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -87,7 +79,7 @@ app.delete('/togliPlaylist', async (req, res) => {
   }
 });
 
-//trova canzioni in una playlist di un dato profilo (modifica playlist)
+//trova canzioni in una playlist di un dato profilo 
 app.post('/modplaylist2', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -98,7 +90,7 @@ app.post('/modplaylist2', async (req, res) => {
   }
 });
 
-//trova playlist che non sono state salvate da un profilo (libreria)
+//trova playlist che non sono state salvate da un profilo
 app.post('/modplaylist3', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -109,7 +101,7 @@ app.post('/modplaylist3', async (req, res) => {
   }
 });
 
-//cerca playlist che non contengono la mail di un profilo (cerca)
+//cerca playlist che non contengono la mail di un profilo 
 app.post('/cercacanzone', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -120,7 +112,7 @@ app.post('/cercacanzone', async (req, res) => {
   }
 });
 
-//trova canzioni in una playlist di un dato profilo (libreria) per via dell'array delle email l'implementazione è diversa
+//trova canzioni in una playlist di un dato profilo (per via dell'array delle email l'implementazione è diversa)
 app.post('/modplaylist4', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -131,7 +123,7 @@ app.post('/modplaylist4', async (req, res) => {
   }
 });
 
-//trova canzioni in una playlist di un dato profilo (cerca)
+//trova canzioni in una playlist di un dato profilo 
 app.post('/modplaylist5', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -185,7 +177,7 @@ app.post('/mod', async (req, res) => {
   }
 });
 
-//aggiungi playlist a profilo (cerca)
+//aggiungi playlist a profilo 
 app.put('/ADDplaylist', async (req, res) => {
   console.log("Received add request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -284,7 +276,7 @@ app.post('/forgot', async (req, res) => {
   }, 5 * 60 * 1000);
 
 
-  // Start the server
+  // Start server
   app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
   });
@@ -294,19 +286,16 @@ app.post('/forgot', async (req, res) => {
 
 //ce un token attivo , se cè aggiorno l'oriario
 function chektoken(value) {
-  const currentTime = new Date(); // Ottieni l'ora corrente
-  const tenMinutesAgo = new Date(currentTime.getTime() - (5 * 100 * 1000)); // Calcola il tempo 5 minuti fa
+  const currentTime = new Date(); 
+  const tenMinutesAgo = new Date(currentTime.getTime() - (5 * 100 * 1000)); 
 
   for (let index = 0; index < tokenlis.length; index++) {
       if (tokenlis[index].token === value) {
-          // Se il token è stato trovato
           if (tokenlis[index].time <= tenMinutesAgo) {
-              // Se il token è più vecchio di 5 minuti
               tokenlis.splice(index, 1);
               return false;
           } else {
-              // Se il token è stato trovato e ha meno di 5 minuti
-              tokenlis[index].time = currentTime; // Aggiorna il tempo del token con l'ora corrente
+              tokenlis[index].time = currentTime; 
               console.log("Token aggiornato");
               return true;
           }
