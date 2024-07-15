@@ -9,10 +9,13 @@ import {cercato, artisti} from './RISPOSTE/cercato.js';
 import {salva,salvaMod} from './RISPOSTE/salva.js';
 import {modplaylist1,modplaylist2,modplaylist3,modplaylist4,ADDplay,delPlaylist,remPlaylist} from './RISPOSTE/modplaylist.js';
 import {cercacanzone} from './RISPOSTE/carcacanzone.js';
-
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument  from "./swagger-output.json" with { type: "json" };
 
 const app = express(); // inizzializzazione
 const port = 3000; // port
+
+
 
 // Middleware 
 app.use(express.json());
@@ -23,6 +26,10 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next();
 })
+
+//swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument ));
+
 
 //lista generi e array token
 let generi = [];
