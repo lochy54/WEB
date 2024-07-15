@@ -30,7 +30,7 @@ async function load() {
         artisti: selectedArtist()
     };
     const post = await fetch("http://localhost:3000/register", {
-        method: 'POST',
+        method: 'PUT',
   headers: {
     'Content-Type': 'application/json;charset=utf-8'
   },

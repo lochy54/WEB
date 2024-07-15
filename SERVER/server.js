@@ -59,7 +59,7 @@ app.post('/modplaylist1', async (req, res) => {
     let v = await modplaylist1(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.ststus(500).json({ res:false ,  code:500});
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
@@ -82,7 +82,7 @@ app.delete('/togliPlaylist', async (req, res) => {
     let v = await remPlaylist(findtoken(req.body.token),req.body.nome)
     res.status(v.code).json(v);
   }else{
-    res.ststus(500).json({ res:false ,  code:500});
+    res.status(500).json({ res:false ,  code:500});
   }
 });
 
