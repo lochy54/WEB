@@ -327,7 +327,32 @@ app.post('/modplaylist1', async (req, res) => {
   }
 });
 ```
-### ////
+### eliminaPlaylist
+Dato un token di un profilo e un nome di una playlist elimina la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. Tutti gli altri utenti che si sono salvati la playlist non la vedranno più.
+``` js
+app.delete('/eliminaPlaylist', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await delPlaylist(findtoken(req.body.token),req.body.nome)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500 });
+  }
+});
+```
+### togliPlaylist
+Dato un token di un profilo e un nome di una playlist toglie la playlist di quel profilo(200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. La playlist rimarrà attiva negli altri profili in cui è stata salvata.
+``` js
+app.delete('/togliPlaylist', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await remPlaylist(findtoken(req.body.token),req.body.nome)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
 # MongoDB
 ## Collezzioni
 Nel mio db ho 2 collezioni:
