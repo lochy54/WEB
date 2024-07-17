@@ -210,6 +210,149 @@ Donde evitare di richiedere i generi a spotyfi ogni volta che un nuovo client ef
 ---
 })();
 ```
+### Zod
+Questo pacchetto viene ustato per controllare che i dati mandati dal client, nelle varie richieste, siano corretti e rispettino gli standard assegniati, prima di inserirli nel db.
+``` js
+import { z } from 'zod';
+const userDataSchema = z.object({
+    nome: z.string().min(2),
+    cognome: z.string().min(2),
+    data: z.date(), 
+    paese: z.string(),
+    email: z.string().email(),
+    artisti: z.array(z.string().min(2)).default([]),
+});
+---
+try {
+    userData.data= new Date(userData.data);
+    userDataSchema.parse(userData);
+----
+```
+
+## Spotyfi api
+Questa parte di codice introduce una funzione che restituisce un client spotyfi che ci permette di farre chiamate sfruttando le api
+```js
+import request  from "request";
+import SpotifyWebApi from "spotify-web-api-node";
+async function gettoken() {
+    const client_id = '80c861fd6b084de3bddd82e305be6fcc';
+    const client_secret = '0d45b84ca78e436eaf57b2a7d8961944';
+    const authOptions = {
+        url: 'https://accounts.spotify.com/api/token',
+        headers: {
+          'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
+        },
+        form: {
+          grant_type: 'client_credentials'
+        },
+        json: true
+    };
+    return new Promise((resolve, reject) => {
+        request.post(authOptions, function(error, response, body) {
+            if (!error && response.statusCode === 200) {
+                resolve(body.access_token);
+            } else {
+                reject(error);
+            }
+        });
+    });
+}
+async function getapi() {
+
+        var access_token = await gettoken();
+        var spotifyApi = new SpotifyWebApi();
+        spotifyApi.setAccessToken(access_token);
+        return spotifyApi;
+}
+export {getapi}
+```
+Utilizzando il client id e il client seacret (presi dalla pagina ufficiale di spotyfi) genero un token per effettuare richieste al server di spotyfi. Questo token sarà poi uato per inizzializzare un client che sarà poi usato per le varie richieste http.
+## Mongodb
+### Connect
+Questa parte di codice inplementa una funzione che ritorna un mongoClient usato per fare chiamate al db.
+``` js
+import { MongoClient } from 'mongodb';
+async function connectToCluster() {
+    let mongoClient;
+ 
+    try {
+        mongoClient = new MongoClient("mongodb://localhost:27017");
+        await mongoClient.connect(); 
+        return mongoClient;
+    } catch (error) {
+        throw new Error ('problemi di connesione');
+    }
+ }
+export {connectToCluster};
+```
+Una volta connesso al db ritorna il client sul quale fare le operazioni.
+### Sanitize
+Utilizzo mongoSanitize per pulire tutte le query che effettou verso il db (donde evitare una no-sqlInjection).
+``` js
+import mongoSanitize from 'express-mongo-sanitize';
+app.use(mongoSanitize());
+```
 ## Routes:
+### Genere
+Questa route serve per richiedere la lista dei generi utilizzando le api di spotyfi. Ritorna 200 e la lista di generi
+``` js
+app.get('/genere', (req, res) => {
+  console.log("generi richiesti");
+  res.status(200).json(generi);
+});
+```
+### Elimina
+Questa route serve per eliminare un profilo. In caso l'eliminazione venga eseguita con sucesso rotorna 200, nel caso si sia verificato un errore in fase di risposta o eliminazione manda uno status 500.
+``` js
+app.delete('/elimina', async (req, res) => {
+  console.log("Received elimination request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await elimina(findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+### modplaylist1
+Dato un token di un profilo restutuisce le playlist di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500.
+``` js
+app.post('/modplaylist1', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist1(findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+### ////
+# MongoDB
+## Collezzioni
+Nel mio db ho 2 collezioni:
+### Utenti
+![alt text](image-15.png)
 
+negli utenti ho 2 indici unici:
 
+![alt text](image-16.png)
+
+Oltre all'id ho impostato come indice unco anche l'email (ogni email può essere registrata una sola volta dato che identifica un utente nel db)
+### Playlist
+![alt text](image-13.png)
+
+nelle playlis ho 2 indici unici:
+
+![alt text](image-17.png)
+
+Oltre all'id ho impostato come indice unco anche la coppia emial-nomePlaylist (gli utenti non possono creare playlist con lo stesso nome di playlist già create dal loro profilo (attive)).
+# Swagger
+E attivo lo swagger dell varie route del server.
+``` js
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument  from "./swagger-output.json" with { type: "json" };
+---
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument ));
+```
+Si può accedere ad esso sul localhost alla porta 3000 /api-docs.
