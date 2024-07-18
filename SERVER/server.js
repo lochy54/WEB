@@ -63,6 +63,16 @@ app.post('/modplaylist1', async (req, res) => {
   }
 });
 
+//trova canzioni in una playlist creata ancora attiva di un dato profilo
+app.post('/modplaylist2', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
 
 //elimina una playlist
 app.delete('/eliminaPlaylist', async (req, res) => {
@@ -86,22 +96,21 @@ app.delete('/togliPlaylist', async (req, res) => {
   }
 });
 
-//trova canzioni in una playlist creata ancora attiva di u nutente
-app.post('/modplaylist2', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
-    res.status(v.code).json(v);
-  }else{
-    res.status(500).json({ res:false ,  code:500});
-  }
-});
-
 //trova le playlist create e non dall'utente ancora attive
 app.post('/modplaylist3', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist3(findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+//trova le canzini data una plyalist creata o non creata dall'utente ancora attiva
+app.post('/modplaylist4', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
     res.status(v.code).json(v);
   }else{
     res.status(500).json({ res:false ,  code:500});
@@ -113,17 +122,6 @@ app.post('/cercacanzone', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await cercacanzone(findtoken(req.body.token))
-    res.status(v.code).json(v);
-  }else{
-    res.status(500).json({ res:false ,  code:500});
-  }
-});
-
-//trova le canzini data una plyalist creata o non creata dall'utente ancora attiva
-app.post('/modplaylist4', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
     res.status(v.code).json(v);
   }else{
     res.status(500).json({ res:false ,  code:500});
