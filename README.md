@@ -327,6 +327,32 @@ app.post('/modplaylist1', async (req, res) => {
   }
 });
 ```
+### modplaylist2
+Dato un token di un profilo e un nome di una playlist creata da quel profilo e ancora attiva trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+```js
+app.post('/modplaylist2', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+### modplaylist3
+Dato un token di un profilo trova e ritorna le playlist create e non da quel profilo ancora attive (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+```js
+app.post('/modplaylist3', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist3(findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
 ### eliminaPlaylist
 Dato un token di un profilo e un nome di una playlist elimina la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. Tutti gli altri utenti che si sono salvati la playlist non la vedranno più.
 ``` js
@@ -353,33 +379,6 @@ app.delete('/togliPlaylist', async (req, res) => {
   }
 });
 ```
-### modplaylist2
-Dato un token di un profilo e un nome di una playlist trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
-```js
-app.post('/modplaylist2', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
-    res.status(v.code).json(v);
-  }else{
-    res.status(500).json({ res:false ,  code:500});
-  }
-});
-```
-### modplaylist3
-Dato un token di un profilo trova e ritorna le playlist create e non dall'utente ancora attive (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
-```js
-app.post('/modplaylist3', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist3(findtoken(req.body.token))
-    res.status(v.code).json(v);
-  }else{
-    res.status(500).json({ res:false ,  code:500});
-  }
-});
-```
-
 # MongoDB
 ## Collezzioni
 Nel mio db ho 2 collezioni:
