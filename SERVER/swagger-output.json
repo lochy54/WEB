@@ -13,7 +13,7 @@
   "paths": {
     "/genere": {
       "get": {
-        "description": "",
+        "description": "Questa route serve per richiedere la lista dei generi utilizzando le api di spotyfi. Ritorna 200 e la lista di generi.",
         "responses": {
           "200": {
             "description": "OK"
@@ -23,7 +23,7 @@
     },
     "/elimina": {
       "delete": {
-        "description": "",
+        "description": "Questa route serve per eliminare un profilo. In caso l'eliminazione venga eseguita con sucesso rotorna 200, nel caso si sia verificato un errore in fase di risposta o eliminazione manda uno status 500.",
         "parameters": [
           {
             "name": "body",
@@ -47,7 +47,7 @@
     },
     "/modplaylist1": {
       "post": {
-        "description": "",
+        "description": "Dato un token di un profilo restutuisce le playlist di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500.",
         "parameters": [
           {
             "name": "body",
@@ -71,7 +71,7 @@
     },
     "/eliminaPlaylist": {
       "delete": {
-        "description": "",
+        "description": "Dato un token di un profilo e un nome di una playlist elimina la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. Tutti gli altri utenti che si sono salvati la playlist non la vedranno più.",
         "parameters": [
           {
             "name": "body",
@@ -98,7 +98,7 @@
     },
     "/togliPlaylist": {
       "delete": {
-        "description": "",
+        "description": "Dato un token di un profilo e un nome di una playlist toglie la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. La playlist rimarrà attiva negli altri profili in cui è stata salvata.",
         "parameters": [
           {
             "name": "body",
@@ -125,7 +125,7 @@
     },
     "/modplaylist2": {
       "post": {
-        "description": "",
+        "description": "Dato un token di un profilo e un nome di una playlist trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.",
         "parameters": [
           {
             "name": "body",
@@ -152,7 +152,7 @@
     },
     "/modplaylist3": {
       "post": {
-        "description": "",
+        "description": "Dato un token di un profilo trova e ritorna le playlist non salvate dal profilo (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.",
         "parameters": [
           {
             "name": "body",

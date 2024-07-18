@@ -16,29 +16,29 @@ Ogni utente, una volta registrato, può creare e modificare il proprio profilo, 
 ## Registrazine:
 Basterà inserire i relativi dati nel form di registrazione. 
 
-![alt text](image.png)
+![alt text](img/image.png)
 
 Cliccando show custom si apriranno le info aggiuntive.
 
-![alt text](image-1.png)
+![alt text](img/image-1.png)
 
 La ricerca degli artisti viene effettuata usando le api di spotyfi, una volta cercato un artista basterà aggiungerlo o rimuoverolo.
 
-![alt text](image-2.png)
+![alt text](img/image-2.png)
 
 Una volta finita la registrazione basterà premere reigstra.
 Apparirà un banner per capire se la registrazione è avvenuta con sucesso o meno.
 
-![alt text](image-3.png)
+![alt text](img/image-3.png)
 
 ## Login:
 Per effettuare un login basterà inserire i dati nel form e premere login.
 
-![alt text](image-4.png)
+![alt text](img/image-4.png)
 ## Forgot password
 Se la mail esiste invia una richiesta di reset password al server, essa viene stampata nella console.
 
-![alt text](image-5.png)
+![alt text](img/image-5.png)
 > Forgot passwor:  { email: 'lochy54@outlook.it' }
 
 ## Homepage utente
@@ -54,7 +54,7 @@ Qui si potrà:
 + cercare una playlist di un altro utente (eventualmente aggiungendo la playlist al proprio profilo)
 + visualizzare la libreria delle playlist personali + aggiunte
 
-![alt text](image-6.png)
+![alt text](img/image-6.png)
 
 ## Profile
 Tramite questa interfaccia è possibile modificare tutti i dati del profilo.
@@ -66,7 +66,7 @@ Premendo show custom si potranno visualizzare anche le info aggiuntive sul profi
 
 Per eliminare il profilo basterà premere su elimina profilo.
 
-![alt text](image-7.png)
+![alt text](img/image-7.png)
 
 Premendo il tasto home si tornerà alla schermata principale. 
 
@@ -82,13 +82,13 @@ In questa pagina sarà possiblie creare una playlist inserendo:
 
 Una volta inseriti i campi obbligatori si potrà creare la playlist vuota o aggiungere ad essa delle canzoni.
 
-![alt text](image-8.png)
+![alt text](img/image-8.png)
 
 Una volta cercata una canzone si potrà aggiungerla o rimuoverla a piacimento. Una volota aggiunta una canzone il timer del "totale" aumenterà del tempo necessario.
 
 La ricerca delle canzioni viene effettuata attraverso le api di spotyfi.
 
-![alt text](image-9.png)
+![alt text](img/image-9.png)
 
 Una volta inviata la richiesta apparirà un banner con lo stato.
 
@@ -103,16 +103,16 @@ La schermata di modifica è analoga a quella di creazione
 
 Per l'eliminazione basterà premere il tasto del è apparirà un banner per la conferma dello stato.
 
-![alt text](image-10.png)
+![alt text](img/image-10.png)
 
 ## Cerca
 In questa pagina si potranno cercare playlist di altri utenti per aggiungerle alla nostra libreria. La ricerca potrà essere effettuata per tag o nome playlist
 
-![alt text](image-11.png)
+![alt text](img/image-11.png)
 
 Premendo il tasto open si andrà ad aprire la playlist per controllarne il contenuto
 
-![alt text](image-12.png)
+![alt text](img/image-12.png)
 
 Qui possiamo decidere se salvare la playlist nel nostro profilo o meno. E' possibile ricercare canzioni all'interno della playlist tramite la barra di ricerca.
 Una volta salvata una playlist si tornerà alla schermata di ricerca playlsit.
@@ -121,7 +121,7 @@ In questa schermata è possibile visualizzare tutte le playlist della libreria.
 + Posso rimuovere delle playlist aggiunte da altri account
 + Visualizzare le playlist (aggiunte+create)
 
-![alt text](image-14.png)
+![alt text](img/image-14.png)
 
 Per rimuovere una playlist aggiunt abasterà premere rim. Una volta inviata la richiesta sarà visualizzato un banner con lo stato di essa.
 
@@ -341,7 +341,7 @@ app.delete('/eliminaPlaylist', async (req, res) => {
 });
 ```
 ### togliPlaylist
-Dato un token di un profilo e un nome di una playlist toglie la playlist di quel profilo(200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. La playlist rimarrà attiva negli altri profili in cui è stata salvata.
+Dato un token di un profilo e un nome di una playlist toglie la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. La playlist rimarrà attiva negli altri profili in cui è stata salvata.
 ``` js
 app.delete('/togliPlaylist', async (req, res) => {
   console.log("Received mod request with message:", req.body);
@@ -353,23 +353,50 @@ app.delete('/togliPlaylist', async (req, res) => {
   }
 });
 ```
+### modplaylist2
+Dato un token di un profilo e un nome di una playlist trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+```js
+app.post('/modplaylist2', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+### modplaylist3
+Dato un token di un profilo trova e ritorna le playlist non salvate dal profilo (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+```js
+app.post('/modplaylist3', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist3(findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+
+```
 # MongoDB
 ## Collezzioni
 Nel mio db ho 2 collezioni:
 ### Utenti
-![alt text](image-15.png)
+![alt text](img/image-15.png)
 
 negli utenti ho 2 indici unici:
 
-![alt text](image-16.png)
+![alt text](img/image-16.png)
 
 Oltre all'id ho impostato come indice unco anche l'email (ogni email può essere registrata una sola volta dato che identifica un utente nel db)
 ### Playlist
-![alt text](image-13.png)
+![alt text](img/image-13.png)
 
 nelle playlis ho 2 indici unici:
 
-![alt text](image-17.png)
+![alt text](img/image-17.png)
 
 Oltre all'id ho impostato come indice unco anche la coppia emial-nomePlaylist (gli utenti non possono creare playlist con lo stesso nome di playlist già create dal loro profilo (attive)).
 # Swagger
