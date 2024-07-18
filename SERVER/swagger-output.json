@@ -98,7 +98,7 @@
     },
     "/togliPlaylist": {
       "delete": {
-        "description": "Dato un token di un profilo e un nome di una playlist toglie la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. La playlist rimarrà attiva negli altri profili in cui è stata salvata.",
+        "description": "Dato un token di un profilo restutuisce le playlist create e ancora attive di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500.",
         "parameters": [
           {
             "name": "body",
@@ -152,7 +152,7 @@
     },
     "/modplaylist3": {
       "post": {
-        "description": "Dato un token di un profilo trova e ritorna le playlist non salvate dal profilo (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.",
+        "description": "",
         "parameters": [
           {
             "name": "body",

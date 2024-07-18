@@ -315,7 +315,7 @@ app.delete('/elimina', async (req, res) => {
 });
 ```
 ### modplaylist1
-Dato un token di un profilo restutuisce le playlist di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500.
+Dato un token di un profilo restutuisce le playlist create e ancora attive di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500.
 ``` js
 app.post('/modplaylist1', async (req, res) => {
   console.log("Received mod request with message:", req.body);
@@ -367,7 +367,7 @@ app.post('/modplaylist2', async (req, res) => {
 });
 ```
 ### modplaylist3
-Dato un token di un profilo trova e ritorna le playlist non salvate dal profilo (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+riscrivere
 ```js
 app.post('/modplaylist3', async (req, res) => {
   console.log("Received mod request with message:", req.body);
@@ -378,7 +378,19 @@ app.post('/modplaylist3', async (req, res) => {
     res.status(500).json({ res:false ,  code:500});
   }
 });
-
+```
+### cercacanzone
+riscrivere
+```js
+app.post('/cercacanzone', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await cercacanzone(findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
 ```
 # MongoDB
 ## Collezzioni

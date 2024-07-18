@@ -52,7 +52,7 @@ app.delete('/elimina', async (req, res) => {
   }
 });
 
-//trova playlist di un dato profilo
+//trova playlist create e ancora attive di un dato profilo 
 app.post('/modplaylist1', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -97,7 +97,7 @@ app.post('/modplaylist2', async (req, res) => {
   }
 });
 
-//trova playlist che non sono state salvate da un profilo
+//riscrivere
 app.post('/modplaylist3', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -108,7 +108,7 @@ app.post('/modplaylist3', async (req, res) => {
   }
 });
 
-//cerca playlist che non contengono la mail di un profilo 
+//riscrivere
 app.post('/cercacanzone', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -119,7 +119,7 @@ app.post('/cercacanzone', async (req, res) => {
   }
 });
 
-//trova canzioni in una playlist di un dato profilo (per via dell'array delle email l'implementazione è diversa)
+//riscrivere
 app.post('/modplaylist4', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -130,7 +130,7 @@ app.post('/modplaylist4', async (req, res) => {
   }
 });
 
-//trova canzioni in una playlist di un dato profilo 
+//riscrivere 
 app.post('/modplaylist5', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
