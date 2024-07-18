@@ -32,7 +32,7 @@ async function load() {
         window.location.replace("/html/main.html");
     }
       
-    const post = await fetch("http://localhost:3000/cercacanzone", {
+    const post = await fetch("http://localhost:3000/modplaylist5", {
         method: 'POST',
     headers: {
     'Content-Type': 'application/json;charset=utf-8'

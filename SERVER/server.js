@@ -8,7 +8,7 @@ import {elimina} from './RISPOSTE/elimina.js';
 import {cercato, artisti} from './RISPOSTE/cercato.js';
 import {salva,salvaMod} from './RISPOSTE/salva.js';
 import {modplaylist1,modplaylist2,modplaylist3,modplaylist4,ADDplay,delPlaylist,remPlaylist} from './RISPOSTE/modplaylist.js';
-import {cercacanzone} from './RISPOSTE/carcacanzone.js';
+import {modplaylist5} from './RISPOSTE/carcacanzone.js';
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument  from "./swagger-output.json" with { type: "json" };
 
@@ -74,6 +74,27 @@ app.post('/modplaylist2', async (req, res) => {
   }
 });
 
+//trova le playlist create e non dall'utente ancora attive
+app.post('/modplaylist3', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist3(findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+//trova le canzini data una plyalist creata o non creata dall'utente ancora attiva
+app.post('/modplaylist4', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+
 //elimina una playlist
 app.delete('/eliminaPlaylist', async (req, res) => {
   console.log("Received mod request with message:", req.body);
@@ -96,32 +117,13 @@ app.delete('/togliPlaylist', async (req, res) => {
   }
 });
 
-//trova le playlist create e non dall'utente ancora attive
-app.post('/modplaylist3', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist3(findtoken(req.body.token))
-    res.status(v.code).json(v);
-  }else{
-    res.status(500).json({ res:false ,  code:500});
-  }
-});
-//trova le canzini data una plyalist creata o non creata dall'utente ancora attiva
-app.post('/modplaylist4', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
-    res.status(v.code).json(v);
-  }else{
-    res.status(500).json({ res:false ,  code:500});
-  }
-});
+
 
 //trova le playlist non create e non aggiunte dall'utente
-app.post('/cercacanzone', async (req, res) => {
+app.post('/modplaylist5', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
-    let v = await cercacanzone(findtoken(req.body.token))
+    let v = await modplaylist5(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
     res.status(500).json({ res:false ,  code:500});
@@ -129,7 +131,7 @@ app.post('/cercacanzone', async (req, res) => {
 });
 
 //trova le canzini data una plyalist non creata dall'utente ancora attiva
-app.post('/modplaylist5', async (req, res) => {
+app.post('/modplaylist6', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist2(req.body.emailpass,req.body.playlist)

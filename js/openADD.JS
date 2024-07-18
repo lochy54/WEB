@@ -36,7 +36,7 @@ let token, user, nome, play, id , value,emailpass;
 
 
       var value = []
-        const post = await fetch("http://localhost:3000/modplaylist5", {
+        const post = await fetch("http://localhost:3000/modplaylist6", {
         method: 'POST',
     headers: {
     'Content-Type': 'application/json;charset=utf-8'

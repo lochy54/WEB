@@ -2,7 +2,7 @@ import { connectToCluster } from './connect.js';
 import { getapi } from './connectapi.js';
 
 
-async function cercacanzone(email){
+async function modplaylist5(email){
     try{
     
         const client = await connectToCluster();
@@ -25,4 +25,4 @@ async function cercacanzone(email){
     }
 }
 
-export{cercacanzone}
+export{modplaylist5}
