@@ -86,7 +86,7 @@ app.delete('/togliPlaylist', async (req, res) => {
   }
 });
 
-//trova canzioni in una playlist di un dato profilo 
+//trova canzioni in una playlist creata ancora attiva di u nutente
 app.post('/modplaylist2', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -97,7 +97,7 @@ app.post('/modplaylist2', async (req, res) => {
   }
 });
 
-//riscrivere
+//trova le playlist create e non dall'utente ancora attive
 app.post('/modplaylist3', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -108,7 +108,7 @@ app.post('/modplaylist3', async (req, res) => {
   }
 });
 
-//riscrivere
+//trova le playlist non create e non aggiunte dall'utente
 app.post('/cercacanzone', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -119,7 +119,7 @@ app.post('/cercacanzone', async (req, res) => {
   }
 });
 
-//riscrivere
+//trova le canzini data una plyalist creata o non creata dall'utente ancora attiva
 app.post('/modplaylist4', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
@@ -130,7 +130,7 @@ app.post('/modplaylist4', async (req, res) => {
   }
 });
 
-//riscrivere 
+//trova le canzini data una plyalist non creata dall'utente ancora attiva
 app.post('/modplaylist5', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
