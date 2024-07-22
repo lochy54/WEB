@@ -184,17 +184,6 @@ app.post('/mod', async (req, res) => {
   }
 });
 
-//aggiungi playlist a profilo 
-app.put('/ADDplaylist', async (req, res) => {
-  console.log("Received add request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
-    res.status(v.code).json(v);
-  }else{
-    res.status(500).json({ res:false ,  code:500});
-  }
-});
-
 //cambia la password di un profilo
 app.put('/modPass', async(req, res) => {
   console.log("modifica richiesta: ", req.body);
@@ -224,6 +213,16 @@ app.put('/modData', async(req, res) => {
   }
 });
 
+//aggiungi playlist a profilo 
+app.put('/ADDplaylist', async (req, res) => {
+  console.log("Received add request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
 
 // cerca canzone
 app.post('/cerca', async (req, res) => {

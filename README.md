@@ -315,7 +315,7 @@ app.delete('/elimina', async (req, res) => {
 });
 ```
 ### modplaylist1
-Dato un token di un profilo restutuisce le playlist create e ancora attive di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500.
+Dato un token (attivo) di un profilo restutuisce le playlist create e ancora attive di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500.
 ``` js
 app.post('/modplaylist1', async (req, res) => {
   console.log("Received mod request with message:", req.body);
@@ -328,7 +328,7 @@ app.post('/modplaylist1', async (req, res) => {
 });
 ```
 ### modplaylist2
-Dato un token di un profilo e un nome di una playlist creata da quel profilo e ancora attiva trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+Dato un token (attivo) di un profilo e un nome di una playlist creata da quel profilo e ancora attiva trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
 ```js
 app.post('/modplaylist2', async (req, res) => {
   console.log("Received mod request with message:", req.body);
@@ -341,7 +341,7 @@ app.post('/modplaylist2', async (req, res) => {
 });
 ```
 ### modplaylist3
-Dato un token di un profilo trova e ritorna le playlist create e non da quel profilo ancora attive (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+Dato un token (attivo) di un profilo trova e ritorna le playlist create e non da quel profilo ancora attive (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
 ```js
 app.post('/modplaylist3', async (req, res) => {
   console.log("Received mod request with message:", req.body);
@@ -354,7 +354,7 @@ app.post('/modplaylist3', async (req, res) => {
 });
 ```
 ### eliminaPlaylist
-Dato un token di un profilo e un nome di una playlist elimina la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. Tutti gli altri utenti che si sono salvati la playlist non la vedranno più.
+Dato un token (attivo) di un profilo e un nome di una playlist elimina la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. Tutti gli altri utenti che si sono salvati la playlist non la vedranno più.
 ``` js
 app.delete('/eliminaPlaylist', async (req, res) => {
   console.log("Received mod request with message:", req.body);
@@ -367,7 +367,7 @@ app.delete('/eliminaPlaylist', async (req, res) => {
 });
 ```
 ### togliPlaylist
-Dato un token di un profilo e un nome di una playlist toglie la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. La playlist rimarrà attiva negli altri profili in cui è stata salvata.
+Dato un token (attivo) di un profilo e un nome di una playlist toglie la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. La playlist rimarrà attiva negli altri profili in cui è stata salvata.
 ``` js
 app.delete('/togliPlaylist', async (req, res) => {
   console.log("Received mod request with message:", req.body);
@@ -379,6 +379,131 @@ app.delete('/togliPlaylist', async (req, res) => {
   }
 });
 ```
+### modplaylist5
+Dato un token (attivo) di un profilo trova e ritorna le playlist non create e non aggiunte dall'utente (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+``` js
+app.post('/modplaylist5', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist5(findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+### modplaylist6
+Dato un token (attivo) di un profilo e un nome di una playlist non creata da quel profilo e ancora attiva trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+``` js
+app.post('/modplaylist6', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist2(req.body.emailpass,req.body.playlist)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+### register
+Registra un nuovo utrente nella piattaforma (200), nel caso ci siano problemi in fase di inserimento manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.
+``` js
+app.put('/register', async (req, res) => {
+  console.log("Received registration request with message:", req.body);
+  let v = await register(req.body,generi)
+  console.log(v);
+  res.status(v.code).json(v);
+});
+```
+### login
+Effettua il login di un utrente nella piattaforma (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400. Inoltre crea il token di accesso, lo salva nel server assieme al timestamp e lo manda all'utente (per chiamate future).
+``` js
+app.post('/login', async (req, res) => {
+  console.log("Received login request with message:", req.body);
+  let v = await login(req.body)
+  console.log(v);
+  res.status(v.code).json(v);
+  if(v.res!=false){
+   if(!chektoken(v.res)){
+      tokenlis.push({token: v.res , time: new Date() , user: req.body.email})
+      console.log(tokenlis);
+  }}
+});
+```
+### logout
+Effettua il logout di un utrente dalla piattaforma (200) rimuovendo il token dalla lista dei token presenti.
+``` js
+app.post('/logout', (req, res) => {
+  console.log("Received logout request with message:", req.body);
+      for (let index = 0; index < tokenlis.length; index++) {
+        if (tokenlis[index].token === req.body.token) {
+            tokenlis.splice(index, 1);
+            console.log("rimuovo "+req.body.token);
+          }}  
+    res.status(200).json({ res:true , code:200});
+});
+```
+### mod
+Dato un token (attivo) di un profilo restituisce i dati di tale profilo (200),nel caso ci siano problemi in fase di connessione manda uno status 500.
+``` js
+app.post('/mod', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await mod(findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+### modPass
+Dato un token (attivo) di un profilo , la nuova password e la vecchia password imposta la password a quella nuova (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.
+``` js
+app.put('/modPass', async(req, res) => {
+  console.log("modifica richiesta: ", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modPass(req.body,findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+### modData
+Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.
+``` js
+app.put('/modData', async(req, res) => {
+  var tokenre = req.body.token;
+  delete req.body.token;
+  console.log("modifica richiesta: ", req.body);
+  if(chektoken(tokenre)){
+    let v = await modData(req.body,findtoken(tokenre),generi)
+    res.status(v.code).json(v);
+  for (let index = 0; index < tokenlis.length; index++) {
+    if (tokenlis[index].token === tokenre) {
+        tokenlis[index].user= req.body.email;
+        console.log(tokenlis)
+    }}
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+
+### ADDplaylist
+
+``` js
+app.put('/ADDplaylist', async (req, res) => {
+  console.log("Received add request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+
 # MongoDB
 ## Collezzioni
 Nel mio db ho 2 collezioni:
