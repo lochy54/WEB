@@ -292,6 +292,59 @@ Utilizzo mongoSanitize per pulire tutte le query che effettou verso il db (donde
 import mongoSanitize from 'express-mongo-sanitize';
 app.use(mongoSanitize());
 ```
+
+# MongoDB
+## Collezzioni
+Nel mio db ho 2 collezioni:
+### Utenti
+![alt text](img/image-15.png)
+Un utente è una persona che si è registrata al sito
+  + id: identificativo univoco dell profilo
+  + nome: nome del registrato
+  + cognome: cognome del registrato
+  + data: data di nascita del registrato
+  + paese: paese del registrato
+  + email: email del registrato
+  + password: password del profilo
+  + generi: generi che piaciono al registrato
+  + artisti: artisti che piaciono al registrato
+
+negli utenti ho 2 indici unici:
+
+![alt text](img/image-16.png)
+
+Oltre all'id ho impostato come indice unco anche l'email (ogni email può essere registrata una sola volta dato che identifica un utente nel db)
+### Playlist
+![alt text](img/image-13.png)
+
+Una playlist è una collezione di canzoni
++ id:  identificativo univoco della playlist
++ nome: nome della playlist
++ tag: tag della playlist
++ descrizione: breve descrizione testuale della playlist
++ canzoni: array di id delle canzoni aggiunte alla playlist
++ public: bool che idenstifica se la playlist è pubblica o privata
++ durata: durata della playlist in ms
++ email: lista di email che hanno la playlist in libreria
+  - posizione 0 : creatore della playlist
+  - posizione n: coloro che hanno aggiunto la playlist in libreria
+
+Dato che i collegameti profilo-playlist sono salvati un un record della playlist stessa, se il creatore di una playlist la elimina scomparà a tutti.
+
+nelle playlis ho 2 indici unici:
+
+![alt text](img/image-17.png)
+
+Oltre all'id ho impostato come indice unco anche la coppia emial-nomePlaylist (gli utenti non possono creare playlist con lo stesso nome di playlist già create dal loro profilo (attive)).
+# Swagger
+E attivo lo swagger dell varie route del server.
+``` js
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument  from "./swagger-output.json" with { type: "json" };
+---
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument ));
+```
+Si può accedere ad esso sul localhost alla porta 3000 /api-docs.
 ## Routes:
 ### Genere
 Questa route serve per richiedere la lista dei generi utilizzando le api di spotyfi. Ritorna 200 e la lista di generi
@@ -491,7 +544,7 @@ app.put('/modData', async(req, res) => {
 ```
 
 ### ADDplaylist
-
+ Dato un token (attivo) di un profilo, una mail del creante di una playlist e il nome della playlist al quale mi voglio aggiungere, aggiungo al mio profilo la playlist (200), nel caso ci siano problemi in fase di connessione o aggiunta manda uno status 500.
 ``` js
 app.put('/ADDplaylist', async (req, res) => {
   console.log("Received add request with message:", req.body);
@@ -503,32 +556,3 @@ app.put('/ADDplaylist', async (req, res) => {
   }
 });
 ```
-
-# MongoDB
-## Collezzioni
-Nel mio db ho 2 collezioni:
-### Utenti
-![alt text](img/image-15.png)
-
-negli utenti ho 2 indici unici:
-
-![alt text](img/image-16.png)
-
-Oltre all'id ho impostato come indice unco anche l'email (ogni email può essere registrata una sola volta dato che identifica un utente nel db)
-### Playlist
-![alt text](img/image-13.png)
-
-nelle playlis ho 2 indici unici:
-
-![alt text](img/image-17.png)
-
-Oltre all'id ho impostato come indice unco anche la coppia emial-nomePlaylist (gli utenti non possono creare playlist con lo stesso nome di playlist già create dal loro profilo (attive)).
-# Swagger
-E attivo lo swagger dell varie route del server.
-``` js
-import swaggerUi from "swagger-ui-express";
-import swaggerDocument  from "./swagger-output.json" with { type: "json" };
----
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument ));
-```
-Si può accedere ad esso sul localhost alla porta 3000 /api-docs.
