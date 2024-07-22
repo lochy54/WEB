@@ -337,36 +337,6 @@
         }
       }
     },
-    "/ADDplaylist": {
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                },
-                "emailpass": {
-                  "example": "any"
-                },
-                "playlist": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/modPass": {
       "put": {
         "description": "",
@@ -405,6 +375,36 @@
                   "example": "any"
                 },
                 "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/ADDplaylist": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "example": "any"
+                },
+                "emailpass": {
+                  "example": "any"
+                },
+                "playlist": {
                   "example": "any"
                 }
               }
