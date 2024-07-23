@@ -556,3 +556,64 @@ app.put('/ADDplaylist', async (req, res) => {
   }
 });
 ```
+
+### ADDplaylist
+ Dato un token (attivo) di un profilo e un dato da cercare (artista, nome canzone, album) cercca le canzoni più simili a quel caso e le restituisce(200), nel caso ci siano problemi in fase di connessione o ricerca manda uno status 500.
+``` js
+app.post('/cerca', async (req, res) => {
+  console.log("cercato", req.body.cercato);
+  if(chektoken(req.body.token)){
+    let v = await cercato(req.body.cercato)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+### artisti
+ Dato un artista da cercare, lo cerca e le restituisce(200), nel caso ci siano problemi in fase di connessione o ricerca manda uno status 500.
+``` js
+app.post('/artisti', async (req, res) => {
+  console.log("cercato", req.body.cercato);
+    let v = await artisti(req.body.cercato)
+    res.status(v.code).json(v);
+});
+```
+### salva
+Dato un token (attivo) di un profilo e un json di una playlist, la salva nel profilo(200). Nel caso ci siano problemi in fase di connessione o savltaggio manda uno status 500, nel caso ci siano problemi di controllo dei dati inseriti manda uno status 400.
+``` js
+app.put('/salva', async (req, res) => {
+  console.log("salva playlist: ", req.body);
+  if(chektoken(req.body.token)){
+    let v = await salva(req.body, findtoken(req.body.token))
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+
+### salvaMod
+Dato un token (attivo) di un profilo e un json di una playlist, salva le modifiche nel profilo(200). Nel caso ci siano problemi in fase di connessione o salvataggio manda uno status 500, nel caso ci siano problemi di controllo dei dati inseriti manda uno status 400.
+``` js
+app.put('/salvaMod', async (req, res) => {
+  console.log("salva playlist: ", req.body);
+  if(chektoken(req.body.token)){
+    let v = await salvaMod(req.body)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+
+
+### forgot
+Riceve una richiesta di password forgot e la stampa in console.
+``` js
+app.post('/forgot', async (req, res) => {
+  console.log("Forgot passwor: ", req.body);
+    res.json(forgot(req.body.email));
+
+});
+```

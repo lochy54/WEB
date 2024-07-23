@@ -9,7 +9,7 @@ async function cercato(tra){
     return{tracks: tracks, code:200};}
     catch(e){
         console.log(e);
-        return { res:false ,  code:400};
+        return { res:false ,  code:500};
     }
 
 }
@@ -22,7 +22,7 @@ async function artisti(tra){
     return{artist: artist, code:200};}
     catch(e){
         console.log(e);
-        return { res:false ,  code:400};
+        return { res:false ,  code:500};
     }
 
 }

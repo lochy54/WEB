@@ -7,8 +7,7 @@ import {mod, modData, modPass} from './RISPOSTE/mod.js';
 import {elimina} from './RISPOSTE/elimina.js';
 import {cercato, artisti} from './RISPOSTE/cercato.js';
 import {salva,salvaMod} from './RISPOSTE/salva.js';
-import {modplaylist1,modplaylist2,modplaylist3,modplaylist4,ADDplay,delPlaylist,remPlaylist} from './RISPOSTE/modplaylist.js';
-import {modplaylist5} from './RISPOSTE/carcacanzone.js';
+import {modplaylist1,modplaylist2,modplaylist3,modplaylist4,modplaylist5,ADDplay,delPlaylist,remPlaylist} from './RISPOSTE/modplaylist.js';
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument  from "./swagger-output.json" with { type: "json" };
 

@@ -26,7 +26,7 @@ async function salva(userData, email){
         userData.email= [email];
         await col.insertOne(userData);
         await client.close();
-        return {res:true , code:201 };
+        return {res:true , code:200 };
 
 
     } catch (error) {
@@ -73,7 +73,7 @@ async function salva(userData, email){
             
             }});
             await client.close();
-            return {res:true , code:201 };
+            return {res:true , code:200 };
     
     
         } catch (error) {

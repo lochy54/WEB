@@ -49,13 +49,13 @@ try {
         if(userData.generi.length==0){
             await col.insertOne(userData);
             await client.close();
-            return {res:true , code:201};
+            return {res:true , code:200};
         }
         for (let index = 0; index < userData.generi.length; index++) {
             if(generi['genres'].includes(userData.generi[index])){
                 await col.insertOne(userData);
                 await client.close();
-                return {res:true , code:201 };
+                return {res:true , code:200 };
             }
             
         }
