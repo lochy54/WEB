@@ -3,7 +3,7 @@ Il progetto si propone di sviluppare un'applicazione web per la gestione e la co
 L'applicazione permette di:
 + Registrare un utente creando profili personalizzati.
 + Gestire le playlist.
-+ Condividere le playlist create con una comunità.
++ Condividere le playlist create da una comunità.
 
 L'applicazione sarà sviluppata usando come framework bootstrap per renderla totalmente responsiva.
 
@@ -13,7 +13,7 @@ Il progetto è composto da tre principali macro-scenari:
 + Gestione delle playlist.
 + Gestione delle condivisioni.
 
-Ogni utente una volta registrato può creare e modificare il proprio profilo, organizzare playlist personalizzate attingendo ai dati forniti tramite le API REST di Spotify e condividere queste playlist con altri utenti. Le playlist possono essere cercate e visualizzate attraverso criteri di ricerca specifici come tag e titolo.
+Ogni utente una volta registrato può: creare e modificare il proprio profilo, organizzare playlist personalizzate attingendo ai dati forniti tramite le API REST di Spotify e condividere queste playlist con altri utenti. Le playlist possono essere cercate e visualizzate attraverso criteri di ricerca specifici come tag e titolo.
 # Proflio utente FRONT-END spiegazione interfaccie
 ## Registrazine:
 Basterà inserire i relativi dati nel form di registrazione. 
@@ -60,9 +60,9 @@ Qui si potrà:
 
 ## Profile
 Tramite questa interfaccia è possibile modificare tutti i dati del profilo.
-Una volta modificato un dato basterà premere modifica dati per inviare la richiesta.
+Una volta cambiato un dato basterà premere "modifica dati" per inviare la richiesta al server.
 
-Per modificare la password sarà necessario inserire anche la veccghia password per motivi di sicurezza, successivamente si dovrà premere su modifica password.
+Per cambiare la password sarà necessario inserire anche la vecchia password per motivi di sicurezza, successivamente si dovrà premere su "modifica password".
 
 Premendo show custom si potranno visualizzare anche le info aggiuntive sul profilo.
 
@@ -74,7 +74,7 @@ Premendo il tasto home si tornerà alla schermata principale.
 
 Una volta inviata la richiesta apparirà un banner con lo stato.
 ## Logout
-Premendo logout si uscirà dal prifilo tornando alla pagina di login.
+Premendo logout si uscirà dal profilo tornando alla pagina di login.
 ## Crea
 In questa pagina sarà possiblie creare una playlist inserendo:
 + Titolo.
@@ -86,7 +86,7 @@ Una volta inseriti i campi obbligatori si potrà creare la playlist vuota o aggi
 
 ![alt text](img/image-8.png)
 
-Una volta cercata una canzone si potrà aggiungerla o rimuoverla a piacimento, una volota aggiunta una canzone il timer del "totale" aumenterà del tempo necessario.
+Una volta cercata una canzone si potrà aggiungerla o rimuoverla a piacimento, una volta aggiunta una canzone il timer del "totale" aumenterà del tempo necessario.
 
 La ricerca delle canzioni viene effettuata attraverso le api di spotyfi.
 
@@ -101,9 +101,9 @@ In questa interfaccia si potrà selezionare una plyalist da noi creata per:
 + Modificarla.
 + Eliminarla.
 
-Premendo mod si etrerà nella schermata di modifiche, la quale è analoga a quella di creazione.
+Premendo "MOD" si entrerà nella schermata di modifiche, la quale è analoga a quella di creazione.
 
-Per l'eliminazione basterà premere il tasto del è apparirà un banner per la conferma dello stato.
+Per l'eliminazione basterà premere il tasto "DEL" ed apparirà un banner per la conferma dello stato.
 
 ![alt text](img/image-10.png)
 
@@ -116,18 +116,18 @@ Premendo il tasto open si andrà ad aprire la playlist per controllarne il conte
 
 ![alt text](img/image-12.png)
 
-Qui possiamo decidere se salvare la playlist nel nostro profilo o meno. E' possibile ricercare canzioni all'interno della playlist tramite la barra di ricerca.
-Una volta salvata una playlist si tornerà alla schermata di ricerca playlsit.
-## Libreria //
+Qui possiamo decidere se salvare la playlist nel nostro profilo o meno. E' possibile ricercare canzoni all'interno della playlist tramite la barra di ricerca.
+Una volta salvata una playlist si tornerà alla schermata di ricerca playlist.
+## Libreria 
 In questa schermata è possibile visualizzare tutte le playlist della libreria.
 + Posso rimuovere delle playlist aggiunte da altri account
 + Visualizzare le playlist (aggiunte+create)
 
 ![alt text](img/image-14.png)
 
-Per rimuovere una playlist aggiunt abasterà premere rim. Una volta inviata la richiesta sarà visualizzato un banner con lo stato di essa.
+Per rimuovere una playlist aggiunta basterà premere "RIM". Una volta inviata la richiesta sarà visualizzato un banner con lo stato di essa.
 
-Il tato open permette di aprire una playlist ,visuallizarne il contenuto e cercare delle canzioni.
+Il tasto "OPEN" permette di aprire una playlist ,visualizarne il contenuto e cercare delle canzoni.
 
 La ricerca potrà essere effettuata per tag o nome playlist
 # Server BACK-END
@@ -161,11 +161,11 @@ All' interno di una funzione asincrona ci sarà l'avvio del server.
 Introduciamo 3 funzioni aggiuntive prima di analizzare le vartie routes:
 ### chektoken: 
 
-Il server utilizza dei token do accesso generati ogni volta che un nuovo client effettua un login. Questi token saranno salvati dentro l'array dei toke assieme ad un timestap del tempo di inserimento e la mail dell' utente. Il token sarà succesivamente inviato al client, come risposta, per richieste future.
+Il server utilizza dei token di accesso generati ogni volta che un nuovo client effettua un login. Questi token saranno salvati dentro l'array dei token assieme ad un timestamp del tempo d'inserimento e la mail dell'utente. Il token sarà succesivamente inviato al client, come risposta, per richieste future.
 ``` js
 var tokenlis = [];
 ``` 
-Ogni volta che un client fa una richiesta al server deve includere il token. Se il token è contenuto nel server e il timestap associato è minore di 10 minuti la richiesta sarà garantita e il  timestapm sarà aggiornato al tempo della nuova richiesta; in caso contrario la richiesta sarà rifiutata e il token sarà scartato.
+Ogni volta che un client fa una richiesta al server deve includere il token. Se il token è contenuto nel server e il timestamp associato è minore di 10 minuti la richiesta sarà garantita e il  timestamp sarà aggiornato al tempo della nuova richiesta; in caso contrario la richiesta sarà rifiutata e il token sarà scartato.
 ``` js
 //ce un token attivo , se cè aggiorno l'oriario
 function chektoken(value) {
@@ -190,7 +190,7 @@ function chektoken(value) {
 }
 ```
 ### findtoken:
-Per effettuare alcune ricerche nel db è necessario usare la mail dell' utente; dato che nelle varie richieste dell' utente non viene mai inclusa la mail ma soltanto il token esiste una funzione che dato un token attivo restituisce una mail.
+Per effettuare alcune ricerche nel db è necessario usare la mail dell'utente; dato che nelle varie richieste dell'utente non viene mai inclusa la mail ma soltanto il token. Esiste una funzione che dato un token attivo restituisce una mail.
 ``` js
 //dato un token trova l'email
 function findtoken(token){
@@ -201,7 +201,7 @@ function findtoken(token){
 ```
 ### getGeneri:
 
-Donde evitare di richiedere i generi a spotyfi ogni volta che un nuovo client effettua un modifica del profilo o una registrazione, ho introdotto questa funzione asincorna che ogni 5 minuti ridviede i generi e li salva nell array dei generi del server.
+Donde evitare di richiedere i generi a spotyfi ogni volta che un nuovo client effettua un modifica del profilo o una registrazione, ho introdotto questa funzione asincorna che ogni 5 minuti richiede i generi e li salva nell array dei generi del server.
 ``` js
 //setup generi ask ogni 5 min (potrebbero cambiare)
 (async () => {
@@ -213,7 +213,7 @@ Donde evitare di richiedere i generi a spotyfi ogni volta che un nuovo client ef
 })();
 ```
 ### Zod
-Questo pacchetto viene ustato per controllare che i dati mandati dal client, nelle varie richieste, siano corretti e rispettino gli standard assegniati, prima di inserirli nel db.
+Questo pacchetto viene ustato per controllare che i dati mandati dal client, nelle varie richieste, siano corretti e rispettino gli standard assegnati, prima di inserirli nel db.
 ``` js
 import { z } from 'zod';
 const userDataSchema = z.object({
@@ -232,7 +232,7 @@ try {
 ```
 
 ## Spotyfi api
-Questa parte di codice introduce una funzione che restituisce un client spotyfi che ci permette di farre chiamate sfruttando le api
+Questa parte di codice introduce una funzione che restituisce un client spotyfi che ci permette di fare chiamate sfruttando le api
 ```js
 import request  from "request";
 import SpotifyWebApi from "spotify-web-api-node";
@@ -268,7 +268,7 @@ async function getapi() {
 }
 export {getapi}
 ```
-Utilizzando il client id e il client seacret (presi dalla pagina ufficiale di spotyfi) genero un token per effettuare richieste al server di spotyfi. Questo token sarà poi uato per inizzializzare un client che sarà poi usato per le varie richieste http.
+Utilizzando il client id e il client seacret (presi dalla pagina ufficiale di spotyfi) genero un token per effettuare richieste al server di spotyfi. Questo token sarà poi usato per inizializzare un client che sarà poi usato per le varie richieste http.
 ## Mongodb
 ### Connect
 Questa parte di codice inplementa una funzione che ritorna un mongoClient usato per fare chiamate al db.
@@ -289,7 +289,7 @@ export {connectToCluster};
 ```
 Una volta connesso al db ritorna il client sul quale fare le operazioni.
 ### Sanitize
-Utilizzo mongoSanitize per pulire tutte le query che effettou verso il db (donde evitare una no-sqlInjection).
+Utilizzo mongoSanitize per pulire tutte le query che effettuo verso il db (donde evitare una no-sql-Injection).
 ``` js
 import mongoSanitize from 'express-mongo-sanitize';
 app.use(mongoSanitize());
@@ -325,7 +325,7 @@ Una playlist è una collezione di canzoni
 + tag: tag della playlist
 + descrizione: breve descrizione testuale della playlist
 + canzoni: array di id delle canzoni aggiunte alla playlist
-+ public: bool che idenstifica se la playlist è pubblica o privata
++ public: bool che identifica se la playlist è pubblica o privata
 + durata: durata della playlist in ms
 + email: lista di email che hanno la playlist in libreria
   - posizione 0 : creatore della playlist
@@ -337,7 +337,7 @@ nelle playlis ho 2 indici unici:
 
 ![alt text](img/image-17.png)
 
-Oltre all'id ho impostato come indice unco anche la coppia emial-nomePlaylist (gli utenti non possono creare playlist con lo stesso nome di playlist già create dal loro profilo (attive)).
+Oltre all'id ho impostato come indice unco anche la coppia email-nomePlaylist (gli utenti non possono creare playlist con lo stesso nome di playlist già create dal loro profilo (attive)).
 # Swagger
 E attivo lo swagger dell varie route del server.
 ``` js
@@ -349,7 +349,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument ));
 Si può accedere ad esso sul localhost alla porta 3000 /api-docs.
 ## Routes:
 ### Genere
-Questa route serve per richiedere la lista dei generi utilizzando le api di spotyfi. Ritorna 200 e la lista di generi
+Questa route serve per richiedere la lista dei generi utilizzando le api di spotyfi. Ritorna 200 e la lista di generi.
 ``` js
 app.get('/genere', (req, res) => {
   console.log("generi richiesti");
@@ -408,6 +408,20 @@ app.post('/modplaylist3', async (req, res) => {
   }
 });
 ```
+### modplaylist4
+Dato un token (attivo) di un profilo e un nome di una playlist creata o non da quel profilo e ancora attiva. Trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+```js
+app.post('/modplaylist4', async (req, res) => {
+  console.log("Received mod request with message:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
+    res.status(v.code).json(v);
+  }else{
+    res.status(500).json({ res:false ,  code:500});
+  }
+});
+```
+
 ### eliminaPlaylist
 Dato un token (attivo) di un profilo e un nome di una playlist elimina la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. Tutti gli altri utenti che si sono salvati la playlist non la vedranno più.
 ``` js
@@ -525,7 +539,7 @@ app.put('/modPass', async(req, res) => {
 });
 ```
 ### modData
-Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.
+Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel caso ci siano problemi di controllo dei dati inseriti manda uno status 400.
 ``` js
 app.put('/modData', async(req, res) => {
   var tokenre = req.body.token;
@@ -559,7 +573,7 @@ app.put('/ADDplaylist', async (req, res) => {
 });
 ```
 
-### ADDplaylist
+### cerca
  Dato un token (attivo) di un profilo e un dato da cercare (artista, nome canzone, album) cercca le canzoni più simili a quel caso e le restituisce(200), nel caso ci siano problemi in fase di connessione o ricerca manda uno status 500.
 ``` js
 app.post('/cerca', async (req, res) => {
