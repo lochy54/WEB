@@ -92,41 +92,32 @@ let token, user, nome, play, id , value,emailpass;
 
 
     function addRow(value) {
-      // Get the container element where you want to append the new row
  var container = document.getElementById("modplay");
- // Create the outer div element for the card
  var cardDiv = document.createElement("div");
  cardDiv.className = "card mb-3 col-xxl-11 ms-xxl-4";
    
- // Create the card header element
  var cardHeader = document.createElement("h5");
  cardHeader.className = "card-header";
  cardHeader.textContent = value.name;
- // Create the card body element
  var cardBody = document.createElement("div");
  cardBody.className = "card-body";
 
 
- // Create the card text element
  var cardText = document.createElement("p");
  cardText.className = "card-text";
  cardText.textContent = "Album : "+value.album.name;
 
- // Create the card text element
  var cardText = document.createElement("p");
 
 
 
-// Calculate minutes and remaining seconds
 let minutes = Math.floor(Math.floor(value.duration_ms / 1000) / 60);
 let seconds = Math.floor(value.duration_ms / 1000) % 60;
 
-// Add leading zero if seconds is less than 10
 if (seconds < 10) {
     seconds = "0" + seconds;
 }
 
-// Format the duration as "mm:ss"
 var duration_formatted = minutes + ":" + seconds;
 
 
@@ -136,11 +127,9 @@ var duration_formatted = minutes + ":" + seconds;
 
  cardBody.appendChild(cardText);
 
- // Append card header and body to the card
  cardDiv.appendChild(cardHeader);
  cardDiv.appendChild(cardBody);
 
- // Append the card to the container
  container.appendChild(cardDiv);
  
 

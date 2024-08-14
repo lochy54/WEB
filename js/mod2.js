@@ -52,7 +52,6 @@ let token, user, nome, play, id , value, durata;
         let minutes = Math.floor(Math.floor(post.res.durata / 1000) / 60);
         let seconds = Math.floor(post.res.durata / 1000) % 60;
 
-        // Add leading zero if seconds is less than 10
         if (seconds < 10) {
             seconds = "0" + seconds;
         }
@@ -135,36 +134,28 @@ let token, user, nome, play, id , value, durata;
     
 
     function addRow(value,place,bnt) {
-      // Get the container element where you want to append the new row
  var container = document.getElementById(place);
- // Create the outer div element for the card
  var cardDiv = document.createElement("div");
  cardDiv.className = "card mb-3 col-xxl-11 ms-xxl-4";
    
- // Create the card header element
  var cardHeader = document.createElement("h5");
  cardHeader.className = "card-header";
  cardHeader.textContent = "Nome: "+value.name;
- // Create the card body element
  var cardBody = document.createElement("div");
  cardBody.className = "card-body";
 
 
- // Create the card text element
  var cardText = document.createElement("p");
 
 
 
-// Calculate minutes and remaining seconds
 let minutes = Math.floor(Math.floor(value.duration_ms / 1000) / 60);
 let seconds = Math.floor(value.duration_ms / 1000) % 60;
 
-// Add leading zero if seconds is less than 10
 if (seconds < 10) {
     seconds = "0" + seconds;
 }
 
-// Format the duration as "mm:ss"
 var duration_formatted = minutes + ":" + seconds;
 
 
@@ -173,7 +164,6 @@ var duration_formatted = minutes + ":" + seconds;
 
 
 
-// Create the "Go somewhere" button element
 var add = document.createElement("button");
 add.classList="btn btn-outline-danger btn-sm"
 add.innerHTML = bnt;
@@ -192,7 +182,6 @@ add.onclick = function() {
  let minutesd = Math.floor(Math.floor(durata / 1000) / 60);
  let secondsd = Math.floor(durata / 1000) % 60;
  
- // Add leading zero if seconds is less than 10
  if (secondsd < 10) {
      secondsd = "0" + secondsd;
  }
@@ -201,15 +190,12 @@ add.onclick = function() {
 
 };
 
- // Append all elements to the card body
  cardBody.appendChild(cardText);
  cardBody.appendChild(add)
 
- // Append card header and body to the card
  cardDiv.appendChild(cardHeader);
  cardDiv.appendChild(cardBody);
 
- // Append the card to the container
  container.appendChild(cardDiv);
  
     

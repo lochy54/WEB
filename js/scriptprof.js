@@ -128,15 +128,12 @@ if(post.res===false){
 
 function addRow(value,pos,bnt) {
   var container = document.getElementById(pos);
-  // Create the outer div element for the card
   var cardDiv = document.createElement("div");
   cardDiv.className = "card mb-3 col-xxl-11 ms-xxl-4";
     
-  // Create the card header element
   var cardHeader = document.createElement("h5");
   cardHeader.className = "card-header";
   cardHeader.textContent = "Nome: "+value;
- // Create the card body element
  var cardBody = document.createElement("div");
  cardBody.className = "card-body";
 
