@@ -1,3 +1,7 @@
+# GITHUB
++ https://github.com/lochy54/WEB 
++ [Luca Carone Polettini](https://github.com/lochy54) MAT:05099A  
+
 # Relazione progetto
 Il progetto si propone di sviluppare un'applicazione web per la gestione e la condivisione di playlist musicali tra utenti. <br>
 L'applicazione permette di:
