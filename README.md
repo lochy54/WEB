@@ -369,7 +369,7 @@ app.delete('/elimina', async (req, res) => {
     let v = await elimina(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({res:false});
   }
 });
 ```
@@ -382,7 +382,7 @@ app.post('/modplaylist1', async (req, res) => {
     let v = await modplaylist1(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -395,7 +395,7 @@ app.post('/modplaylist2', async (req, res) => {
     let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -408,7 +408,7 @@ app.post('/modplaylist3', async (req, res) => {
     let v = await modplaylist3(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -421,7 +421,7 @@ app.post('/modplaylist4', async (req, res) => {
     let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -435,7 +435,7 @@ app.delete('/eliminaPlaylist', async (req, res) => {
     let v = await delPlaylist(findtoken(req.body.token),req.body.nome)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500 });
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -448,7 +448,7 @@ app.delete('/togliPlaylist', async (req, res) => {
     let v = await remPlaylist(findtoken(req.body.token),req.body.nome)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -461,7 +461,7 @@ app.post('/modplaylist5', async (req, res) => {
     let v = await modplaylist5(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -474,7 +474,7 @@ app.post('/modplaylist6', async (req, res) => {
     let v = await modplaylist2(req.body.emailpass,req.body.playlist)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -525,7 +525,7 @@ app.post('/mod', async (req, res) => {
     let v = await mod(findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -538,7 +538,7 @@ app.put('/modPass', async(req, res) => {
     let v = await modPass(req.body,findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -558,7 +558,7 @@ app.put('/modData', async(req, res) => {
         console.log(tokenlis)
     }}
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -572,7 +572,7 @@ app.put('/ADDplaylist', async (req, res) => {
     let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -586,7 +586,7 @@ app.post('/cerca', async (req, res) => {
     let v = await cercato(req.body.cercato)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -608,7 +608,7 @@ app.put('/salva', async (req, res) => {
     let v = await salva(req.body, findtoken(req.body.token))
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
@@ -622,7 +622,7 @@ app.put('/salvaMod', async (req, res) => {
     let v = await salvaMod(req.body)
     res.status(v.code).json(v);
   }else{
-    res.status(500).json({ res:false ,  code:500});
+    res.status(401).json({ res:false});
   }
 });
 ```
