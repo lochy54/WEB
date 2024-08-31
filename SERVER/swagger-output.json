@@ -41,6 +41,12 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -65,6 +71,15 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -92,8 +107,18 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
+
       }
     },
     "/modplaylist3": {
@@ -113,9 +138,15 @@
             }
           }
         ],
-        "responses": {
+   "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -143,6 +174,15 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -170,6 +210,15 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -197,6 +246,15 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -221,6 +279,12 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -251,6 +315,15 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -259,8 +332,14 @@
       "put": {
         "description": "Registra un nuovo utrente nella piattaforma (200), nel caso ci siano problemi in fase di inserimento manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.",
         "responses": {
-          "default": {
-            "description": ""
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -283,8 +362,14 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -307,8 +392,11 @@
           }
         ],
         "responses": {
+          "401": {
+            "description": "unauthorized"
+          },
           "200": {
-            "description": "OK"
+            "description": "ok"
           }
         }
       }
@@ -333,6 +421,12 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -357,6 +451,15 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -384,6 +487,15 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -414,6 +526,12 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -441,6 +559,12 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -463,8 +587,11 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "500": {
+            "description": "Internal Server Error"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -489,6 +616,15 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -513,6 +649,15 @@
         "responses": {
           "500": {
             "description": "Internal Server Error"
+          },
+          "401": {
+            "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
+          },
+          "200": {
+            "description": "ok"
           }
         }
       }
@@ -535,8 +680,11 @@
           }
         ],
         "responses": {
+          "400": {
+            "description": "bed request"
+          },
           "200": {
-            "description": "OK"
+            "description": "ok"
           }
         }
       }

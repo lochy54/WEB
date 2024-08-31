@@ -14,6 +14,25 @@ import swaggerDocument  from "./swagger-output.json" with { type: "json" };
 const app = express(); // inizzializzazione
 const port = 3000; // port
 
+const countries = [
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua e Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaigian", "Bahamas",
+  "Bahrein", "Bangladesh", "Barbados", "Bielorussia", "Belgio", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia ed Erzegovina", "Botswana", "Brasile",
+  "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cambogia", "Camerun", "Canada", "Capo Verde", "Repubblica Centrafricana", "Ciad", "Cile", "Cina",
+  "Colombia", "Comore", "Congo", "Repubblica Democratica del Congo", "Costa Rica", "Croazia", "Cuba", "Cipro", "Repubblica Ceca", "Danimarca",
+  "Djibouti", "Dominica", "Repubblica Dominicana", "Timor Est", "Ecuador", "Egitto", "El Salvador", "Guinea Equatoriale", "Eritrea", "Estonia",
+  "Eswatini", "Etiopia", "Figi", "Finlandia", "Francia", "Gabon", "Gambia", "Georgia", "Germania", "Ghana", "Grecia", "Grenada", "Guatemala", "Guinea",
+  "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Ungheria", "Islanda", "India", "Indonesia", "Iran", "Iraq", "Irlanda", "Israele", "Italia",
+  "Costa d'Avorio", "Giamaica", "Giappone", "Giordania", "Kazakistan", "Kenya", "Kiribati", "Kosovo", "Kuwait", "Kirghizistan", "Laos", "Lettonia",
+  "Libano", "Lesotho", "Liberia", "Libia", "Liechtenstein", "Lituania", "Lussemburgo", "Madagascar", "Malawi", "Malesia", "Maldive", "Mali", "Malta",
+  "Isole Marshall", "Mauritania", "Mauritius", "Messico", "Micronesia", "Moldavia", "Monaco", "Mongolia", "Montenegro", "Marocco", "Mozambico",
+  "Myanmar", "Namibia", "Nauru", "Nepal", "Paesi Bassi", "Nuova Zelanda", "Nicaragua", "Niger", "Nigeria", "Corea del Nord", "Macedonia del Nord",
+  "Norvegia", "Oman", "Pakistan", "Palau", "Panama", "Papua Nuova Guinea", "Paraguay", "Perù", "Filippine", "Polonia", "Portogallo", "Qatar",
+  "Romania", "Russia", "Rwanda", "Saint Kitts e Nevis", "Santa Lucia", "Saint Vincent e Grenadine", "Samoa", "San Marino", "Sao Tome e Principe",
+  "Arabia Saudita", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovacchia", "Slovenia", "Isole Salomone", "Somalia", "Sudafrica",
+  "Corea del Sud", "Sudan del Sud", "Spagna", "Sri Lanka", "Sudan", "Suriname", "Svezia", "Svizzera", "Siria", "Taiwan", "Tagikistan", "Tanzania",
+  "Tailandia", "Togo", "Tonga", "Trinidad e Tobago", "Tunisia", "Turchia", "Turkmenistan", "Tuvalu", "Uganda", "Ucraina", "Emirati Arabi Uniti",
+  "Regno Unito", "Stati Uniti d'America", "Uruguay", "Uzbekistan", "Vanuatu", "Città del Vaticano", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe"
+];
 
 
 // Middleware 
@@ -42,10 +61,10 @@ app.get('/genere', (req, res) => {
 
 //elimina un profilo
 app.delete('/elimina', async (req, res) => {
-  console.log("Received elimination request with message:", req.body);
+  console.log("Richiesta eliminazione profilo", req.body);
   if(chektoken(req.body.token)){
     let v = await elimina(findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -56,7 +75,7 @@ app.post('/modplaylist1', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist1(findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -67,7 +86,7 @@ app.post('/modplaylist2', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -78,7 +97,7 @@ app.post('/modplaylist3', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist3(findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -88,7 +107,7 @@ app.post('/modplaylist4', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -99,7 +118,7 @@ app.delete('/eliminaPlaylist', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await delPlaylist(findtoken(req.body.token),req.body.nome)
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -110,7 +129,7 @@ app.delete('/togliPlaylist', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await remPlaylist(findtoken(req.body.token),req.body.nome)
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -123,7 +142,7 @@ app.post('/modplaylist5', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist5(findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -134,7 +153,7 @@ app.post('/modplaylist6', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist2(req.body.emailpass,req.body.playlist)
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -143,9 +162,9 @@ app.post('/modplaylist6', async (req, res) => {
 //registra profilo
 app.put('/register', async (req, res) => {
   console.log("Received registration request with message:", req.body);
-  let v = await register(req.body,generi)
+  let v = await register(req.body,generi,countries)
   console.log(v);
-  res.status(v.code).json(v);
+  res.status(v.code).json(v.res);
 });
 
 //login profilo , aggiungi token 
@@ -153,23 +172,26 @@ app.post('/login', async (req, res) => {
   console.log("Received login request with message:", req.body);
   let v = await login(req.body)
   console.log(v);
-  res.status(v.code).json(v);
+  res.status(v.code).json(v.res);
   if(v.res!=false){
    if(!chektoken(v.res)){
       tokenlis.push({token: v.res , time: new Date() , user: req.body.email})
       console.log(tokenlis);
   }}
 });
-
+// sono arrivato qui da sistemare questa funzione manca rimuovere tutti i i status in risposta molti hanno solo v
 //logout profilo
 app.post('/logout', (req, res) => {
   console.log("Received logout request with message:", req.body);
+  if(!chektoken(req.body.token)){
+    res.status(401).json({ res:false});
+  }
       for (let index = 0; index < tokenlis.length; index++) {
         if (tokenlis[index].token === req.body.token) {
             tokenlis.splice(index, 1);
             console.log("rimuovo "+req.body.token);
           }}  
-    res.status(200).json({ res:true , code:200});
+    res.status(200).json({res:true});
 });
 
 //modifica profilo (get data)
@@ -177,7 +199,7 @@ app.post('/mod', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await mod(findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -188,7 +210,7 @@ app.put('/modPass', async(req, res) => {
   console.log("modifica richiesta: ", req.body);
   if(chektoken(req.body.token)){
     let v = await modPass(req.body,findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -200,12 +222,11 @@ app.put('/modData', async(req, res) => {
   delete req.body.token;
   console.log("modifica richiesta: ", req.body);
   if(chektoken(tokenre)){
-    let v = await modData(req.body,findtoken(tokenre),generi)
-    res.status(v.code).json(v);
+    let v = await modData(req.body,findtoken(tokenre),generi,countries)
+    res.status(v.code).json(v.res);
   for (let index = 0; index < tokenlis.length; index++) {
     if (tokenlis[index].token === tokenre) {
         tokenlis[index].user= req.body.email;
-        console.log(tokenlis)
     }}
   }else{
     res.status(401).json({ res:false});
@@ -217,7 +238,7 @@ app.put('/ADDplaylist', async (req, res) => {
   console.log("Received add request with message:", req.body);
   if(chektoken(req.body.token)){
     let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -228,7 +249,7 @@ app.post('/cerca', async (req, res) => {
   console.log("cercato", req.body.cercato);
   if(chektoken(req.body.token)){
     let v = await cercato(req.body.cercato)
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -239,7 +260,7 @@ app.post('/cerca', async (req, res) => {
 app.post('/artisti', async (req, res) => {
   console.log("cercato", req.body.cercato);
     let v = await artisti(req.body.cercato)
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
 });
 
 
@@ -248,7 +269,7 @@ app.put('/salva', async (req, res) => {
   console.log("salva playlist: ", req.body);
   if(chektoken(req.body.token)){
     let v = await salva(req.body, findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }
@@ -259,7 +280,7 @@ app.put('/salvaMod', async (req, res) => {
   console.log("salva playlist: ", req.body);
   if(chektoken(req.body.token)){
     let v = await salvaMod(req.body)
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
   }

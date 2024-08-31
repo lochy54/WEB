@@ -361,7 +361,7 @@ app.get('/genere', (req, res) => {
 });
 ```
 ### Elimina
-Questa route serve per eliminare un profilo. In caso l'eliminazione venga eseguita con sucesso rotorna 200, nel caso si sia verificato un errore in fase di risposta o eliminazione manda uno status 500.
+Questa route serve per eliminare un profilo. In caso l'eliminazione venga eseguita con sucesso rotorna 200, nel caso si sia verificato un errore in fase di risposta o eliminazione manda uno status 500. L'eliminazione viene effettuata trovando dall token di sicureazza la mail dell' utente.
 ``` js
 app.delete('/elimina', async (req, res) => {
   console.log("Received elimination request with message:", req.body);
@@ -374,7 +374,7 @@ app.delete('/elimina', async (req, res) => {
 });
 ```
 ### modplaylist1
-Dato un token (attivo) di un profilo restutuisce le playlist create e ancora attive di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500.
+Dato un token (attivo) di un profilo restutuisce le playlist create e ancora attive di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500. Le playlist vengono cercate partendo dall token di sicureazza, dal quale viene ricavata la mail dell'utente.
 ``` js
 app.post('/modplaylist1', async (req, res) => {
   console.log("Received mod request with message:", req.body);

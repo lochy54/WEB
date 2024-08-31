@@ -1,6 +1,5 @@
 import { connectToCluster } from './connect.js';
 import { getapi } from './connectapi.js';
-import { z } from 'zod';
 
 async function modplaylist1(email){
 
@@ -10,18 +9,11 @@ async function modplaylist1(email){
             const client = await connectToCluster();
             const db = client.db("Uni");
             const col = db.collection("Playlist");
-        try {
-
-            
             const playlist = await col.find({"email.0":email}).toArray()
             await client.close();
             return {res: playlist, code:200};
 
-        } catch (error) {
-            await client.close();
-            console.error(error);
-            return {res:false , code:500};
-        }}catch(error){
+        }catch(error){
             console.error(error);
             return {res:false , code:500};
         }
@@ -35,20 +27,14 @@ async function modplaylist2(email,nome){
     
         const client = await connectToCluster();
         const db = client.db("Uni");
-        const col = db.collection("Playlist");
-       
-
-        
-
-    try {
-
-        
+        const col = db.collection("Playlist");        
         const playlist = await col.findOne({"email.0":email, "nome":nome})
         await client.close();
-
-        try{
+        if (playlist==null){
+                return {res: false, code:400};
+            }
             var spotifyApi = await getapi();
-            if (playlist.canzoni!=""){
+            if (playlist.canzoni.length!=0){
                 var tra = []
                 tra.push(playlist.canzoni)
                 var data = await spotifyApi.getTracks(tra);
@@ -56,29 +42,10 @@ async function modplaylist2(email,nome){
                 playlist.canzoni=tracks;
             }else{
                 playlist.canzoni.tracks=null; 
-            }
-
-                
-             
-           
-            
-            return {res: playlist, code:200};}
-            catch(e){
-                console.log(e);
-                return { res:false ,  code:400};
-            }
-        
-        
-        
-
-
-        return {res: playlist, code:200};
-
-    } catch (error) {
-        await client.close();
-        console.error(error);
-        return {res:false , code:500};
-    }}catch(error){
+            } 
+            return {res: playlist, code:200};   
+    
+    }catch(error){
         console.error(error);
         return {res:false , code:500};
     }
@@ -92,19 +59,12 @@ async function modplaylist3(email){
 
         const client = await connectToCluster();
         const db = client.db("Uni");
-        const col = db.collection("Playlist");
-    try {
-
-        
+        const col = db.collection("Playlist");        
         const playlist = await col.find({ "email": { $elemMatch: { $eq: email } } }).toArray()
         await client.close();
         return {res: playlist, code:200};
 
-    } catch (error) {
-        await client.close();
-        console.error(error);
-        return {res:false , code:500};
-    }}catch(error){
+    }catch(error){
         console.error(error);
         return {res:false , code:500};
     }
@@ -121,19 +81,13 @@ try{
     const client = await connectToCluster();
     const db = client.db("Uni");
     const col = db.collection("Playlist");
-   
-
-    
-
-try {
-
-    
     const playlist = await col.findOne({ "email": { $elemMatch: { $eq: email } }, nome:nome})
     await client.close();
-
-    try{
+    if (playlist==null){
+        return {res: false, code:400};
+    }
         var spotifyApi = await getapi();
-        if (playlist.canzoni!=""){
+        if (playlist.canzoni.length!=0){
             var tra = []
             tra.push(playlist.canzoni)
             var data = await spotifyApi.getTracks(tra);
@@ -148,22 +102,7 @@ try {
        
         
         return {res: playlist, code:200};}
-        catch(e){
-            console.log(e);
-            return { res:false ,  code:400};
-        }
-    
-    
-    
-
-
-    return {res: playlist, code:200};
-
-} catch (error) {
-    await client.close();
-    console.error(error);
-    return {res:false , code:500 };
-}}catch(error){
+ catch(error){
     console.error(error);
     return {res:false , code:500 };
 }
@@ -174,19 +113,12 @@ async function modplaylist5(email){
     
         const client = await connectToCluster();
         const db = client.db("Uni");
-        const col = db.collection("Playlist");
-    try {
-
-        
+        const col = db.collection("Playlist");        
         const playlist = await col.find({ "email": { $not: { $elemMatch: { $eq: email }}}, public: true},{ projection: { email: { $slice: 1 } } }).toArray();
         await client.close();
         return {res: playlist, code:200};
 
-    } catch (error) {
-        await client.close();
-        console.error(error);
-        return {res:false , code:500};
-    }}catch(error){
+    }catch(error){
         console.error(error);
         return {res:false , code:500};
     }
@@ -199,23 +131,19 @@ async function ADDplay(email,emailpass,nome){
 
         const client = await connectToCluster();
         const db = client.db("Uni");
-        const col = db.collection("Playlist");
-    try {
-
-        
-        await col.updateOne(
+        const col = db.collection("Playlist"); 
+        const res = await col.updateOne(
             { "email.0":emailpass, "nome":nome}, // Filter
             { $push: { email: email }}
         );
-    
+        if (res.matchedCount==0){
+            await client.close();
+            return {res: false, code:400};
+        }
         await client.close();
         return {res: true, code:200};
 
-    } catch (error) {
-        await client.close();
-        console.error(error);
-        return {res:false , code:500};
-    }}catch(error){
+    }catch(error){
         console.error(error);
         return {res:false , code:500};
     }
@@ -229,30 +157,51 @@ async function delPlaylist(email,nome){
     try{
 
         const client = await connectToCluster();
+        const session = client.startSession()
+        try{
+        await session.startTransaction()
         const db = client.db("Uni");
         const col = db.collection("Playlist");
-        await col.deleteOne({"email.0":email, "nome":nome});
+        const deletecount = await col.deleteOne({"email.0":email, "nome":nome});
+        await session.commitTransaction()
         await client.close();
+        if (deletecount.deletedCount==0){
+            return {res:false , code:400};
+        }
         return {res:true , code:200};
    
     }catch(error){
+        await session.abortTransaction()
         console.error(error);
         return {res:false , code:500};
     }
+}catch(error){
+    console.error(error);
+    return {res:false , code:500};
 }
-
+}
 
 async function remPlaylist(email,nome){
     try{
-
         const client = await connectToCluster();
+        const session = client.startSession()
+        try{
+        await session.startTransaction()
         const db = client.db("Uni");
         const col = db.collection("Playlist");
-        await col.updateOne({ "email": { $elemMatch: {$eq: email, $ne: { $arrayElemAt: ["$email", 0] } } }, "nome": nome }, { $pull: { email: email } });
+        const deletecount = await col.updateOne({ "email": { $elemMatch: {$eq: email, $ne: { $arrayElemAt: ["$email", 0] } } }, "nome": nome }, { $pull: { email: email } });
+        await session.commitTransaction()
         await client.close();
+        if (deletecount.deletedCount==0){
+            return {res:false , code:400};
+        }
         return {res:true , code:200 };
    
     }catch(error){
+        session.abortTransaction()
+        console.error(error);
+        return {res:false , code:500};
+    }}catch(error){
         console.error(error);
         return {res:false , code:500};
     }
