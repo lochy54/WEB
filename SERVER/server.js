@@ -81,16 +81,7 @@ app.post('/modplaylist1', async (req, res) => {
   }
 });
 
-//trova canzioni in una playlist creata ancora attiva di un dato profilo
-app.post('/modplaylist2', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
-    res.status(v.code).json(v.res);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
+
 
 //trova le playlist create e non dall'utente ancora attive
 app.post('/modplaylist3', async (req, res) => {
@@ -102,16 +93,7 @@ app.post('/modplaylist3', async (req, res) => {
     res.status(401).json({ res:false});
   }
 });
-//trova le canzini data una plyalist creata o non creata dall'utente ancora attiva
-app.post('/modplaylist4', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
-    res.status(v.code).json(v.res);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
+
 
 //elimina una playlist
 app.delete('/eliminaPlaylist', async (req, res) => {
@@ -128,7 +110,7 @@ app.delete('/eliminaPlaylist', async (req, res) => {
 app.delete('/togliPlaylist', async (req, res) => {
   console.log("Received mod request with message:", req.body);
   if(chektoken(req.body.token)){
-    let v = await remPlaylist(findtoken(req.body.token),req.body.nome)
+    let v = await remPlaylist(findtoken(req.body.token),req.body.nome,req.body.email)
     res.status(v.code).json(v.res);
   }else{
     res.status(401).json({ res:false});
@@ -148,16 +130,6 @@ app.post('/modplaylist5', async (req, res) => {
   }
 });
 
-//trova le canzini data una plyalist non creata dall'utente ancora attiva
-app.post('/modplaylist6', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist2(req.body.emailpass,req.body.playlist)
-    res.status(v.code).json(v.res);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
 
 //registra profilo
 app.put('/register', async (req, res) => {

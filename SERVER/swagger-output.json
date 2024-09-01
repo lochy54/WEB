@@ -7,13 +7,11 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": [
-    "http"
-  ],
+  "schemes": ["http"],
   "paths": {
     "/genere": {
       "get": {
-        "description": "Questa route serve per richiedere la lista dei generi utilizzando le api di spotyfi. Ritorna 200 e la lista di generi.",
+        "description": "Questa route serve per richiedere la lista dei generi utilizzando le api di spotyfi.",
         "responses": {
           "200": {
             "description": "OK"
@@ -23,7 +21,7 @@
     },
     "/elimina": {
       "delete": {
-        "description": "Questa route serve per eliminare un profilo. In caso l'eliminazione venga eseguita con sucesso rotorna 200, nel caso si sia verificato un errore in fase di risposta o eliminazione manda uno status 500.",
+        "description": "Questa route serve per eliminare un profilo.",
         "parameters": [
           {
             "name": "body",
@@ -53,7 +51,7 @@
     },
     "/modplaylist1": {
       "post": {
-        "description": "Dato un token (attivo) di un profilo restutuisce le playlist create e ancora attive di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500.",
+        "description": "Dato un token (attivo) di un profilo restutuisce le playlist ancora attive create da quel profilo.",
         "parameters": [
           {
             "name": "body",
@@ -82,48 +80,11 @@
             "description": "ok"
           }
         }
-      }
-    },
-    "/modplaylist2": {
-      "post": {
-        "description": "Dato un token (attivo) di un profilo e un nome di una playlist creata da quel profilo e ancora attiva trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                },
-                "playlist": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "401": {
-            "description": "unauthorized"
-          },
-          "400": {
-            "description": "bed request"
-          },
-          "200": {
-            "description": "ok"
-          }
-        }
-
       }
     },
     "/modplaylist3": {
       "post": {
-        "description": "Dato un token (attivo) di un profilo trova e ritorna le playlist create e non da quel profilo ancora attive (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.",
+        "description": "Dato un token (attivo) di un profilo trova e ritorna le playlist ancora attive create e non da quel profilo.",
         "parameters": [
           {
             "name": "body",
@@ -132,39 +93,6 @@
               "type": "object",
               "properties": {
                 "token": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-   "responses": {
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "401": {
-            "description": "unauthorized"
-          },
-          "200": {
-            "description": "ok"
-          }
-        }
-      }
-    },
-    "/modplaylist4": {
-      "post": {
-        "description": "Dato un token (attivo) di un profilo e un nome di una playlist creata o non da quel profilo e ancora attiva. Trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                },
-                "playlist": {
                   "example": "any"
                 }
               }
@@ -177,9 +105,6 @@
           },
           "401": {
             "description": "unauthorized"
-          },
-          "400": {
-            "description": "bed request"
           },
           "200": {
             "description": "ok"
@@ -189,7 +114,7 @@
     },
     "/eliminaPlaylist": {
       "delete": {
-        "description": "Dato un token (attivo) di un profilo e un nome di una playlist elimina la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. Tutti gli altri utenti che si sono salvati la playlist non la vedranno più.",
+        "description": "Dato un token (attivo) di un profilo e un nome di una playlist creata da tale profilo, elimina la playlist. Tutti gli altri utenti che hanno salvato la playlist non la vedranno più.",
         "parameters": [
           {
             "name": "body",
@@ -225,7 +150,7 @@
     },
     "/togliPlaylist": {
       "delete": {
-        "description": "Dato un token (attivo) di un profilo e un nome di una playlist toglie la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. La playlist rimarrà attiva negli altri profili in cui è stata salvata.",
+        "description": "Dato un token (attivo) di un profilo e un nome di una playlist non creata da tale profilo, toglie la playlist di quel profilo. La playlist rimarrà attiva negli altri profili in cui è stata salvata.",
         "parameters": [
           {
             "name": "body",
@@ -237,6 +162,9 @@
                   "example": "any"
                 },
                 "nome": {
+                  "example": "any"
+                },
+                "email": {
                   "example": "any"
                 }
               }
@@ -261,7 +189,7 @@
     },
     "/modplaylist5": {
       "post": {
-        "description": "Dato un token (attivo) di un profilo trova e ritorna le playlist non create e non aggiunte dall'utente (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.",
+        "description": "Dato un token (attivo) di un profilo trova e ritorna le playlist ancora attive non create e non aggiunte dal profilo.",
         "parameters": [
           {
             "name": "body",
@@ -282,45 +210,6 @@
           },
           "401": {
             "description": "unauthorized"
-          },
-          "200": {
-            "description": "ok"
-          }
-        }
-      }
-    },
-    "/modplaylist6": {
-      "post": {
-        "description": "Dato un token (attivo) di un profilo e un nome di una playlist non creata da quel profilo e ancora attiva trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                },
-                "emailpass": {
-                  "example": "any"
-                },
-                "playlist": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error"
-          },
-          "401": {
-            "description": "unauthorized"
-          },
-          "400": {
-            "description": "bed request"
           },
           "200": {
             "description": "ok"
@@ -330,7 +219,7 @@
     },
     "/register": {
       "put": {
-        "description": "Registra un nuovo utrente nella piattaforma (200), nel caso ci siano problemi in fase di inserimento manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.",
+        "description": "Registra un nuovo utrente nella piattaforma.",
         "responses": {
           "500": {
             "description": "Internal Server Error"
@@ -346,7 +235,7 @@
     },
     "/login": {
       "post": {
-        "description": "Effettua il login di un utrente nella piattaforma (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400. Inoltre crea il token di accesso, lo salva nel server assieme al timestamp e lo manda all'utente (per chiamate future).",
+        "description": "Effettua il login di un utrente nella piattaforma. Crea il token di accesso , lo salva nel server assieme al timestamp e lo manda all'utente (per chiamate future).",
         "parameters": [
           {
             "name": "body",
@@ -355,6 +244,9 @@
               "type": "object",
               "properties": {
                 "email": {
+                  "example": "any"
+                },
+                "password": {
                   "example": "any"
                 }
               }
@@ -376,7 +268,7 @@
     },
     "/logout": {
       "post": {
-        "description": "Effettua il logout di un utrente dalla piattaforma (200) rimuovendo il token dalla lista dei token presenti.",
+        "description": "Effettua il logout di un utrente dalla piattaforma rimuovendo il token di accesso dalla lista dei token attivi.",
         "parameters": [
           {
             "name": "body",
@@ -403,7 +295,7 @@
     },
     "/mod": {
       "post": {
-        "description": "Dato un token (attivo) di un profilo restituisce i dati di tale profilo (200),nel caso ci siano problemi in fase di connessione manda uno status 500.",
+        "description": "Dato un token (attivo) di un profilo restituisce i dati di tale profilo.",
         "parameters": [
           {
             "name": "body",
@@ -433,7 +325,7 @@
     },
     "/modPass": {
       "put": {
-        "description": "Dato un token (attivo) di un profilo , la nuova password e la vecchia password imposta la password a quella nuova (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.",
+        "description": "Dato un token (attivo) di un profilo , la nuova password e la vecchia password cambia la password del profilo.",
         "parameters": [
           {
             "name": "body",
@@ -442,6 +334,12 @@
               "type": "object",
               "properties": {
                 "token": {
+                  "example": "any"
+                },
+                "passn": {
+                  "example": "any"
+                },
+                "passv": {
                   "example": "any"
                 }
               }
@@ -467,23 +365,6 @@
     "/modData": {
       "put": {
         "description": "Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "500": {
             "description": "Internal Server Error"
@@ -529,6 +410,9 @@
           },
           "401": {
             "description": "unauthorized"
+          },
+          "400": {
+            "description": "bed request"
           },
           "200": {
             "description": "ok"
@@ -599,20 +483,6 @@
     "/salva": {
       "put": {
         "description": "Dato un token (attivo) di un profilo e un json di una playlist, la salva nel profilo(200). Nel caso ci siano problemi in fase di connessione o savltaggio manda uno status 500, nel caso ci siano problemi di controllo dei dati inseriti manda uno status 400.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "500": {
             "description": "Internal Server Error"
@@ -632,20 +502,6 @@
     "/salvaMod": {
       "put": {
         "description": "Dato un token (attivo) di un profilo e un json di una playlist, salva le modifiche nel profilo(200). Nel caso ci siano problemi in fase di connessione o salvataggio manda uno status 500, nel caso ci siano problemi di controllo dei dati inseriti manda uno status 400.",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "token": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "500": {
             "description": "Internal Server Error"

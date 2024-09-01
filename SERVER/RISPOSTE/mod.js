@@ -4,18 +4,22 @@ import { z } from 'zod';
 async function mod(userData) {
 
 
-
+try{
+    const client = await connectToCluster();
     try {
 
-        const client = await connectToCluster();
         const db = client.db("Uni");
         const col = db.collection("Utenti");
         const user = await col.findOne({ "email": userData });
         user.password = "";
-        await client.close()
         return { res: user, code: 200, status: "ok" };
 
     } catch (error) {
+        console.error(error);
+        return { res: false, code: 500 };
+    }finally{
+        await client.close()
+    }} catch (error) {
         console.error(error);
         return { res: false, code: 500 };
     }
@@ -40,22 +44,37 @@ async function modData(userData, email, generi, countries) {
         if (!countries.includes(userData.paese)) {
             return { res: false, code: 400 };
         }
-        try {
+        try{
             const client = await connectToCluster();
+            const session = client.startSession()
+        try {
             const db = client.db("Uni");
             const col = db.collection("Utenti");
             if (!userData.generi.every(v => generi['genres'].includes(v))) {
                 return { res: false, code: 400 };
             }
+            await session.startTransaction()
             await col.updateOne(
                 { email: email }, // Filter
                 { $set: userData } // Update operation
             );
-            await client.close();
-            await updateplay(email, userData.email)
+            col = db.collection("Playlist");
+            await col.updateMany(
+                { "email": email }, // Filter
+                { $set: { "email.$": userData.email } } // Update operation
+            );
+            await session.commitTransaction()
             return { res: true, code: 200 };
 
         } catch (error) {
+            session.abortTransaction()
+            console.error(error);
+            return { res: false, code: 500 };
+
+        }finally{
+            await session.close()
+            await client.close();
+        }}catch (error) {
             console.error(error);
             return { res: false, code: 500 };
 
@@ -86,6 +105,7 @@ async function modPass(userData, email) {
         userDataSchema.parse(userData);
         try {
             const client = await connectToCluster();
+            try{
             const db = client.db("Uni");
             const col = db.collection("Utenti");
             const user = await col.findOne({ "email": email });
@@ -94,11 +114,9 @@ async function modPass(userData, email) {
                     { email: email }, // Filter
                     { $set: { password: userData.passn } } // Update operation
                 );
-                await client.close();
                 return { res: true, code: 200 };
 
             } else {
-                await client.close();
                 return { res: false, code: 400 };
             }
 
@@ -110,33 +128,17 @@ async function modPass(userData, email) {
         } catch (error) {
             console.error(error);
             return { res: false, code: 500 };
+        }finally{
+            await client.close();
+        }} catch (error) {
+            console.error(error);
+            return { res: false, code: 500 };
         }
     } catch (error) {
         console.error(error);
         return { res: false, code: 400 };
 
 
-
-    }
-}
-
-async function updateplay(email1, email2) {
-    try {
-        const client = await connectToCluster();
-        const db = client.db("Uni");
-        const col = db.collection("Playlist");
-        await col.updateMany(
-            { "email": email1 }, // Filter
-            { $set: { "email.$": email2 } } // Update operation
-
-
-        );
-        await client.close();
-        return true;
-
-    } catch (error) {
-        console.error(error);
-        throw new Error("errore playlist")
 
     }
 }

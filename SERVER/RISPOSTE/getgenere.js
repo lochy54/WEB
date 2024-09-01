@@ -8,6 +8,7 @@ async function getgenere(){
         return genere;
         }catch(e){
                 console.log(e);
+                return []
         }
 }
 export {getgenere}
