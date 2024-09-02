@@ -284,9 +284,6 @@
           }
         ],
         "responses": {
-          "401": {
-            "description": "unauthorized"
-          },
           "200": {
             "description": "ok"
           }
@@ -364,7 +361,7 @@
     },
     "/modData": {
       "put": {
-        "description": "Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.",
+        "description": "Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo.",
         "responses": {
           "500": {
             "description": "Internal Server Error"
@@ -383,7 +380,7 @@
     },
     "/ADDplaylist": {
       "put": {
-        "description": "Dato un token (attivo) di un profilo, una mail del creante di una playlist e il nome della playlist al quale mi voglio aggiungere, aggiungo al mio profilo la playlist (200), nel caso ci siano problemi in fase di connessione o aggiunta manda uno status 500.",
+        "description": "Dato un token (attivo) di un profilo, la mail del creante di una playlist e il nome della playlist al che voglio aggiungere, aggiungo al mio profilo la playlist.",
         "parameters": [
           {
             "name": "body",
@@ -422,7 +419,7 @@
     },
     "/cerca": {
       "post": {
-        "description": "Dato un token (attivo) di un profilo e un dato da cercare (artista, nome canzone, album) cercca le canzoni più simili a quel caso e le restituisce(200), nel caso ci siano problemi in fase di connessione o ricerca manda uno status 500.",
+        "description": "Dato un token (attivo) di un profilo e un dato da cercare (artista, nome canzone, album) cercca le canzoni più simili a quel dato e le restituisce.",
         "parameters": [
           {
             "name": "body",
@@ -455,7 +452,7 @@
     },
     "/artisti": {
       "post": {
-        "description": "Dato un artista da cercare, lo cerca e le restituisce(200), nel caso ci siano problemi in fase di connessione o ricerca manda uno status 500.",
+        "description": "Dato un artista da cercare, lo cerca e le restituisce.",
         "parameters": [
           {
             "name": "body",
@@ -482,7 +479,7 @@
     },
     "/salva": {
       "put": {
-        "description": "Dato un token (attivo) di un profilo e un json di una playlist, la salva nel profilo(200). Nel caso ci siano problemi in fase di connessione o savltaggio manda uno status 500, nel caso ci siano problemi di controllo dei dati inseriti manda uno status 400.",
+        "description": "Dato un token (attivo) di un profilo e un json di una playlist, crea la playlist.",
         "responses": {
           "500": {
             "description": "Internal Server Error"
@@ -501,7 +498,7 @@
     },
     "/salvaMod": {
       "put": {
-        "description": "Dato un token (attivo) di un profilo e un json di una playlist, salva le modifiche nel profilo(200). Nel caso ci siano problemi in fase di connessione o salvataggio manda uno status 500, nel caso ci siano problemi di controllo dei dati inseriti manda uno status 400.",
+        "description": "Dato un token (attivo) di un profilo e un json di una playlist creata dal profilo, salva le modifiche.",
         "responses": {
           "500": {
             "description": "Internal Server Error"

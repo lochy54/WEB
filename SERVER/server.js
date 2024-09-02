@@ -7,7 +7,7 @@ import {mod, modData, modPass} from './RISPOSTE/mod.js';
 import {elimina} from './RISPOSTE/elimina.js';
 import {cercato, artisti} from './RISPOSTE/cercato.js';
 import {salva,salvaMod} from './RISPOSTE/salva.js';
-import {modplaylist1,modplaylist2,modplaylist3,modplaylist4,modplaylist5,ADDplay,delPlaylist,remPlaylist} from './RISPOSTE/modplaylist.js';
+import {modplaylist1,modplaylist3,modplaylist5,ADDplay,delPlaylist,remPlaylist} from './RISPOSTE/modplaylist.js';
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument  from "./swagger-output.json" with { type: "json" };
 
@@ -155,9 +155,6 @@ app.post('/login', async (req, res) => {
 //logout profilo
 app.post('/logout', (req, res) => {
   console.log("Received logout request with message:", req.body);
-  if(!chektoken(req.body.token)){
-    res.status(401).json({ res:false});
-  }
       for (let index = 0; index < tokenlis.length; index++) {
         if (tokenlis[index].token === req.body.token) {
             tokenlis.splice(index, 1);

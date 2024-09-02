@@ -12,7 +12,7 @@
     <link href="/RESURS/css.css" rel="stylesheet" />
   </head>
 
-  <body onload="load()">
+  <body onload="await load()">
     <div class="mt-3" id="myAlert">
       <strong id="strong"></strong>
       <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()"></button>
@@ -32,7 +32,7 @@
                 <a class="nav-link" href="user.html">Home</a>
               </li>
               <li class="navbar-brand">
-                <button class="nav-link" onclick="logout()">Logout</button>
+                <button class="nav-link" onclick="await logout()">Logout</button>
               </li>
            
             </ul>
@@ -78,7 +78,7 @@
 
                   </div>
                 <div class="col-8 col-xxl-5 mt-2 "><button class="btn btn-outline-danger btn-lg " type="button" onclick="show()"> Aggiungi Canzioni </button></div> 
-                <div class="col-4 col-xxl-2 mt-2 "><button class="btn btn-outline-danger btn-lg " type="button" onclick="save()"> Save </button></div> 
+                <div class="col-4 col-xxl-2 mt-2 "><button class="btn btn-outline-danger btn-lg " type="button" onclick="await save()"> Save </button></div> 
                 </div>
 
             
@@ -98,7 +98,7 @@
                   <div class="col-12 col-xxl-6"> <h3>Durata totale:</h3> </div> 
                   <div class="col-12 col-xxl-6"> <h3 id="duration">0:00</h3></div>
                   <div class="col-12 col-xxl-2"> <h3>Cerca</h3> </div> 
-                  <div class="col-12 col-xxl-6"> <input type="text" class="form-control" id="Artista" aria-describedby="emailHelpId" onchange="cerca()" placeholder="Canzone" /></div> 
+                  <div class="col-12 col-xxl-6"> <input type="text" class="form-control" id="Artista" aria-describedby="emailHelpId" onchange="await cerca()" placeholder="Canzone" /></div> 
                 </div>
 
            
