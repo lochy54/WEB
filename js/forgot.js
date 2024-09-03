@@ -18,15 +18,3 @@ async function sendEmail() {
 
   }
 }
-
-
-function showAlert(message, alertType) {
-  document.getElementById("strong").innerHTML = message;
-  document.getElementById("myAlert").className = "alert mt-3 text-center alert-" + alertType;
-  document.getElementById("myAlert").style.display = "block";
-}
-
-
-function closeAlert() {
-  document.getElementById("myAlert").style.display = "none";
-}

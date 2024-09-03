@@ -51,7 +51,7 @@ body{
 }
 
 .artist{
-    max-height: 250px;
+    max-height: 700px;
     overflow-y: scroll;
 }
 .mod{

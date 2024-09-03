@@ -1,17 +1,7 @@
 
 let token, user, size, genres;
 
-async function logout(){
 
-    const post = await fetch("http://localhost:3000/logout", {
-        method: 'POST',
-     headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  },
-  body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
-    sessionStorage.clear;
-    window.location.replace("/html/main.html");
-}
 
 async function load() {
     user = sessionStorage.getItem("user");
@@ -23,7 +13,7 @@ async function load() {
     genres = get.genres;
     const gen = document.getElementById("gen");
     for (let i = 0; i < genres.length; i++) {
-  gen.innerHTML= gen.innerHTML+'<div class="col-6 col-xxl-3"><input class="form-check-input" type="checkbox" value="'+genres[i]+'"id="'+genres[i]+'"/> <label class="form-check-label"> '+genres[i]+'</label></div>';
+  gen.innerHTML= gen.innerHTML+'<div class="col-6 col-lg-3"><input class="form-check-input" type="checkbox" value="'+genres[i]+'"id="'+genres[i]+'"/> <label class="form-check-label"> '+genres[i]+'</label></div>';
   }
   size=genres.length;
 
@@ -64,13 +54,7 @@ if(post1.res==false){
 
   }
 
-  function show(){
-    document.getElementById("content").classList.replace('d-none','d-flex')
-  }
 
-  function unshow(){
-    document.getElementById("content").classList.replace('d-flex','d-none')
-  }
 
 
 
@@ -88,16 +72,7 @@ if(post1.res==false){
 }
 
 
-function showAlert(message, alertType) {
-  document.getElementById("strong").innerHTML = message;
-  document.getElementById("myAlert").className = "alert mt-3 text-center alert-" + alertType;
-  document.getElementById("myAlert").style.display = "block";
-}
 
-
-function closeAlert() {
-  document.getElementById("myAlert").style.display = "none";
-}
 
 async function addArtist(){
   var cercato = document.getElementById("Artista").value;
@@ -129,7 +104,7 @@ if(post.res===false){
 function addRow(value,pos,bnt) {
   var container = document.getElementById(pos);
   var cardDiv = document.createElement("div");
-  cardDiv.className = "card mb-3 col-xxl-11 ms-xxl-4";
+  cardDiv.className = "card mb-3 col-lg-11 ms-lg-4";
     
   var cardHeader = document.createElement("h5");
   cardHeader.className = "card-header";

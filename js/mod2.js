@@ -2,17 +2,6 @@
 let token, user, nome, play, id , value, durata;
 
 
-    async function logout(){
-    
-        const post = await fetch("http://localhost:3000/logout", {
-            method: 'POST',
-         headers: {
-        'Content-Type': 'application/json;charset=utf-8'
-      },
-      body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
-        sessionStorage.clear;
-        window.location.replace("/html/main.html");
-    }
     
     
     async function load() {
@@ -79,13 +68,7 @@ let token, user, nome, play, id , value, durata;
 
     }
     
-        function show(){
-            document.getElementById("content1").classList.replace('d-none','d-flex')
-          }
-        
-          function unshow(){
-            document.getElementById("content1").classList.replace('d-flex','d-none')
-          }
+     
         
     
     async function cerca(){
@@ -118,17 +101,7 @@ let token, user, nome, play, id , value, durata;
     }
     }
     
-    function showAlert(message, alertType) {
-      document.getElementById("strong").innerHTML = message;
-      document.getElementById("myAlert").className = "alert mt-3 text-center alert-" + alertType;
-      document.getElementById("myAlert").style.display = "block";
-    }
-    
-    
-    function closeAlert() {
-      document.getElementById("myAlert").style.display = "none";
-    }
-    
+
  
     
     
@@ -136,7 +109,7 @@ let token, user, nome, play, id , value, durata;
     function addRow(value,place,bnt) {
  var container = document.getElementById(place);
  var cardDiv = document.createElement("div");
- cardDiv.className = "card mb-3 col-xxl-11 ms-xxl-4";
+ cardDiv.className = "card mb-3 col-lg-11 ms-lg-4";
    
  var cardHeader = document.createElement("h5");
  cardHeader.className = "card-header";
@@ -160,7 +133,7 @@ var duration_formatted = minutes + ":" + seconds;
 
 
  cardText.className = "card-text row";
- cardText.innerHTML = "<div class='col-xxl-6 col-12'><t class='fs-4'>Album: </t>"+value.album.name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Date: </t>"+value.album.release_date +"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Nome: </t>"+value.artists[0].name+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Durata: </t>"+duration_formatted+"</div> "
+ cardText.innerHTML = "<div class='col-lg-6 col-12'><t class='fs-4'>Album: </t>"+value.album.name+"</div> <div class='col-lg-6 col-12'><t class='fs-4'>Date: </t>"+value.album.release_date +"</div> <div class='col-lg-6 col-12'><t class='fs-4'>Nome: </t>"+value.artists[0].name+"</div> <div class='col-lg-6 col-12'><t class='fs-4'>Durata: </t>"+duration_formatted+"</div> "
 
 
 

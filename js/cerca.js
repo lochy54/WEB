@@ -4,39 +4,20 @@ let token, user;
 async function load() {
   user = sessionStorage.getItem("user");
   token = sessionStorage.getItem("token");
-  if (user == null) {
+  if (user == undefined || token == undefined) {
     await logout()
   }
 
-  var post = await fetch("http://localhost:3000/modplaylist5", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify({ token: token }),
-  }).then((res) => {
-    return res.json();
-  });
-  if (post.res == false) {
-      logout();
+  const post = await apicall("http://localhost:3000/modplaylist5", { token: token } , "POST" , true )
+  if (post.sta == 401) {
+     await logout();
   } else {
-    for (let index = 0; index < post.res.length; index++) {
-      addRow(post.res[index]);
+    for (let index = 0; index < post.data.length; index++) {
+      addRow(post.data[index]);
     }
   }
 }
 
-async function logout() {
-    await fetch("http://localhost:3000/logout", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify({ token: token }),
-  })
-  sessionStorage.clear;
-  window.location.replace("/html/main.html");
-}
 
 
 function cerca() {
@@ -64,7 +45,7 @@ function cerca() {
 function addRow(value) {
   var container = document.getElementById("modplay");
   var cardDiv = document.createElement("div");
-  cardDiv.className = "card mb-3 col-xxl-11 ms-xxl-4";
+  cardDiv.className = "card mb-3 col-lg-11 ms-lg-4";
 
   var cardHeader = document.createElement("h5");
   cardHeader.className = "card-header";
@@ -82,11 +63,11 @@ function addRow(value) {
     secondsd = "0" + secondsd;
   }
   cardText.innerHTML =
-    "<div class='col-xxl-6 col-12'><t class='fs-4'>Utente: </t>" +
+    "<div class='col-lg-6 col-12'><t class='fs-4'>Utente: </t>" +
     value.email[0] +
-    "</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Tag: </t>" +
+    "</div> <div class='col-lg-6 col-12'><t class='fs-4'>Tag: </t>" +
     value.tag +
-    "</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Durata: </t>" +
+    "</div> <div class='col-lg-6 col-12'><t class='fs-4'>Durata: </t>" +
     minutesd +
     ":" +
     secondsd +
@@ -109,4 +90,5 @@ function addRow(value) {
   cardDiv.appendChild(cardBody);
 
   container.appendChild(cardDiv);
+
 }

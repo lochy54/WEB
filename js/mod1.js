@@ -1,18 +1,6 @@
 
 let token, user;
 
-async function logout(){
-
-    const post = await fetch("http://localhost:3000/logout", {
-        method: 'POST',
-     headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  },
-  body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
-    sessionStorage.clear;
-    window.location.replace("/html/main.html");
-}
-
 
 async function load() {
     user = sessionStorage.getItem("user");
@@ -44,22 +32,12 @@ async function load() {
 
 
 
-      function showAlert(message, alertType) {
-        document.getElementById("strong").innerHTML = message;
-        document.getElementById("myAlert").className = "alert mt-3 text-center alert-" + alertType;
-        document.getElementById("myAlert").style.display = "block";
-      }
-      
-      
-      function closeAlert() {
-        document.getElementById("myAlert").style.display = "none";
-      }
-      
+     
 
       function addRow(value) {
     var container = document.getElementById("modplay");
     var cardDiv = document.createElement("div");
-    cardDiv.className = "card mb-3 col-xxl-11 ms-xxl-4";
+    cardDiv.className = "card mb-3 col-lg-11 ms-lg-4";
       
     var cardHeader = document.createElement("h5");
     cardHeader.className = "card-header";
@@ -77,7 +55,7 @@ let secondsd = Math.floor(value.durata / 1000) % 60;
 if (secondsd < 10) {
     secondsd = "0" + secondsd;
 }
-    cardText.innerHTML = "<div class='col-xxl-6 col-12'><t class='fs-4'>Utente: </t>"+value.email+"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Tag: </t>"+value.tag +"</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Durata: </t>"+minutesd + ":" + secondsd +"</div>"
+    cardText.innerHTML = "<div class='col-lg-6 col-12'><t class='fs-4'>Utente: </t>"+value.email+"</div> <div class='col-lg-6 col-12'><t class='fs-4'>Tag: </t>"+value.tag +"</div> <div class='col-lg-6 col-12'><t class='fs-4'>Durata: </t>"+minutesd + ":" + secondsd +"</div>"
 
     var add = document.createElement("button");
     add.classList="btn btn-outline-danger btn-sm"

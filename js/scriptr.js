@@ -5,18 +5,12 @@ async function load() {
     genres = get.genres;
     const gen = document.getElementById("gen");
     for (let i = 0; i < genres.length; i++) {
-  gen.innerHTML= gen.innerHTML+'<div class="col-6 col-xxl-3"><input class="form-check-input" type="checkbox" value="'+genres[i]+'"id="'+i+'"/> <label class="form-check-label"> '+genres[i]+'</label></div>';
+  gen.innerHTML= gen.innerHTML+'<div class="col-6 col-lg-3"><input class="form-check-input" type="checkbox" value="'+genres[i]+'"id="'+i+'"/> <label class="form-check-label"> '+genres[i]+'</label></div>';
   }
   size=genres.length;
 }
 
-  function show(){
-    document.getElementById("content").classList.replace('d-none','d-flex')
-  }
 
-  function unshow(){
-    document.getElementById("content").classList.replace('d-flex','d-none')
-  }
 
   async function register(){
     var data = {
@@ -57,16 +51,6 @@ async function load() {
 }
 
 
-function showAlert(message, alertType) {
-  document.getElementById("strong").innerHTML = message;
-  document.getElementById("myAlert").className = "alert mt-3 text-center alert-" + alertType;
-  document.getElementById("myAlert").style.display = "block";
-}
-
-
-function closeAlert() {
-  document.getElementById("myAlert").style.display = "none";
-}
 
 
 
@@ -101,7 +85,7 @@ if(post.res===false){
 function addRow(value,pos,bnt) {
   var container = document.getElementById(pos);
   var cardDiv = document.createElement("div");
-  cardDiv.className = "card mb-3 col-xxl-11 ms-xxl-4";
+  cardDiv.className = "card mb-3 col-lg-11 ms-lg-4";
     
   var cardHeader = document.createElement("h5");
   cardHeader.className = "card-header";

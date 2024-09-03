@@ -44,7 +44,7 @@ async function login(userData){
             return {res:false , code:400};
         }
         
-        return {res: createHash('sha256').update(userData.email+userData.password+Date.now()).digest('base64'), code:200 , status:"ok"};
+        return {res: createHash('sha256').update(userData.email+userData.password+Date.now()).digest('base64'), code:200 };
     }catch (error) {
             console.error(error);
             return {res:false , code:500};

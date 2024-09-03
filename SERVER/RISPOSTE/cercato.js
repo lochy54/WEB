@@ -6,7 +6,7 @@ async function cercato(tra){
     var spotifyApi = await getapi();
     var data = await spotifyApi.searchTracks(tra);
     var tracks = data.body;
-    return{tracks: tracks, code:200};}
+    return{res: tracks, code:200};}
     catch(e){
         console.log(e);
         return { res:false ,  code:500};
@@ -19,7 +19,7 @@ async function artisti(tra){
     var spotifyApi = await getapi();
     var data = await spotifyApi.searchArtists(tra);
     var artist = data.body;
-    return{artist: artist, code:200};}
+    return{res: artist, code:200};}
     catch(e){
         console.log(e);
         return { res:false ,  code:500};

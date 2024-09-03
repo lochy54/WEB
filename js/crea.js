@@ -1,76 +1,36 @@
-let token, user, duration, sta, stat;
+let token, user, duration
 
 async function load() {
   duration = 0;
   user = sessionStorage.getItem("user");
   token = sessionStorage.getItem("token");
-  if (user == null) {
+  if (user == undefined || token == undefined) {
     await logout()
   }
 }
 
 
-async function logout() {
-  await fetch("http://localhost:3000/logout", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json;charset=utf-8",
-  },
-  body: JSON.stringify({ token: token }),
-})
-sessionStorage.clear;
-window.location.replace("/html/main.html");
-}
-
-
-function show() {
-  document.getElementById("content1").classList.replace("d-none", "d-flex");
-}
-
-function unshow() {
-  document.getElementById("content1").classList.replace("d-flex", "d-none");
-}
-
 async function cerca() {
-  var cercato = document.getElementById("Artista").value;
   document.getElementById("artist1").innerHTML = "";
-
-  if (cercato != "") {
-      var post = await fetch("http://localhost:3000/cerca", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json;charset=utf-8",
-      },
-      body: JSON.stringify({ cercato: cercato, token: token }),
-    }).then((res) => {
-      return res.json();
-    });
-    if (post.res == false) {
-        logout();
+  var data = { cercato: document.getElementById("Artista").value,
+               token: token }
+  if (data.cercato!=""){
+  const post = await apicall("http://localhost:3000/cerca", data , "POST", false)
+    if (post.sta == 401) {
+        await logout();
     } else {
-      item = post.tracks.tracks.items;
+      var item = post.data.tracks.items;
       for (let index = 0; index < item.length; index++) {
         addRow(item[index], "artist1", "ADD");
       }
-    }
+    }}
   }
-}
 
-function showAlert(message, alertType) {
-  document.getElementById("strong").innerHTML = message;
-  document.getElementById("myAlert").className =
-    "alert mt-3 text-center alert-" + alertType;
-  document.getElementById("myAlert").style.display = "block";
-}
-
-function closeAlert() {
-  document.getElementById("myAlert").style.display = "none";
-}
 
 function addRow(value, place, bnt) {
   var container = document.getElementById(place);
   var cardDiv = document.createElement("div");
-  cardDiv.className = "card mb-3 col-xxl-11 ms-xxl-4";
+  cardDiv.className = "card mb-3 col-lg-11 ms-lg-4";
 
   var cardHeader = document.createElement("h5");
   cardHeader.className = "card-header";
@@ -91,13 +51,13 @@ function addRow(value, place, bnt) {
 
   cardText.className = "card-text row";
   cardText.innerHTML =
-    "<div class='col-xxl-6 col-12'><t class='fs-4'>Album: </t>" +
+    "<div class='col-lg-6 col-12'><t class='fs-4'>Album: </t>" +
     value.album.name +
-    "</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Date: </t>" +
+    "</div> <div class='col-lg-6 col-12'><t class='fs-4'>Date: </t>" +
     value.album.release_date +
-    "</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Artista: </t>" +
+    "</div> <div class='col-lg-6 col-12'><t class='fs-4'>Artista: </t>" +
     value.artists[0].name +
-    "</div> <div class='col-xxl-6 col-12'><t class='fs-4'>Durata: </t>" +
+    "</div> <div class='col-lg-6 col-12'><t class='fs-4'>Durata: </t>" +
     duration_formatted +
     "</div> ";
 
@@ -155,26 +115,9 @@ async function save() {
     durata: duration,
     token: token,
   };
-  console.log(data);
-  var post = await fetch("http://localhost:3000/salva", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json;charset=utf-8",
-    },
-    body: JSON.stringify(data),
-  }).then((res) => {
-    sta = res.status;
-    stat = res.statusText;
-    return res.json();
-  });
 
-  if (post.res == false) {
-    if (sta == 400) {
-      showAlert(sta + " " + stat, "danger");
-    } else {
+  const post = await apicall("http://localhost:3000/salva",data,"PUT",true)
+  if (post.sta == 401) {
       logout();
-    }
-  } else {
-    showAlert(sta + " " + stat, "success");
   }
 }
