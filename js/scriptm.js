@@ -9,5 +9,6 @@ async function login(){
       sessionStorage.setItem("user", document.getElementById("email").value);
       window.location.replace("/html/user.html");
     }
+    
   }
 

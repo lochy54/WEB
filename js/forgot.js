@@ -1,6 +1,5 @@
 let sta, stat
 async function sendEmail() {
-
     var post = await fetch("http://localhost:3000/forgot", {
     method: 'POST',
     headers: {

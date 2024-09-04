@@ -1,3 +1,5 @@
+var shown = true
+
 function showAlert(message, alertType) {
     document.getElementById("strong").innerHTML = message;
     document.getElementById("myAlert").className = "alert mt-3 text-center alert-" + alertType;
@@ -39,12 +41,14 @@ async function apicall(url, data, type, allert) {
     }
     
 }
-
+//show unshow cambiato
 
 function show() {
-    document.getElementById("content").classList.replace('d-none', 'd-flex')
+    if(shown){
+        document.getElementById("content").classList.replace('d-none', 'd-flex')
+    }else{
+        document.getElementById("content").classList.replace('d-flex', 'd-none')
+    }
+    shown = ! shown
 }
 
-function unshow() {
-    document.getElementById("content").classList.replace('d-flex', 'd-none')
-}

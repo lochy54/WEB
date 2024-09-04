@@ -28,41 +28,47 @@ async function cerca() {
 
 
 function addRow(value, place, bnt) {
+
   var container = document.getElementById(place);
   var cardDiv = document.createElement("div");
-  cardDiv.className = "card mb-3 col-lg-11 ms-lg-4";
+  cardDiv.className = "card mb-3 p-3";
 
-  var cardHeader = document.createElement("h5");
-  cardHeader.className = "card-header";
-  cardHeader.textContent = "Nome: " + value.name;
+var cardHeader = document.createElement("h5");
+cardHeader.className = "card-header bg-transparent border-0 p-0 mb-2";
+cardHeader.textContent = value.name;
+
   var cardBody = document.createElement("div");
-  cardBody.className = "card-body";
+  cardBody.className = "card-body p-0";
 
-  var cardText = document.createElement("p");
+  var cardText = document.createElement("div");
+  cardText.className = "row g-2 align-items-center";
 
-  var minutes = Math.floor(Math.floor(value.duration_ms / 1000) / 60);
-  var seconds = Math.floor(value.duration_ms / 1000) % 60;
+  let minutesd = Math.floor(Math.floor(value.duration_ms/ 1000) / 60);
+  let secondsd = Math.floor(value.duration_ms/ 1000) % 60;
 
-  if (seconds < 10) {
-    seconds = "0" + seconds;
+  if (secondsd < 10) {
+    secondsd = "0" + secondsd;
   }
-
-  var duration_formatted = minutes + ":" + seconds;
 
   cardText.className = "card-text row";
   cardText.innerHTML =
-    "<div class='col-lg-6 col-12'><t class='fs-4'>Album: </t>" +
+    "<div class='col-12 col-md-4'><span class='fw-bold'>Album: </span>" +
     value.album.name +
-    "</div> <div class='col-lg-6 col-12'><t class='fs-4'>Date: </t>" +
+   "</div> <div class='col-12 col-md-2'><span class='fw-bold'>Date: </span>" +
     value.album.release_date +
-    "</div> <div class='col-lg-6 col-12'><t class='fs-4'>Artista: </t>" +
+   "</div> <div class='col-12 col-md-2'><span class='fw-bold'>Artista: </span>" +
     value.artists[0].name +
-    "</div> <div class='col-lg-6 col-12'><t class='fs-4'>Durata: </t>" +
-    duration_formatted +
-    "</div> ";
+    "</div> <div class='col-12 col-md-2'><span class='fw-bold'>Durata: </span>" +
+    minutesd +
+    ":" +
+    secondsd +
+    "</div>";
+
+    cardBody.appendChild(cardText);
+
 
   var add = document.createElement("button");
-  add.classList = "btn btn-outline-danger btn-sm";
+  add.className = "btn btn-outline-danger btn-sm";
   add.innerHTML = bnt;
   add.value = value.id;
   add.onclick = function () {
@@ -84,9 +90,10 @@ function addRow(value, place, bnt) {
     document.getElementById("duration").innerHTML = minutesd + ":" + secondsd;
   };
 
-  cardBody.appendChild(cardText);
-  cardBody.appendChild(add);
-
+  var buttondiv = document.createElement("div")
+  buttondiv.className = "col-12 col-md-2"
+  buttondiv.appendChild(add)
+  cardText.appendChild(buttondiv)
   cardDiv.appendChild(cardHeader);
   cardDiv.appendChild(cardBody);
 
@@ -97,9 +104,8 @@ async function save() {
   var table = document.getElementById("artist2");
   var tbody = table.getElementsByTagName("div");
   var artistArray = [];
-
-  for (var i = 1; i < tbody.length; i = i + 6) {
-    artistArray.push(tbody[i].childNodes[1].value);
+  for (var i = 0; i < tbody.length; i =i+8) {
+    artistArray.push(tbody[i].childNodes[1].childNodes[0].childNodes[7].childNodes[0].value);
   }
   var nome = document.getElementById("nome").value;
   var tag = document.getElementById("tag").value.split(",");

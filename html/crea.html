@@ -1,156 +1,152 @@
-
 <html lang="en">
-  <head>
-    <title>Title</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-     
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="/RESURS/css.css" rel="stylesheet" />
-  </head>
 
-  <body onload="load()">
-    <div class="mt-3" id="myAlert">
-      <strong id="strong"></strong>
-      <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()"></button>
-    </div>
-    <header>
-      <nav class="container-fluid navbar navbar-expand-sm navbar-dark bg-dark">
-        <div class="container">
-          <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation" >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav me-auto mt-lg-0">
-              <li class="navbar-brand">
-                <a class="nav-link" href="profile.html">Profile</a>
-              </li>
-              <li class="navbar-brand">
-                <a class="nav-link" href="user.html">Home</a>
-              </li>
-              <li class="navbar-brand">
-                <button class="nav-link" onclick="logout()">Logout</button>
-              </li>
-           
-            </ul>
-          </div>
+<head>
+  <title>crea</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="/RESURS/css.css" rel="stylesheet" />
+</head>
+
+
+
+<body onload="load()">
+  <div class="mt-3" id="myAlert">
+    <strong id="strong"></strong>
+    <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()"></button>
+  </div>
+  <header>
+    <nav class="container-fluid navbar navbar-expand-sm navbar-dark bg-dark">
+      <div class="container">
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+          <ul class="navbar-nav me-auto mt-lg-0">
+            <li class="navbar-brand">
+              <a class="nav-link" href="profile.html">Profile</a>
+            </li>
+            <li class="navbar-brand">
+              <a class="nav-link" href="user.html">Home</a>
+            </li>
+            <li class="navbar-brand">
+              <button class="nav-link" onclick="logout()">Logout</button>
+            </li>
+
+          </ul>
         </div>
-      </nav>
-    </header>
-
-   
-    <main>
-      <div class="container position-fixed start-50 translate-middle over ">
-        <div class="row justify-content-center align-items-center g-2">
-          <div class="col-12 col-xxl-10">
-            <div class="row bg-dark text-white text-start rounded-4 g-0 p-4">
-              <div class="col-12 col-xxl-5 text-center"> <img src="/RESURS/logo.png" class="rounded-4 img-fluid"></div>       
-              <div class="col-12 col-xxl-7 text-center row g-0 "> 
-
-                <div class="mb-xxl-0 mb-3 ps-xxl-4 ">
-                    <div class="row justify-content-center mt-2">
-                      <div class="col-12 ">
-                        <label  class="form-label mt-2 mt-xxl-0">Titolo</label>
-                        <input type="text" class="form-control" id="nome" aria-describedby="emailHelpId" placeholder="Nome" />
-                      </div>
+      </div>
+    </nav>
+  </header>
 
 
-                      <div class="col-12 mt-2">                           
-                        <label  class="form-label mt-2">Descrizione</label>
-                        <textarea class="form-control" id="dsc" rows="3" placeholder="Descrizione" ></textarea>
-                      </div>
+  <main>
+    <div class="container position-fixed start-50 translate-middle over ">
+      <div class="row justify-content-center align-items-center g-2">
+          <div class="row bg-dark text-white text-start rounded-4 g-0 p-4">
 
-                      <div class="col-12 mt-2">                           
-                        <label  class="form-label mt-2">Tag (separati da virgola no spazzi)</label>
-                        <textarea class="form-control" id="tag" rows="2" placeholder="Tag1,Tag2,Tag3" ></textarea>
-                      </div>
-                      
-                   
+                <div class="row  justify-content-center mt-2 g-0">
+                  <div class="col-12 ">
+                    <label class="form-label mt-2 mt-xxl-0">Titolo</label>
+                    <input type="text" class="form-control" id="nome" aria-describedby="emailHelpId"
+                      placeholder="Nome" />
+                  </div>
 
-                </div>
-                <div class="col-12 mt-3 row g-0"> 
-                  <div class="col-xxl-3 col-5 mt-3 form-check form-switch">
+
+                  <div class="col-12 mt-2">
+                    <label class="form-label mt-2">Descrizione</label>
+                    <textarea class="form-control" id="dsc" rows="3" placeholder="Descrizione"></textarea>
+                  </div>
+
+                  <div class="col-12 mt-2">
+                    <label class="form-label mt-2">Tag (separati da virgola no spazzi)</label>
+                    <textarea class="form-control" id="tag" rows="2" placeholder="Tag1,Tag2,Tag3"></textarea>
+                  </div>
+
+                  <div class="col-12 mt-3 form-check form-switch">
                     <input class="form-check-input" type="checkbox" value="" id="status">
-                    <label  class="form-label">Pubblica</label>
-
+                    <label class="form-label">Pubblica</label>
                   </div>
-                <div class="col-8 col-xxl-5 mt-2 "><button class="btn btn-outline-danger btn-lg " type="button" onclick="show()"> Aggiungi Canzioni </button></div> 
-                <div class="col-4 col-xxl-2 mt-2 "><button class="btn btn-outline-danger btn-lg " type="button" onclick="save()"> Save </button></div> 
+                  <div class="col-12 mt-3 "><button class="btn btn-outline-danger btn-lg me-2" type="button"
+                      onclick="show()"> Aggiungi Canzioni </button>
+                  <button class="btn btn-outline-danger btn-lg " type="button"
+                      onclick="save()"> Save </button>
+                  </div>
+
+
                 </div>
 
-            
 
+
+
+            <div id="content" class="d-none row">
+
+              <div class="col-12 mt-3">
+                  <h3 id="duration">Durata : 0:00</h3>
               </div>
 
-              
-            </div>
-
-            
-              <div id="content1" class="d-none container row g-0 mt-xxl-4">
-                <div class="col-12 text-center">
-                  <button class="btn btn-outline-danger btn-lg col-12" type="button" onclick="unshow()"> Close </button>
-                </div>
-
-                <div class="col-12 col-xxl-6 mt-3 row g-0 mb-3 align-items-center">
-                  <div class="col-12 col-xxl-6"> <h3>Durata totale:</h3> </div> 
-                  <div class="col-12 col-xxl-6"> <h3 id="duration">0:00</h3></div>
-                  <div class="col-12 col-xxl-2"> <h3>Cerca</h3> </div> 
-                  <div class="col-12 col-xxl-6"> <input type="text" class="form-control" id="Artista" aria-describedby="emailHelpId" onchange="cerca()" placeholder="Canzone" /></div> 
-                </div>
-
-           
-
-                <div class="row align-items-center g-0">
-                  <div class="col-12 row g-0 artist" id="artist1">
-                   
-                  </div>
-
-                  <div class="col-12 mt-3 row g-0 mb-3 align-items-center">
-                    <div class="col-12 "> <h3>Canzoni Inserite</h3> </div> 
-                    
-                  </div>
-
-                  <div class="col-12 row g-0 artist" id="artist2">
-                  
-                  </div>
-
-                </div>
+              <div class="col-12 mt-3">
+                  <h3>Cerca</h3>
+                 <input type="text" class="form-control" id="Artista"
+                    aria-describedby="emailHelpId" onkeyup="cerca()" placeholder="Canzone" />
               </div>
+
+
+
+                <div class="col-12 artist mt-3" id="artist1">
+
+                </div>
+
+                <div class="col-12 mt-3">
+                    <h3>Canzoni Inserite</h3>
+                </div>
+
+                <div class="col-12 artist mt-3" id="artist2">
+
+                </div>
+
             </div>
           </div>
+      </div>
+    </div>
+  </main>
+
+
+
+  <footer>
+    <div class="container-fluid bg-dark text-white py-2 foot ">
+      <div class="row text-center justify-content-center align-items-center">
+        <div class="col-10">
+          <a class="btn btn-dark bi bi-discord" href="https://discord.com/"></a>
+          <a class="btn btn-dark bi bi-spotify mx-3" href="https://open.spotify.com/"></a>
+          <a class="btn btn-dark bi bi-tiktok" href="https://www.tiktok.com/"></a>
         </div>
       </div>
-    </main>
-
-
-
-    <footer>
-      <div class="container-fluid bg-dark text-white py-2 foot ">
-        <div class="row text-center justify-content-center align-items-center">
-          <div class="col-10">
-            <a class="btn btn-dark bi bi-discord" href="https://discord.com/" ></a>
-            <a class="btn btn-dark bi bi-spotify mx-3" href="https://open.spotify.com/" ></a>
-            <a class="btn btn-dark bi bi-tiktok"  href="https://www.tiktok.com/" ></a>
-          </div>
-        </div>
-        <div class="col-12 text-center mt-1">
-          <span>&copy; 2024 Music. All rights reserved.</span>
-        </div>
+      <div class="col-12 text-center mt-1">
+        <span>&copy; 2024 Music. All rights reserved.</span>
       </div>
-    </footer>
-
-  
-  
-      <!-- Bootstrap JavaScript Libraries -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous" ></script>
-      <script src="/js/crea.js"></script>
-      <script src="/js/shared.js"></script>
+    </div>
+  </footer>
 
 
 
-  </body>
-  </html>
-  
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+  <script src="/js/crea.js"></script>
+  <script src="/js/shared.js"></script>
+
+
+
+
+</body>
+
+</html>
