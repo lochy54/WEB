@@ -1,36 +1,9 @@
-body{
-    background-color: white;
-}
-.bi{
-    font-size: 1rem;
-}
 
-.b2{
-    font-size: 5rem !important;
-    color:#DC3545;
-}
-
-.over{
-    overflow-y:scroll;
-    max-height: 75%;
-    top: 48%;
-
-}
 ::-webkit-scrollbar {
     display: none;
   }
 
-.navbar{
-    position: absolute;
-    top: 0%;
-    z-index: 1;
 
-}
-.foot{
-    position: absolute;
-    bottom: 0%;
-
-}
 #myAlert{
     z-index: 2;
     display: none;
@@ -38,18 +11,43 @@ body{
     left: 15%;
 }
 
-#gen{
-    height: 250px;
-    overflow: scroll;
-}
-
-
-
-
 .artist{
     max-height: 500px;
     overflow-y: scroll;
 }
-.mod{
-    overflow-y: scroll;
+main{
+    margin-top: 5%;
+    margin-bottom: 5%;
 }
+
+   img.shadow-lg {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  img{
+    max-height: 200px;
+  }
+
+  .divider {
+    width: 2px;
+    height: 200px;
+    background: linear-gradient(180deg, #ffffff, #6c757d);
+  }
+
+
+  .btn {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #ff0000;
+    transform: translateY(-5px);
+  }
+
+
+  p:hover {
+    color: #adb5bd;
+  }
+
+  .card:hover {
+    background:  #883a3a;
+  }

@@ -24,29 +24,22 @@ async function load() {
 
 function cerca() {
   element = document.getElementById("modplay").childNodes;
+  let serch = document.getElementById("Artista").value
   for (let index = 1; index < element.length; index++) {
-    if (
-      !(
-        element[index].childNodes[0].innerHTML.includes(
-          document.getElementById("Artista").value
-        ) ||
-        element[
-          index
-        ].childNodes[1].childNodes[0].childNodes[2].childNodes[1].data.includes(
-          document.getElementById("Artista").value
-        )
-      )
-    ) {
-      element[index].style.display = "none";
-    } else {
+    if (element[index].childNodes[0].innerHTML.includes(serch)||
+    element[index].childNodes[1].childNodes[0].childNodes[0].childNodes[1].data.includes(serch)||
+    element[index].childNodes[1].childNodes[0].childNodes[2].childNodes[1].data.includes(serch)
+  ) {
       element[index].style.display = "block";
+    } else {
+      element[index].style.display = "none";
     }
   }
 }
 
 function addRow(value) {
   var container = document.getElementById("modplay");
-  
+
   var cardDiv = document.createElement("div");
   cardDiv.className = "card mb-3 p-3";
 
@@ -80,16 +73,13 @@ function addRow(value) {
 
   cardBody.appendChild(cardText);
 
-  var add = document.createElement("button");
-  add.className = "btn btn-outline-danger btn-sm ms-4";
-  add.innerHTML = "OPEN";
-  add.onclick = function () {
+
+  cardDiv.onclick = function () {
     sessionStorage.setItem("playlist", value.nome);
     sessionStorage.setItem("email", value.email);
     window.location.replace("/html/openADD.html");
   };
 
-  cardHeader.appendChild(add)
 
   cardDiv.appendChild(cardHeader);
   cardDiv.appendChild(cardBody);

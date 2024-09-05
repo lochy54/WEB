@@ -21,7 +21,7 @@
     <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()"></button>
   </div>
   <header>
-    <nav class="container-fluid navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="container-fluid navbar navbar-expand-sm navbar-dark bg-dark shadow-lg">
       <div class="container">
         <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
           data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
@@ -48,9 +48,9 @@
 
 
   <main>
-    <div class="container position-fixed start-50 translate-middle over ">
-      <div class="row justify-content-center align-items-center g-2">
-          <div class="row bg-dark text-white text-start rounded-4 g-0 p-4">
+    <div class="container">
+      <div class="row justify-content-center align-items-center g-2 ">
+          <div class="row bg-dark text-white text-start rounded-4 g-0 p-4 shadow-lg">
 
                 <div class="row  justify-content-center mt-2 g-0">
                   <div class="col-12 ">
@@ -120,21 +120,35 @@
 
 
 
-  <footer>
-    <div class="container-fluid bg-dark text-white py-2 foot ">
-      <div class="row text-center justify-content-center align-items-center">
-        <div class="col-10">
-          <a class="btn btn-dark bi bi-discord" href="https://discord.com/"></a>
-          <a class="btn btn-dark bi bi-spotify mx-3" href="https://open.spotify.com/"></a>
-          <a class="btn btn-dark bi bi-tiktok" href="https://www.tiktok.com/"></a>
+  <footer class="bg-dark text-white py-5 mt-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Logo on the left with a rounded shadow -->
+        <div class="col-md-3 text-center text-md-start">
+          <img src="/RESURS/logo.png" class="rounded-4 img-fluid mb-3 mb-md-0 shadow-lg" alt="Music Logo" />
+        </div>
+  
+        <!-- Stylish divider with gradient -->
+        <div class="col-md-1 d-none d-md-block text-center">
+          <div class="divider mx-auto"></div>
+        </div>
+  
+        <!-- About Section with subtle hover effect -->
+        <div class="col-md-8 text-center text-md-start">
+          <p class="lead font-weight-bold">&copy; 2024 Music. All rights reserved.</p>
+          <p>Welcome to Music, where every beat tells a story.</p>
+          <p>At Music, we're more than just a music company; we're a collective of passionate individuals amplifying voices, melodies, and emotions that resonate across the globe. We focus on diversity, innovation, and authenticity, curating a dynamic roster of artists from around the world, united by their commitment to pushing boundaries and captivating audiences.</p>
+          <div class="col-12">
+            <a class="btn btn-outline-light bi bi-discord mx-2 social-icon" href="https://discord.com/" aria-label="Discord"></a>
+            <a class="btn btn-outline-light bi bi-spotify mx-2 social-icon" href="https://open.spotify.com/" aria-label="Spotify"></a>
+            <a class="btn btn-outline-light bi bi-tiktok mx-2 social-icon" href="https://www.tiktok.com/" aria-label="TikTok"></a>
+          </div>
         </div>
       </div>
-      <div class="col-12 text-center mt-1">
-        <span>&copy; 2024 Music. All rights reserved.</span>
-      </div>
+  
+ 
     </div>
   </footer>
-
 
 
   <!-- Bootstrap JavaScript Libraries -->

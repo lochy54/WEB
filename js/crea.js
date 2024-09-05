@@ -52,7 +52,7 @@ cardHeader.textContent = value.name;
 
   cardText.className = "card-text row";
   cardText.innerHTML =
-    "<div class='col-12 col-md-4'><span class='fw-bold'>Album: </span>" +
+    "<div class='col-12 col-md-6'><span class='fw-bold'>Album: </span>" +
     value.album.name +
    "</div> <div class='col-12 col-md-2'><span class='fw-bold'>Date: </span>" +
     value.album.release_date +
@@ -67,11 +67,13 @@ cardHeader.textContent = value.name;
     cardBody.appendChild(cardText);
 
 
-  var add = document.createElement("button");
-  add.className = "btn btn-outline-danger btn-sm";
-  add.innerHTML = bnt;
+  var add = document.createElement("div");
+  add.className = "hidden";
   add.value = value.id;
-  add.onclick = function () {
+
+
+
+  cardDiv.onclick = function () {
     if (bnt == "REM") {
       duration = duration - value.duration_ms;
       container.removeChild(cardDiv);
@@ -90,10 +92,7 @@ cardHeader.textContent = value.name;
     document.getElementById("duration").innerHTML = minutesd + ":" + secondsd;
   };
 
-  var buttondiv = document.createElement("div")
-  buttondiv.className = "col-12 col-md-2"
-  buttondiv.appendChild(add)
-  cardText.appendChild(buttondiv)
+  cardText.appendChild(add)
   cardDiv.appendChild(cardHeader);
   cardDiv.appendChild(cardBody);
 
@@ -105,7 +104,7 @@ async function save() {
   var tbody = table.getElementsByTagName("div");
   var artistArray = [];
   for (var i = 0; i < tbody.length; i =i+8) {
-    artistArray.push(tbody[i].childNodes[1].childNodes[0].childNodes[7].childNodes[0].value);
+    artistArray.push(tbody[i].childNodes[1].childNodes[0].childNodes[7].value);
   }
   var nome = document.getElementById("nome").value;
   var tag = document.getElementById("tag").value.split(",");
