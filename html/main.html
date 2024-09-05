@@ -22,8 +22,30 @@
     <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()"></button>
   </div>
 
+
+
+
   <main>
+
     <div class="container">
+
+
+      <div class="row bg-dark text-white text-start rounded-4 p-4 g-0 mb-4" id="forgot">
+
+        <div class="mb-3 ps-xxl-4 mt-4 ">
+          <label class="form-label">Enter Email</label>
+          <input type="email" class="form-control" id="emailForgot" aria-describedby="emailHelpId"
+            placeholder="abc@mail.com" />
+        </div>
+    
+        <div class="mb-3 ps-xxl-4 mt-2">
+          <button class="btn btn-outline-danger btn-lg" type="button" onclick="sendEmail()"> Send </button>
+          <button class="btn btn-outline-danger btn-lg" type="button" onclick="forgot()"> Close </button>
+
+        </div>
+
+      </div>
+
 
           <div class="row bg-dark text-white text-start rounded-4 p-4 g-0">
               <div class="mb-3 ps-xxl-4 mt-4">
@@ -46,26 +68,15 @@
                 <a type="button" class="btn btn-outline-danger btn-lg" href="register.html">Create new</a>
               </div>
             </div>
+            
     </div>
 
-    <div class="container" id="forgot">
-      <div class="row bg-dark text-white text-start rounded-4 p-4 g-0">
 
-        <div class="mb-3 ps-xxl-4 mt-4">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-control" id="email" aria-describedby="emailHelpId"
-            placeholder="abc@mail.com" />
-        </div>
-
-        <div class="mb-3 ps-xxl-4 mt-2">
-          <button class="btn btn-outline-danger btn-lg" type="button" onclick="sendEmail()"> Send </button>
-        </div>
-      </div>
-
-</div>
 
 
   </main>
+
+
 
 
 

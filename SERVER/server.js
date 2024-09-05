@@ -258,7 +258,8 @@ app.put('/salvaMod', async (req, res) => {
 //forgot password
 app.post('/forgot', async (req, res) => {
   console.log("Forgot passwor: ", req.body);
-    res.json(forgot(req.body.email));
+  let v = forgot(req.body.email);
+    res.status(v.code).json(v.res);
 
 });
 

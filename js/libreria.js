@@ -22,80 +22,81 @@ async function load() {
   if (user == null) {
     logout()
   }
+  const post = await apicall("http://localhost:3000/modplaylist3", {token: token },"POST",true)
 
-  var post = await fetch("http://localhost:3000/modplaylist3", {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({ token: token })
-  }).then(res => { sta = res.status; stat = res.statusText; return res.json() });
-  if (post.res == false) {
+  if (post.sta == 401) {
       logout()
   } else {
-    for (let index = 0; index < post.res.length; index++) {
-      addRow(post.res[index]);
+    for (let index = 0; index < post.data.length; index++) {
+      addRow(post.data[index]);
     }
   }
 }
 
 
-
 function addRow(value) {
   var container = document.getElementById("modplay");
+
   var cardDiv = document.createElement("div");
-  cardDiv.className = "card mb-3 col-lg-11 ms-lg-4";
+  cardDiv.className = "card mb-3 p-3";
 
   var cardHeader = document.createElement("h5");
-  cardHeader.className = "card-header";
+  cardHeader.className = "card-header bg-transparent border-0 p-0 mb-2";
   cardHeader.textContent = value.nome;
 
   var cardBody = document.createElement("div");
-  cardBody.className = "card-body";
+  cardBody.className = "card-body p-0";
 
+  var cardText = document.createElement("div");
+  cardText.className = "row g-2 align-items-center";
 
-  var cardText = document.createElement("p");
-  cardText.className = "card-text row";
-  var minutesd = Math.floor(Math.floor(value.durata / 1000) / 60);
-  var secondsd = Math.floor(value.durata / 1000) % 60;
+  let minutesd = Math.floor(Math.floor(value.durata / 1000) / 60);
+  let secondsd = Math.floor(value.durata / 1000) % 60;
 
   if (secondsd < 10) {
     secondsd = "0" + secondsd;
   }
-  cardText.innerHTML = "<div class='col-lg-6 col-12'><t class='fs-4'>Utente: </t>" + value.email[0] + "</div> <div class='col-lg-6 col-12'><t class='fs-4'>Tag: </t>" + value.tag + "</div> <div class='col-lg-6 col-12'><t class='fs-4'>Durata: </t>" + minutesd + ":" + secondsd + "</div>"
 
-  var add = document.createElement("button");
-  add.classList = "btn btn-outline-danger btn-sm"
-  add.innerHTML = "OPEN";
-  add.onclick = function () {
+  cardText.innerHTML =
+    "<div class='col-12 col-md-4'><span class='fw-bold'>Utente: </span>" +
+    value.email[0] +
+    "</div> <div class='col-12 col-md-4'><span class='fw-bold'>Tag: </span>" +
+    value.tag +
+    "</div> <div class='col-12 col-md-4'><span class='fw-bold'>Durata: </span>" +
+    minutesd +
+    ":" +
+    secondsd +
+    "</div>";
+
+  cardBody.appendChild(cardText);
+
+
+  cardDiv.onclick = function () {
     sessionStorage.setItem("playlist", value.nome);
     window.location.replace("/html/open.html");
   };
 
+
+  cardDiv.appendChild(cardHeader);
+  cardDiv.appendChild(cardBody);
+
+  container.appendChild(cardDiv);
+if(value.email!=user){
+  container.classList.add(["row","g-0"])
+  cardDiv.classList.add("col-9")
   var del = document.createElement("button");
-  del.classList = "btn btn-outline-danger btn-sm ms-2"
-  del.innerHTML = "RIM";
+  del.classList = "btn btn-outline-danger btn-sm col-2"
+  del.innerHTML = "REM";
   del.onclick = async function () {
     await elimina(value.nome)
     container.innerHTML = "";
     await load()
   };
 
-  cardBody.appendChild(cardText);
-  cardBody.appendChild(add);
-  if (value.email != user) {
-    cardBody.appendChild(del);
-  }
-
-  cardDiv.appendChild(cardHeader);
-  cardDiv.appendChild(cardBody);
-
-  container.appendChild(cardDiv);
-
-
-
-
+  container.appendChild(del)
 }
+}
+
 
 async function elimina(nome) {
   const post = await fetch("http://localhost:3000/togliPlaylist", {

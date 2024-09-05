@@ -5,9 +5,10 @@
 
 
 #myAlert{
+  position: absolute;
     z-index: 2;
     display: none;
-    max-width: 70%;
+    min-width: 70%;
     left: 15%;
 }
 
@@ -50,4 +51,12 @@ main{
 
   .card:hover {
     background:  #883a3a;
+  }
+
+  #forgot{
+    display: none;
+  }
+
+  main{
+    min-height: 400px;
   }
