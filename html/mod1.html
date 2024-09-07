@@ -1,67 +1,62 @@
-
 <html lang="en">
-  <head>
-    <title>Title</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-     
-    <!-- Bootstrap CSS v5.2.1 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="/RESURS/css.css" rel="stylesheet" />
-  </head>
 
- 
-  <body onload="load()">
-    <div class="mt-3" id="myAlert">
-      <strong id="strong"></strong>
-      <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()"></button>
-    </div>
-    <header>
-      <nav class="container-fluid navbar navbar-expand-sm navbar-dark bg-dark">
-        <div class="container">
-          <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false" aria-label="Toggle navigation" >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="collapsibleNavId">
-            <ul class="navbar-nav me-auto mt-lg-0">
-              <li class="navbar-brand">
-                <a class="nav-link" href="profile.html">Profile</a>
-              </li>
-              <li class="navbar-brand">
-                <a class="nav-link" href="user.html">Home</a>
-              </li>
-              <li class="navbar-brand">
-                <button class="nav-link" onclick="logout()">Logout</button>
-              </li>
-           
-            </ul>
-          </div>
+<head>
+  <title>Modifica</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link href="/RESURS/css.css" rel="stylesheet" />
+</head>
+
+
+
+<body onload="load()">
+  <div class="mt-3" id="myAlert">
+    <strong id="strong"></strong>
+    <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()"></button>
+  </div>
+  <header>
+    <nav class="container-fluid navbar navbar-expand-sm navbar-dark bg-dark shadow-lg">
+      <div class="container">
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavId">
+          <ul class="navbar-nav me-auto mt-lg-0">
+            <li class="navbar-brand">
+              <a class="nav-link" href="profile.html">Profile</a>
+            </li>
+            <li class="navbar-brand">
+              <a class="nav-link" href="user.html">Home</a>
+            </li>
+            <li class="navbar-brand">
+              <button class="nav-link" onclick="logout()">Logout</button>
+            </li>
+
+          </ul>
         </div>
-      </nav>
-    </header>
-   
+      </div>
+    </nav>
+  </header>
 
-    
-    <main>
-      <div class="container position-fixed start-50 translate-middle over ">
-        <div class="row justify-content-center align-items-center g-2">
-          <div class="col-12 col-xxl-10">
-            <div class="row bg-dark text-white text-start rounded-4 g-0 p-4">
-              <div class="col-12 col-xxl-5 text-center"> <img src="/RESURS/logo.png" class="rounded-4 img-fluid"></div>       
-                <div class="mt-xxl-0 mt-3 col-12 col-xxl-7 ">
 
-                  <div class="col-12 col-xxl-6 mt-3 row g-0 mb-3 align-items-center ms-xxl-4">
-                    <div class="col-12 col-xxl-5"> <h3>Cerca</h3> </div> 
-                    <div class="col-12 col-xxl-6"> <input type="text" class="form-control" id="Artista" aria-describedby="emailHelpId" onchange="cerca()" placeholder="Canzone" /></div> 
-                  </div>
 
-                <div class=" modplay" id="modplay">
-                 
-            </div>
-          </div>
-          </div>
+  <main>
+    <div class="container">
+      <div class="row bg-dark text-white text-start rounded-4 g-0 p-4">
+        <div class="col mb-3">
+          <h3>Cerca</h3>
+          <input type="text" class="form-control" id="Artista" aria-describedby="emailHelpId" onkeyup="cerca()"
+            placeholder="Canzone" />
+        </div>
+        <div class="artist row g-0 justify-content-between" id="modplay">
         </div>
       </div>
     </div>
@@ -69,28 +64,49 @@
 
 
 
-    <footer>
-      <div class="container-fluid bg-dark text-white py-2 foot ">
-        <div class="row text-center justify-content-center align-items-center">
-          <div class="col-10">
-            <a class="btn btn-dark bi bi-discord" href="https://discord.com/" ></a>
-            <a class="btn btn-dark bi bi-spotify mx-3" href="https://open.spotify.com/" ></a>
-            <a class="btn btn-dark bi bi-tiktok"  href="https://www.tiktok.com/" ></a>
+  <footer class="bg-dark text-white py-5 mt-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <!-- Logo on the left with a rounded shadow -->
+        <div class="col-md-3 text-center text-md-start">
+          <img src="/RESURS/logo.png" class="rounded-4 img-fluid mb-3 mb-md-0 shadow-lg" alt="Music Logo" />
+        </div>
+  
+        <!-- Stylish divider with gradient -->
+        <div class="col-md-1 d-none d-md-block text-center">
+          <div class="divider mx-auto"></div>
+        </div>
+  
+        <!-- About Section with subtle hover effect -->
+        <div class="col-md-8 text-center text-md-start">
+          <p class="lead font-weight-bold">&copy; 2024 Music. All rights reserved.</p>
+          <p>Welcome to Music, where every beat tells a story.</p>
+          <p>At Music, we're more than just a music company; we're a collective of passionate individuals amplifying voices, melodies, and emotions that resonate across the globe. We focus on diversity, innovation, and authenticity, curating a dynamic roster of artists from around the world, united by their commitment to pushing boundaries and captivating audiences.</p>
+          <div class="col-12">
+            <a class="btn btn-outline-light bi bi-discord mx-2 social-icon" href="https://discord.com/" aria-label="Discord"></a>
+            <a class="btn btn-outline-light bi bi-spotify mx-2 social-icon" href="https://open.spotify.com/" aria-label="Spotify"></a>
+            <a class="btn btn-outline-light bi bi-tiktok mx-2 social-icon" href="https://www.tiktok.com/" aria-label="TikTok"></a>
           </div>
         </div>
-        <div class="col-12 text-center mt-1">
-          <span>&copy; 2024 Music. All rights reserved.</span>
-        </div>
       </div>
-    </footer>
-
   
-  
-      <!-- Bootstrap JavaScript Libraries -->
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous" ></script>
-      <script src="/js/mod1.js"></script>
+ 
+    </div>
+  </footer>
 
 
 
-  </body>
-  </html>
+  <!-- Bootstrap JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+  <script src="/js/mod1.js"></script>
+  <script src="/js/shared.js"></script>
+
+
+
+
+
+</body>
+
+</html>

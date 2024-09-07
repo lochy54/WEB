@@ -8,7 +8,7 @@ function cerca() {
   let serch = document.getElementById("Artista").value
   for (let index = 1; index < element.length; index++) {
 
-    if(element[index].innerHTML=="REM"){
+    if(element[index].value=="del"){
       element[index].style.display = element[index-1].style.display
       index++
     }
@@ -31,7 +31,7 @@ async function load() {
   if (user == undefined || token == undefined) {
     await logout();
   }
-  const post = await apicall("http://localhost:3000/modplaylist3", {token: token },"POST",true)
+  const post = await apicall("http://localhost:3000/modplaylist3", {token: token },"POST",false)
 
   if (post.sta == 401) {
       logout()
@@ -93,8 +93,8 @@ function addRow(value) {
 if(value.email[0]!=user){
   cardDiv.classList.add("col-9")
   var del = document.createElement("button");
-  del.classList = "btn btn-outline-danger btn-lg col-2 mb-3"
-  del.innerHTML = "REM";
+  del.classList = "btn btn-outline-danger btn-lg col-2 mb-3 bi bi-trash"
+  del.value="del"
   del.onclick = async function () {
     await elimina(value.nome,value.email[0])
     container.innerHTML = "";

@@ -66,7 +66,7 @@ app.delete('/elimina', async (req, res) => {
     let v = await elimina(findtoken(req.body.token))
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -77,7 +77,7 @@ app.post('/modplaylist1', async (req, res) => {
     let v = await modplaylist1(findtoken(req.body.token))
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -90,7 +90,7 @@ app.post('/modplaylist3', async (req, res) => {
     let v = await modplaylist3(findtoken(req.body.token))
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -102,18 +102,18 @@ app.delete('/eliminaPlaylist', async (req, res) => {
     let v = await delPlaylist(findtoken(req.body.token),req.body.nome)
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
 //togli una playlist da un profilo
 app.delete('/togliPlaylist', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Received mod request with message:", req.body);  
   if(chektoken(req.body.token)){
     let v = await remPlaylist(findtoken(req.body.token),req.body.nome,req.body.email)
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -126,7 +126,7 @@ app.post('/modplaylist5', async (req, res) => {
     let v = await modplaylist5(findtoken(req.body.token))
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -160,7 +160,7 @@ app.post('/logout', (req, res) => {
             tokenlis.splice(index, 1);
             console.log("rimuovo "+req.body.token);
           }}  
-    res.status(200).json({res:true});
+    res.status(200).json(true);
 });
 
 //modifica profilo (get data)
@@ -170,7 +170,7 @@ app.post('/mod', async (req, res) => {
     let v = await mod(findtoken(req.body.token))
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -181,7 +181,7 @@ app.put('/modPass', async(req, res) => {
     let v = await modPass(req.body,findtoken(req.body.token))
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -198,7 +198,7 @@ app.put('/modData', async(req, res) => {
         tokenlis[index].user= req.body.email;
     }}
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -209,7 +209,7 @@ app.put('/ADDplaylist', async (req, res) => {
     let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -220,7 +220,7 @@ app.post('/cerca', async (req, res) => {
     let v = await cercato(req.body.cercato)
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -240,7 +240,7 @@ app.put('/salva', async (req, res) => {
     let v = await salva(req.body, findtoken(req.body.token))
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
@@ -251,7 +251,7 @@ app.put('/salvaMod', async (req, res) => {
     let v = await salvaMod(req.body)
     res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 
