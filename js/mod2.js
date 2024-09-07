@@ -11,18 +11,19 @@ async function load() {
   if (user == undefined || token == undefined || playlist == undefined || playlist == null) {
     await logout();
   }
-  console.log(playlist)
+  playlist = JSON.parse(playlist)
+  sessionStorage.removeItem("playlist")
 
-     /*    tag=post.res.tag.toString();
+       tag=playlist.tag.toString();
 
-       document.getElementById("nome").value=post.res.nome;
+       document.getElementById("nome").value=playlist.nome;
         document.getElementById("tag").value=tag;
-        document.getElementById("dsc").value=post.res.descrizione;
+        document.getElementById("dsc").value=playlist.descrizione;
         document.getElementById("Artista").value="";
-        document.getElementById("status").checked=post.res.public;
-        durata = post.res.durata;
-        let minutes = Math.floor(Math.floor(post.res.durata / 1000) / 60);
-        let seconds = Math.floor(post.res.durata / 1000) % 60;
+        document.getElementById("status").checked=playlist.public;
+        durata = playlist.durata;
+        let minutes = Math.floor(Math.floor(durata / 1000) / 60);
+        let seconds = Math.floor(durata / 1000) % 60;
 
         if (seconds < 10) {
             seconds = "0" + seconds;
@@ -30,15 +31,15 @@ async function load() {
 
 
         document.getElementById("duration").innerHTML=  minutes + ":" + seconds;
-         id = post.res._id
-      value=post.res.canzoni.tracks
+         id = playlist._id
+      value=playlist.canzoni.tracks
       if(value==null){
         return
       }
       for (let index = 0; index < value.length; index++) {
           addRow(value[index],"artist2","REM")
       }
-     */ 
+
       
   
       }   
