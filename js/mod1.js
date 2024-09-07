@@ -89,7 +89,9 @@ function addRow(value) {
 
   var mod = document.createElement("button");
   mod.classList = "btn btn-outline-light btn-lg col-12 mb-3 bi bi-caret-right-square-fill"
-  mod.onclick = ()=>{ window.location.replace("/html/mod2.html");}
+  mod.onclick = ()=>{ 
+    sessionStorage.setItem("playlist")
+    window.location.replace("/html/mod2.html");}
 
   btdiv.appendChild(del)
   btdiv.appendChild(mod)

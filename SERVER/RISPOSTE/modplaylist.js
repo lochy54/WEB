@@ -10,6 +10,9 @@ async function modplaylist1(email){
             const db = client.db("Uni");
             const col = db.collection("Playlist");
             const playlist = await col.find({"email.0":email}).toArray()
+            for (let index = 0; index < playlist.length; index++) {
+                    playlist[index].canzoni= await cercaCanzoni(playlist[index].canzoni)
+            }
             return {res: playlist, code:200};
 
         }catch(error){
@@ -33,6 +36,9 @@ try{
         const db = client.db("Uni");
         const col = db.collection("Playlist");        
         const playlist = await col.find({ "email": email }).toArray()
+        for (let index = 0; index < playlist.length; index++) {
+            playlist[index].canzoni= await cercaCanzoni(playlist[index].canzoni)
+    }
         return {res: playlist, code:200};
 
     }catch(error){
@@ -57,6 +63,9 @@ async function modplaylist5(email){
         const db = client.db("Uni");
         const col = db.collection("Playlist");        
         const playlist = await col.find({ "email": { "$ne": email}, "public": true}).toArray();
+        for (let index = 0; index < playlist.length; index++) {
+            playlist[index].canzoni= await cercaCanzoni(playlist[index].canzoni)
+    }
         return {res: playlist, code:200};
 
     }catch(error){
@@ -70,7 +79,20 @@ async function modplaylist5(email){
     }
 }
 
+async function cercaCanzoni(playlist){
 
+    try {
+    var tracks = []
+    var spotifyApi = await getapi();
+    if (playlist.length!=0){
+        var data = await spotifyApi.getTracks(playlist);
+        tracks = data.body;
+    }
+return tracks
+    }catch(e){
+        return new Error ('problemi di connesione')
+    }
+}
 
 
 async function ADDplay(email,emailpass,nome){
