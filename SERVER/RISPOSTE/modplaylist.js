@@ -85,7 +85,7 @@ async function ADDplay(email,emailpass,nome){
             { "email.0":emailpass, "nome":nome}, // Filter
             { $push: { email: email }}
         );
-        if (res.matchedCount==0){
+        if (res.modifiedCount==0){
             return {res: false, code:400};
         }
         return {res: true, code:200};
@@ -136,7 +136,7 @@ async function remPlaylist(email,nome, email1){
         const db = client.db("Uni");
         const col = db.collection("Playlist");
         const deletecount = await col.updateOne({ "email.0": email1 , "nome": nome }, { $pull: { email: email } });
-        if (deletecount.deletedCount==0){
+        if (deletecount.modifiedCount==0){
             return {res:false , code:400};
         }
         return {res:true , code:200 };

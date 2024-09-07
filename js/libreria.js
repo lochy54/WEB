@@ -4,13 +4,22 @@ let token, user;
 
 
 function cerca() {
-  var element = document.getElementById("modplay").childNodes;
+  let element = document.getElementById("modplay").childNodes;
+  let serch = document.getElementById("Artista").value
   for (let index = 1; index < element.length; index++) {
-    if (!((element[index].childNodes[0].innerHTML.includes(document.getElementById("Artista").value)) || (element[index].childNodes[1].childNodes[0].childNodes[2].childNodes[1].data.includes(document.getElementById("Artista").value)))) {
-      element[index].style.display = "none"
-    } else {
-      element[index].style.display = "block"
 
+    if(element[index].innerHTML=="REM"){
+      element[index].style.display = element[index-1].style.display
+      index++
+    }
+
+    if (element[index].childNodes[0].innerHTML.includes(serch)||
+    element[index].childNodes[1].childNodes[0].childNodes[0].childNodes[1].data.includes(serch)||
+    element[index].childNodes[1].childNodes[0].childNodes[2].childNodes[1].data.includes(serch)
+  ) {
+      element[index].style.display = "block";
+    } else {
+      element[index].style.display = "none";
     }
 
   }
@@ -18,9 +27,9 @@ function cerca() {
 
 async function load() {
   user = sessionStorage.getItem("user");
-  token = sessionStorage.getItem("token")
-  if (user == null) {
-    logout()
+  token = sessionStorage.getItem("token");
+  if (user == undefined || token == undefined) {
+    await logout();
   }
   const post = await apicall("http://localhost:3000/modplaylist3", {token: token },"POST",true)
 
@@ -81,14 +90,13 @@ function addRow(value) {
   cardDiv.appendChild(cardBody);
 
   container.appendChild(cardDiv);
-if(value.email!=user){
-  container.classList.add(["row","g-0"])
+if(value.email[0]!=user){
   cardDiv.classList.add("col-9")
   var del = document.createElement("button");
-  del.classList = "btn btn-outline-danger btn-sm col-2"
+  del.classList = "btn btn-outline-danger btn-lg col-2 mb-3"
   del.innerHTML = "REM";
   del.onclick = async function () {
-    await elimina(value.nome)
+    await elimina(value.nome,value.email[0])
     container.innerHTML = "";
     await load()
   };
@@ -98,22 +106,11 @@ if(value.email!=user){
 }
 
 
-async function elimina(nome) {
-  const post = await fetch("http://localhost:3000/togliPlaylist", {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({ token: token, nome: nome })
-  }).then(res => { sta = res.status; stat = res.statusText; return res.json() });
-  if (post.res === false) {
-    if (sta === 400) {
-      showAlert(sta + " " + stat, "danger");
-    } else {
-      logout()
-    }
+async function elimina(nome,email) {
+  var data = { token: token, nome: nome, email:email }
+  const post = await apicall("http://localhost:3000/togliPlaylist",data,"DELETE",true)
 
-  } else {
-    showAlert(sta + " " + stat, "success");
-  }
+  if (post.sta == 401) {
+    logout()
+}
 }
