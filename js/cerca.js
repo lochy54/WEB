@@ -25,23 +25,27 @@ async function load() {
 function cerca() {
   element = document.getElementById("modplay").childNodes;
   let serch = document.getElementById("Artista").value
-  for (let index = 1; index < element.length; index++) {
+  for (let index = 1; index < element.length; index=index+2) {
     if (element[index].childNodes[0].innerHTML.includes(serch)||
     element[index].childNodes[1].childNodes[0].childNodes[0].childNodes[1].data.includes(serch)||
     element[index].childNodes[1].childNodes[0].childNodes[2].childNodes[1].data.includes(serch)
   ) {
       element[index].style.display = "block";
+      element[index+1].style.display = "block";
     } else {
       element[index].style.display = "none";
+      element[index+1].style.display = "none";
+
     }
   }
 }
+
 
 function addRow(value) {
   var container = document.getElementById("modplay");
 
   var cardDiv = document.createElement("div");
-  cardDiv.className = "card mb-3 p-3";
+  cardDiv.className = "card mb-3 p-3 col-9";
 
   var cardHeader = document.createElement("h5");
   cardHeader.className = "card-header bg-transparent border-0 p-0 mb-2";
@@ -61,11 +65,11 @@ function addRow(value) {
   }
 
   cardText.innerHTML =
-   "<div class='col-12 col-lg-5'><span class='fw-bold'>Utente: </span>" +
-    value.email[0] +
-    "</div> <div class='col-12 col-lg-3'><span class='fw-bold'>Tag: </span>" +
-    value.tag +
-    "</div> <div class='col-12 col-lg-4'><span class='fw-bold'>Durata: </span>" +
+  "<div class='col-12 col-lg-5'><span class='fw-bold'>Utente: </span>" +
+  value.email[0] +
+  "</div> <div class='col-12 col-lg-3'><span class='fw-bold'>Tag: </span>" +
+  value.tag +
+  "</div> <div class='col-12 col-lg-4'><span class='fw-bold'>Durata: </span>" +
     minutesd +
     ":" +
     secondsd +
@@ -76,8 +80,7 @@ function addRow(value) {
 
   cardDiv.onclick = function () {
     sessionStorage.setItem("playlist", value.nome);
-    sessionStorage.setItem("email", value.email);
-    window.location.replace("/html/openADD.html");
+    window.location.replace("/html/open.html");
   };
 
 
@@ -85,4 +88,23 @@ function addRow(value) {
   cardDiv.appendChild(cardBody);
 
   container.appendChild(cardDiv);
+  var aDD = document.createElement("button");
+  aDD.classList = "btn btn-outline-light btn-lg col-2 mb-3 bi bi-plus-square"
+  aDD.value="ADD"
+  aDD.onclick = async function () {
+    await save(value.nome,value.email[0])
+    container.innerHTML = "";
+    await load()
 }
+container.appendChild(aDD)
+
+
+}
+
+   async function save(nome,emailpass){
+    var data = {playlist:nome, token:token , emailpass:emailpass}
+    const post = await apicall("http://localhost:3000/ADDplaylist",data,"PUT",true)
+    if (post.sta == 401) {
+      await logout();
+    }
+   }

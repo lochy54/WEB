@@ -30,7 +30,7 @@ async function apicall(url, data, type, allert) {
     }).then(res => {
         sta = res.status; stat = res.statusText;  return res.json()});
     
-    if (call != false) {
+    if (call !== false) {
         if(allert){showAlert(sta + " " + stat, "success");}
         return {res: true , data: call , sta: sta}
     } else if(sta != 401) {

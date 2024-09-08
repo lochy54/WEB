@@ -67,11 +67,11 @@ function addRow(value) {
   }
 
   cardText.innerHTML =
-    "<div class='col-12 col-md-4'><span class='fw-bold'>Utente: </span>" +
-    value.email[0] +
-    "</div> <div class='col-12 col-md-4'><span class='fw-bold'>Tag: </span>" +
-    value.tag +
-    "</div> <div class='col-12 col-md-4'><span class='fw-bold'>Durata: </span>" +
+  "<div class='col-12 col-lg-5'><span class='fw-bold'>Utente: </span>" +
+  value.email[0] +
+  "</div> <div class='col-12 col-lg-3'><span class='fw-bold'>Tag: </span>" +
+  value.tag +
+  "</div> <div class='col-12 col-lg-4'><span class='fw-bold'>Durata: </span>" +
     minutesd +
     ":" +
     secondsd +
