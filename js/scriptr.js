@@ -74,7 +74,6 @@ if(post.res===false){
   }
   art = post.artist.artists.items
   for (let index = 0; index < art.length; index++) {
-    console.log(art[index].name)
     addRow(art[index],"artist1","ADD")
   }
 

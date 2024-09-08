@@ -7,7 +7,6 @@ async function getgenere(){
         var genere = data.body;
         return genere;
         }catch(e){
-                console.log(e);
                 return []
         }
 }

@@ -8,7 +8,6 @@ async function cercato(tra){
     var tracks = data.body;
     return{res: tracks, code:200};}
     catch(e){
-        console.log(e);
         return { res:false ,  code:500};
     }
 
@@ -21,7 +20,6 @@ async function artisti(tra){
     var artist = data.body;
     return{res: artist, code:200};}
     catch(e){
-        console.log(e);
         return { res:false ,  code:500};
     }
 

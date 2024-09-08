@@ -72,7 +72,7 @@ app.delete('/elimina', async (req, res) => {
 
 //trova playlist create e ancora attive di un dato profilo 
 app.post('/modplaylist1', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Trovo playlist mp1:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist1(findtoken(req.body.token))
     res.status(v.code).json(v.res);
@@ -85,7 +85,7 @@ app.post('/modplaylist1', async (req, res) => {
 
 //trova le playlist create e non dall'utente ancora attive
 app.post('/modplaylist3', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Trovo playlist mp3:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist3(findtoken(req.body.token))
     res.status(v.code).json(v.res);
@@ -97,7 +97,7 @@ app.post('/modplaylist3', async (req, res) => {
 
 //elimina una playlist
 app.delete('/eliminaPlaylist', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Eliminazione playlist:", req.body);
   if(chektoken(req.body.token)){
     let v = await delPlaylist(findtoken(req.body.token),req.body.nome)
     res.status(v.code).json(v.res);
@@ -108,7 +108,7 @@ app.delete('/eliminaPlaylist', async (req, res) => {
 
 //togli una playlist da un profilo
 app.delete('/togliPlaylist', async (req, res) => {
-  console.log("Received mod request with message:", req.body);  
+  console.log("Tolgo la playlist:", req.body);  
   if(chektoken(req.body.token)){
     let v = await remPlaylist(findtoken(req.body.token),req.body.nome,req.body.email)
     res.status(v.code).json(v.res);
@@ -121,7 +121,7 @@ app.delete('/togliPlaylist', async (req, res) => {
 
 //trova le playlist non create e non aggiunte dall'utente
 app.post('/modplaylist5', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Trovo playlist mp5:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist5(findtoken(req.body.token))
     res.status(v.code).json(v.res);
@@ -133,39 +133,37 @@ app.post('/modplaylist5', async (req, res) => {
 
 //registra profilo
 app.put('/register', async (req, res) => {
-  console.log("Received registration request with message:", req.body);
+  console.log("Richiesta registrazione:", req.body);
   let v = await register(req.body,generi,countries)
-  console.log(v);
   res.status(v.code).json(v.res);
 });
 
 //login profilo , aggiungi token 
 app.post('/login', async (req, res) => {
-  console.log("Received login request with message:", req.body);
+  console.log("Richiesta login:", req.body);
   let v = await login(req.body)
-  console.log(v);
   res.status(v.code).json(v.res);
   if(v.res!=false){
    if(!chektoken(v.res)){
       tokenlis.push({token: v.res , time: new Date() , user: req.body.email})
-      console.log(tokenlis);
+      console.log("tokenlist:",tokenlis);
   }}
 });
 // sono arrivato qui da sistemare questa funzione manca rimuovere tutti i i status in risposta molti hanno solo v
 //logout profilo
 app.post('/logout', (req, res) => {
-  console.log("Received logout request with message:", req.body);
+  console.log("Richieta logout:", req.body);
       for (let index = 0; index < tokenlis.length; index++) {
         if (tokenlis[index].token === req.body.token) {
             tokenlis.splice(index, 1);
-            console.log("rimuovo "+req.body.token);
+            console.log("rimuovo token:"+req.body.token);
           }}  
     res.status(200).json(true);
 });
 
 //modifica profilo (get data)
 app.post('/mod', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Mando dati profilo per modifica:", req.body);
   if(chektoken(req.body.token)){
     let v = await mod(findtoken(req.body.token))
     res.status(v.code).json(v.res);
@@ -176,7 +174,7 @@ app.post('/mod', async (req, res) => {
 
 //cambia la password di un profilo
 app.put('/modPass', async(req, res) => {
-  console.log("modifica richiesta: ", req.body);
+  console.log("Richiesta modifica password: ", req.body);
   if(chektoken(req.body.token)){
     let v = await modPass(req.body,findtoken(req.body.token))
     res.status(v.code).json(v.res);
@@ -189,7 +187,7 @@ app.put('/modPass', async(req, res) => {
 app.put('/modData', async(req, res) => {
   var tokenre = req.body.token;
   delete req.body.token;
-  console.log("modifica richiesta: ", req.body);
+  console.log("Ridviesta modifica dati: ", req.body);
   if(chektoken(tokenre)){
     let v = await modData(req.body,findtoken(tokenre),generi,countries)
     res.status(v.code).json(v.res);
@@ -204,7 +202,7 @@ app.put('/modData', async(req, res) => {
 
 //aggiungi playlist a profilo 
 app.put('/ADDplaylist', async (req, res) => {
-  console.log("Received add request with message:", req.body);
+  console.log("Aggiungo playlist a profilo:", req.body);
   if(chektoken(req.body.token)){
     let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
     res.status(v.code).json(v.res);
@@ -215,7 +213,7 @@ app.put('/ADDplaylist', async (req, res) => {
 
 // cerca canzone
 app.post('/cerca', async (req, res) => {
-  console.log("cercato", req.body.cercato);
+  console.log("Cercato generico:", req.body.cercato);
   if(chektoken(req.body.token)){
     let v = await cercato(req.body.cercato)
     res.status(v.code).json(v.res);
@@ -227,7 +225,7 @@ app.post('/cerca', async (req, res) => {
 
 // cerca artisti
 app.post('/artisti', async (req, res) => {
-  console.log("cercato", req.body.cercato);
+  console.log("Cercato artisti:", req.body.cercato);
     let v = await artisti(req.body.cercato)
     res.status(v.code).json(v.res);
 });
@@ -235,7 +233,7 @@ app.post('/artisti', async (req, res) => {
 
 //salva playlist
 app.put('/salva', async (req, res) => {
-  console.log("salva playlist: ", req.body);
+  console.log("Rischiesta salvataggio playlist: ", req.body);
   if(chektoken(req.body.token)){
     let v = await salva(req.body, findtoken(req.body.token))
     res.status(v.code).json(v.res);
@@ -246,7 +244,7 @@ app.put('/salva', async (req, res) => {
 
 //salva modifiche playlist
 app.put('/salvaMod', async (req, res) => {
-  console.log("salva playlist: ", req.body);
+  console.log("Richiesta salvataggio modifiche playlist: ", req.body);
   if(chektoken(req.body.token)){
     let v = await salvaMod(req.body, findtoken(req.body.token))
     res.status(v.code).json(v.res);
@@ -257,7 +255,7 @@ app.put('/salvaMod', async (req, res) => {
 
 //forgot password
 app.post('/forgot', async (req, res) => {
-  console.log("Forgot passwor: ", req.body);
+  console.log("Forgot pass: ", req.body);
   let v = forgot(req.body.email);
     res.status(v.code).json(v.res);
 
@@ -274,7 +272,7 @@ app.post('/forgot', async (req, res) => {
 
   // Start server
   app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(port);
   });
 
 })();
