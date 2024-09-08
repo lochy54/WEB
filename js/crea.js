@@ -52,17 +52,17 @@ cardHeader.textContent = value.name;
 
   cardText.className = "card-text row";
   cardText.innerHTML =
-    "<div class='col-12 col-md-6'><span class='fw-bold'>Album: </span>" +
-    value.album.name +
-   "</div> <div class='col-12 col-md-2'><span class='fw-bold'>Date: </span>" +
-    value.album.release_date +
-   "</div> <div class='col-12 col-md-2'><span class='fw-bold'>Artista: </span>" +
-    value.artists[0].name +
-    "</div> <div class='col-12 col-md-2'><span class='fw-bold'>Durata: </span>" +
-    minutesd +
-    ":" +
-    secondsd +
-    "</div>";
+  "<div class='col-12 col-lg-4'><span class='fw-bold'>Album: </span>" +
+  value.album.name +
+ "</div> <div class='col-12 col-lg-3'><span class='fw-bold'>Date: </span>" +
+  value.album.release_date +
+ "</div> <div class='col-12 col-lg-3'><span class='fw-bold'>Artista: </span>" +
+  value.artists[0].name +
+  "</div> <div class='col-12 col-lg-2'><span class='fw-bold'>Durata: </span>" +
+  minutesd +
+  ":" +
+  secondsd +
+  "</div>";
 
     cardBody.appendChild(cardText);
 

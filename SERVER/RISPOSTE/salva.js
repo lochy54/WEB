@@ -48,7 +48,7 @@ async function salva(userData, email) {
     }
 }
 
-async function salvaMod(userData) {
+async function salvaMod(userData,email) {
     delete userData.token;
     const id = userData.id;
     delete userData.id
@@ -59,7 +59,7 @@ async function salvaMod(userData) {
             try {
                 const db = client.db("Uni");
                 const col = db.collection("Playlist");
-                await col.updateOne({ _id: new ObjectId(id) }, {
+                await col.updateOne({ _id: new ObjectId(id) , "email.0": email}, {
                     $set: {
                         nome: userData.nome,
                         tag: userData.tag,

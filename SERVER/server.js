@@ -248,7 +248,7 @@ app.put('/salva', async (req, res) => {
 app.put('/salvaMod', async (req, res) => {
   console.log("salva playlist: ", req.body);
   if(chektoken(req.body.token)){
-    let v = await salvaMod(req.body)
+    let v = await salvaMod(req.body, findtoken(req.body.token))
     res.status(v.code).json(v.res);
   }else{
     res.status(401).json(false);
