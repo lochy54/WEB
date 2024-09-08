@@ -17,8 +17,8 @@
     overflow-y: scroll;
 }
 main{
-    margin-top: 5%;
-    margin-bottom: 5%;
+    margin-top: 6%;
+    margin-bottom: 6%;
 }
 
    img.shadow-lg {
@@ -40,8 +40,7 @@ main{
   }
 
   .btn:hover {
-    background-color: #ff0000;
-    transform: translateY(-5px);
+    transform: translateY(+5px);
   }
 
 
@@ -58,5 +57,6 @@ main{
   }
 
   main{
-    min-height: 400px;
+    min-height: 200px;
   }
+

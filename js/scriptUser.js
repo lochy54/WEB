@@ -1,10 +1,10 @@
 let user,token;
 
-function load(){
+async function load() {
     user = sessionStorage.getItem("user");
-    token = sessionStorage.getItem("token")
-    if(user==null){
-        window.location.replace("/html/main.html");
+    token = sessionStorage.getItem("token");
+    if (user == undefined || token == undefined) {
+      await logout();
     }
-    document.getElementById("User").innerHTML="BENVENUTO: "+user;
+    document.getElementById("User").innerHTML=user;
 }
