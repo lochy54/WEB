@@ -81,7 +81,7 @@ function addRow(value) {
 
 
   cardDiv.onclick = function () {
-    sessionStorage.setItem("playlist", value.nome);
+    sessionStorage.setItem("playlist",JSON.stringify(value))
     window.location.replace("/html/open.html");
   };
 

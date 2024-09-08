@@ -1,40 +1,24 @@
-
-let token, user, nome, play, id , value;
+let token, user, playlist, duration;
 
 
     
-    async function load() {
-
-        user = sessionStorage.getItem("user");
-        token = sessionStorage.getItem("token");
-        play = sessionStorage.getItem("playlist");
-        sessionStorage.removeItem("playlist");
-
-
-      var value = []
-        const post = await fetch("http://localhost:3000/modplaylist4", {
-        method: 'POST',
-    headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-    },
-    body: JSON.stringify({playlist:play, token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
     
-    if(post.res===false){
-      if(sta===400){
-        showAlert(sta+" "+stat , "danger");
-      }else{
-        logout()
-      }
-      }else{
-        if(play==null){
-          window.location.replace("/html/libreria.html");
-      }
-         id = post.res._id
-      value=post.res.canzoni.tracks
-      if(value==null){
-        return
-      }
-      for (let index = 0; index < value.length; index++) {
+async function load() {
+  user = sessionStorage.getItem("user");
+  token = sessionStorage.getItem("token");
+  playlist = sessionStorage.getItem("playlist")
+  if (user == undefined || token == undefined) {
+    await logout();
+  }
+  if( playlist == undefined || playlist == null){
+    window.location.replace("/html/user.html")
+  }
+  playlist = JSON.parse(playlist)
+  sessionStorage.removeItem("playlist")
+
+
+
+      for (let index = 0; index < playlist.length; index++) {
         addRow(value[index])
     }
       
