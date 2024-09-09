@@ -89,7 +89,7 @@ cardHeader.textContent = value.name;
       secondsd = "0" + secondsd;
     }
 
-    document.getElementById("duration").innerHTML = minutesd + ":" + secondsd;
+    document.getElementById("duration").innerHTML = "&nbsp&nbspDurata: " + minutesd + ":" + secondsd;
   };
 
   cardText.appendChild(add)

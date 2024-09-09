@@ -29,17 +29,15 @@
 
     <div class="container">
 
-
       <div class="row bg-dark text-white text-start rounded-4 p-4 g-0 mb-4" id="forgot">
-
-        <div class="mb-3 ps-xxl-4 mt-4 ">
+        <div class="col-12 mb-3 col-12">
           <label class="form-label">Enter Email</label>
-          <input type="email" class="form-control" id="emailForgot" aria-describedby="emailHelpId"
+          <input type="email" class="form-control" id="emailForgot" 
             placeholder="abc@mail.com" />
         </div>
     
-        <div class="mb-3 ps-xxl-4 mt-2">
-          <button class="btn btn-outline-danger btn-lg" type="button" onclick="sendEmail()"> Send </button>
+        <div class="col-12">
+          <button class="btn btn-outline-danger btn-lg me-2" type="button" onclick="sendEmail()"> Send </button>
           <button class="btn btn-outline-danger btn-lg" type="button" onclick="forgot()"> Close </button>
 
         </div>
@@ -48,32 +46,28 @@
 
 
           <div class="row bg-dark text-white text-start rounded-4 p-4 g-0">
-              <div class="mb-3 ps-xxl-4 mt-4">
+              <div class="col-12 mb-3">
                 <label class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelpId"
+                <input type="email" class="form-control" id="email" 
                   placeholder="abc@mail.com" />
               </div>
-              <div class="mb-3 ps-xxl-4 mt-2">
+              <div class="col-12 mb-3 ">
                 <label class="form-label">Password</label>
                 <input type="password" class="form-control" id="pass" />
               </div>
 
-              <div class="mb-3 ps-xxl-4 mt-2">
+              <div class="col-12 mb-3 ">
                 <button class="btn btn-outline-danger btn-lg" type="button" onclick="login()"> Login </button>
                 <a class="text-white float-end btn" onclick="forgot()">Forgot password?</a>
               </div>
 
-              <div class="mb-3 ps-xxl-4 mt-4 float-start">
+              <div class="col-12">
                 <p class="form-label">Don't have an account?</p>
                 <a type="button" class="btn btn-outline-danger btn-lg" href="register.html">Create new</a>
               </div>
             </div>
             
     </div>
-
-
-
-
   </main>
 
 

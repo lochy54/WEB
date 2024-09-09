@@ -49,72 +49,67 @@
 
   <main>
     <div class="container">
-      <div class="row justify-content-center align-items-center g-2 ">
-          <div class="row bg-dark text-white text-start rounded-4 g-0 p-4 shadow-lg">
+      <div class="row bg-dark text-white text-start rounded-4 g-0 p-4">
+        <div class="col-12">
+          <h3 class="bi bi-plus-square " id="duration">&nbsp&nbspDurata: 0:00</h3>
 
-                <div class="row  justify-content-center mt-2 g-0">
-                  <div class="col-12 ">
-                    <label class="form-label mt-2 mt-xxl-0">Titolo</label>
-                    <input type="text" class="form-control" id="nome" aria-describedby="emailHelpId"
-                      placeholder="Nome" />
-                  </div>
+        </div>
 
-
-                  <div class="col-12 mt-2">
-                    <label class="form-label mt-2">Descrizione</label>
-                    <textarea class="form-control" id="dsc" rows="3" placeholder="Descrizione"></textarea>
-                  </div>
-
-                  <div class="col-12 mt-2">
-                    <label class="form-label mt-2">Tag (separati da virgola no spazzi)</label>
-                    <textarea class="form-control" id="tag" rows="2" placeholder="Tag1,Tag2,Tag3"></textarea>
-                  </div>
-
-                  <div class="col-12 mt-3 form-check form-switch">
-                    <input class="form-check-input" type="checkbox" value="" id="status">
-                    <label class="form-label">Pubblica</label>
-                  </div>
-                  <div class="col-12 mt-3 "><button class="btn btn-outline-danger btn-lg me-2" type="button"
-                      onclick="show()"> Aggiungi Canzioni </button>
-                  <button class="btn btn-outline-danger btn-lg " type="button"
-                      onclick="save()"> Save </button>
-                  </div>
+        <div class="col-12  mt-2">
+          <label class="form-label">Titolo</label>
+          <input type="text" class="form-control" id="nome"  placeholder="Nome" />
+        </div>
 
 
-                </div>
+        <div class="col-12 mt-2">
+          <label class="form-label mt-2">Descrizione</label>
+          <textarea class="form-control" id="dsc" rows="3" placeholder="Descrizione"></textarea>
+        </div>
 
+        <div class="col-12 mt-2">
+          <label class="form-label mt-2">Tag (separati da virgola no spazzi)</label>
+          <textarea class="form-control" id="tag" rows="2" placeholder="Tag1,Tag2,Tag3"></textarea>
+        </div>
 
+        <div class="col-12 mt-4 form-check form-switch">
+          <input class="form-check-input" type="checkbox" value="" id="status">
+          <label class="form-label">Pubblica</label>
+        </div>
+        <div class="col-12 mt-2 "><button class="btn btn-outline-danger btn-lg me-2" type="button" onclick="show()">
+            Aggiungi Canzioni </button>
+          <button class="btn btn-outline-danger btn-lg " type="button" onclick="save()"> Save </button>
+          
+        </div>
 
-
-            <div id="content" class="d-none row">
-
-              <div class="col-12 mt-3">
-                  <h3 id="duration">Durata : 0:00</h3>
-              </div>
-
-              <div class="col-12 mt-3">
-                  <h3>Cerca</h3>
-                 <input type="text" class="form-control" id="Artista"
-                    aria-describedby="emailHelpId" onkeyup="cerca()" placeholder="Canzone" />
-              </div>
-
-
-
-                <div class="col-12 artist mt-3" id="artist1">
-
-                </div>
-
-                <div class="col-12 mt-3">
-                    <h3>Canzoni Inserite</h3>
-                </div>
-
-                <div class="col-12 artist mt-3" id="artist2">
-
-                </div>
-
-            </div>
-          </div>
       </div>
+
+
+
+      <div id="content" class="row bg-dark text-white text-start rounded-4 g-0 p-4 d-none mt-4">
+
+        <div class="col-12 ">
+          <h3>Cerca</h3>
+          <input type="text" class="form-control" id="Artista"  onkeyup="cerca()"
+            placeholder="Canzone" />
+        </div>
+
+
+
+        <div class="col-12 artist mt-3" id="artist1">
+
+        </div>
+
+        
+        <div class="col-12 mt-3">
+          <h3>Canzoni Inserite</h3>
+        </div>
+
+        <div class="col-12 artist mt-3" id="artist2">
+
+        </div>
+
+      </div>
+    </div>
     </div>
   </main>
 
@@ -124,29 +119,33 @@
     <div class="container">
       <div class="row align-items-center">
         <!--Logo-->
-         <div class="col-md-3 text-center text-md-start">
+        <div class="col-md-3 text-center text-md-start">
           <img src="/RESURS/logo.png" class="rounded-4 img-fluid mb-3 mb-md-0 shadow-lg" alt="Music Logo" />
         </div>
-  
+
 
         <div class="col-md-1 d-none d-md-block text-center">
           <div class="divider mx-auto"></div>
         </div>
-  
+
         <!--Footer info -->
         <div class="col-md-8 text-center text-md-start">
           <p class="lead font-weight-bold">&copy; 2024 Music. All rights reserved.</p>
           <p>Welcome to Music, where every beat tells a story.</p>
-          <p>At Music, we're more than just a music company; we're a collective of passionate individuals amplifying voices, melodies, and emotions that resonate across the globe. We focus on diversity, innovation, and authenticity, curating a dynamic roster of artists from around the world, united by their commitment to pushing boundaries and captivating audiences.</p>
+          <p>At Music, we're more than just a music company; we're a collective of passionate individuals amplifying
+            voices, melodies, and emotions that resonate across the globe. We focus on diversity, innovation, and
+            authenticity, curating a dynamic roster of artists from around the world, united by their commitment to
+            pushing boundaries and captivating audiences.</p>
           <div class="col-12">
             <a class="btn btn-outline-light bi bi-discord mx-2 " href="https://discord.com/" aria-label="Discord"></a>
-            <a class="btn btn-outline-light bi bi-spotify mx-2 " href="https://open.spotify.com/" aria-label="Spotify"></a>
+            <a class="btn btn-outline-light bi bi-spotify mx-2 " href="https://open.spotify.com/"
+              aria-label="Spotify"></a>
             <a class="btn btn-outline-light bi bi-tiktok mx-2 " href="https://www.tiktok.com/" aria-label="TikTok"></a>
           </div>
         </div>
       </div>
-  
- 
+
+
     </div>
   </footer>
 

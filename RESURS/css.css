@@ -31,8 +31,9 @@ main{
   .divider {
     width: 2px;
     height: 200px;
-    background: linear-gradient(180deg, #ffffff, #6c757d);
+    background: linear-gradient(180deg,  #E9E8D5, #883a3a);
   }
+
 
 
   .btn {

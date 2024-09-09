@@ -33,8 +33,8 @@ async function load() {
         }
 
 
-        document.getElementById("duration").innerHTML=  minutes + ":" + seconds;
-         id = playlist._id
+        document.getElementById("duration").innerHTML = "&nbsp&nbspDurata: " + minutes + ":" + seconds;
+        id = playlist._id
       value=playlist.canzoni.tracks
       if(value==null){
         return
@@ -127,8 +127,7 @@ async function load() {
             secondsd = "0" + secondsd;
           }
       
-          document.getElementById("duration").innerHTML = minutesd + ":" + secondsd;
-        };
+          document.getElementById("duration").innerHTML = "&nbsp&nbspDurata: " + minutesd + ":" + secondsd;        };
       
         cardText.appendChild(add)
         cardDiv.appendChild(cardHeader);
