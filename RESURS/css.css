@@ -50,7 +50,7 @@ main{
   }
 
   .card:hover {
-    background:  #883a3a;
+    background:  linear-gradient(270deg,  #E9E8D5, #883a3a);;
   }
 
   #forgot{
