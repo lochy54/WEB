@@ -1,5 +1,5 @@
 let token, user, duration
-
+var canzoni = []
 async function load() {
   duration = 0;
   user = sessionStorage.getItem("user");
@@ -11,11 +11,12 @@ async function load() {
 
 
 async function cerca() {
-  document.getElementById("artist1").innerHTML = "";
   var data = { cercato: document.getElementById("Artista").value,
                token: token }
-  if (data.cercato!=""){
+               let cercatotrim = data.cercato.trim()
+               if (cercatotrim!=""){
   const post = await apicall("http://localhost:3000/cerca", data , "POST", false)
+  document.getElementById("artist1").innerHTML = "";
     if (post.sta == 401) {
         await logout();
     } else {
@@ -67,9 +68,7 @@ cardHeader.textContent = value.name;
     cardBody.appendChild(cardText);
 
 
-  var add = document.createElement("div");
-  add.className = "hidden";
-  add.value = value.id;
+
 
 
 
@@ -77,8 +76,10 @@ cardHeader.textContent = value.name;
     if (bnt == "REM") {
       duration = duration - value.duration_ms;
       container.removeChild(cardDiv);
+      canzoni = canzoni.filter((e)=>e!=value.id)
     } else {
       addRow(value, "artist2", "REM");
+      canzoni.push(value.id)
       duration = duration + value.duration_ms;
     }
 
@@ -92,7 +93,7 @@ cardHeader.textContent = value.name;
     document.getElementById("duration").innerHTML = "&nbsp&nbspDurata: " + minutesd + ":" + secondsd;
   };
 
-  cardText.appendChild(add)
+
   cardDiv.appendChild(cardHeader);
   cardDiv.appendChild(cardBody);
 
@@ -100,12 +101,7 @@ cardHeader.textContent = value.name;
 }
 
 async function save() {
-  var table = document.getElementById("artist2");
-  var tbody = table.getElementsByTagName("div");
-  var artistArray = [];
-  for (var i = 0; i < tbody.length; i =i+8) {
-    artistArray.push(tbody[i].childNodes[1].childNodes[0].childNodes[7].value);
-  }
+
   var nome = document.getElementById("nome").value;
   var tag = document.getElementById("tag").value.split(",");
   var desc = document.getElementById("dsc").value;
@@ -115,13 +111,13 @@ async function save() {
     nome: nome,
     tag: tag,
     descrizione: desc,
-    canzoni: artistArray,
+    canzoni: canzoni,
     public: stat,
     durata: duration,
     token: token,
   };
 
-  const post = await apicall("http://localhost:3000/salva",data,"PUT",true)
+  const post = await apicall("http://localhost:3000/salva",data,"PUT",false)
   if (post.sta == 401) {
       logout();
   }

@@ -1,16 +1,23 @@
-let genres,size;
+let genres
+var generi = []
+var artisti = []
 
 async function load() {
-    const get = await fetch("http://localhost:3000/genere").then(res => { sta = res.status; stat= res.statusText; return res.json() });
-    genres = get.genres;
+    const get = await apicall("http://localhost:3000/genere",null,"GET",false)
+    genres = get.data.genres;
     const gen = document.getElementById("gen");
     for (let i = 0; i < genres.length; i++) {
-  gen.innerHTML= gen.innerHTML+'<div class="col-6 col-lg-3"><input class="form-check-input" type="checkbox" value="'+genres[i]+'"id="'+i+'"/> <label class="form-check-label"> '+genres[i]+'</label></div>';
+  gen.innerHTML= gen.innerHTML+'<div class="col-6 col-md-3"><input class="form-check-input" type="checkbox" onchange="generiPushPop(value)" value="'+genres[i]+'"id="'+i+' "/> <label class="form-check-label"> '+genres[i]+'</label></div>';
   }
-  size=genres.length;
 }
 
-
+function generiPushPop(value){
+    if(generi.includes(value)){
+      generi = generi.filter((e)=>e!=value)
+    }else{
+      generi.push(value)
+    }
+}
 
   async function register(){
     var data = {
@@ -19,105 +26,50 @@ async function load() {
         data: document.getElementById("data").value,
         paese:  document.getElementById("paese").options[document.getElementById("paese").selectedIndex].value,
         email: document.getElementById("email").value,
-        password: document.getElementById("pass").value,
-        generi: getSelectedGenres(),
-        artisti: selectedArtist()
+        password: document.getElementById("password").value,
+        generi: generi,
+        artisti: artisti
     };
-    const post = await fetch("http://localhost:3000/register", {
-        method: 'PUT',
-  headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  },
-  body: JSON.stringify(data) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
+    await apicall("http://localhost:3000/register",data, "PUT", true)
 
-    if(post.res==true){
-    showAlert(sta+" "+stat , "success");
-    }else{
-    showAlert(sta+" "+stat  , "danger");}
   }
 
 
-  function getSelectedGenres() {
-    var selectedGenres = [];
-    var checkboxes = document.querySelectorAll('.form-check-input');
-    
-    checkboxes.forEach(function(checkbox) {
-        if (checkbox.checked) {
-            selectedGenres.push(checkbox.value);
-        }
-    });
-    
-    return selectedGenres;
-}
-
-
-
-
-
-async function addArtist(){
+async function addArtist() {
   var cercato = document.getElementById("Artista").value;
-  document.getElementById("artist1").innerHTML="";
-
-if(cercato!=""){
-
-const post = await fetch("http://localhost:3000/artisti", {
-    method: 'POST',
-headers: {
-'Content-Type': 'application/json;charset=utf-8'
-},
-body: JSON.stringify({cercato: cercato}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
-
-if(post.res===false){
-  if(sta===400){
-    showAlert(sta+" "+stat , "danger");
-  }
-  }
-  art = post.artist.artists.items
-  for (let index = 0; index < art.length; index++) {
-    addRow(art[index],"artist1","ADD")
-  }
-
-}
-
-}
-
-function addRow(value,pos,bnt) {
-  var container = document.getElementById(pos);
-  var cardDiv = document.createElement("div");
-  cardDiv.className = "card mb-3 col-lg-11 ms-lg-4";
-    
-  var cardHeader = document.createElement("h5");
-  cardHeader.className = "card-header";
-  cardHeader.textContent = "Nome: "+value.name;
- var cardBody = document.createElement("div");
- cardBody.className = "card-body";
-
-
-  var add = document.createElement("button");
-  add.innerHTML=bnt
-  add.classList="btn btn-outline-danger btn-sm"
-  add.onclick = function() {
-    if(bnt=="REM"){
-    container.removeChild(cardDiv)
-    }else{
-      container.removeChild(cardDiv)
-      addRow(value,"artist2","REM")
+  let cercatotrim = cercato.trim()
+  document.getElementById("artist1").innerHTML = "";
+  if (cercatotrim!=""){
+  const post = await apicall("http://localhost:3000/artisti", {cercato: cercato} , "POST", false)
+      document.getElementById("artist1").innerHTML = "";
+      art = post.data.artists.items
+      for (let index = 0; index < art.length; index++) {
+        addRow(art[index],"artist1","ADD")
+      }
     }
-   }
-  cardBody.appendChild(add)
-  cardDiv.appendChild(cardHeader)
-  cardDiv.appendChild(cardBody)
-  container.appendChild(cardDiv)
-}
-
-function selectedArtist() {
-  var table = document.getElementById("artist2");
-  var tbody = table.getElementsByTagName('div');
-  var artistArray = [];
-
-  for (var i = 0; i < tbody.length; i=i+2) {
-    artistArray.push(tbody[i].childNodes[0].innerHTML.split(":")[1])  
   }
 
-  return artistArray;
+
+function addRow(value, place, bnt) {
+
+  var container = document.getElementById(place);
+  var cardDiv = document.createElement("div");
+  cardDiv.className = "card mb-3";
+
+var cardHeader = document.createElement("h5");
+cardHeader.className = "card-header bg-transparent border-0";
+cardHeader.textContent = value.name;
+
+
+  cardDiv.onclick = function () {
+    if (bnt == "REM") {
+      container.removeChild(cardDiv);
+      artisti = artisti.filter((e)=>e!=value.name)
+    } else {
+      if(!artisti.includes(value.name)){artisti.push(value.name);addRow(value, "artist2", "REM");}
+    }
+  }
+  cardDiv.appendChild(cardHeader);;
+  container.appendChild(cardDiv);
 }
+

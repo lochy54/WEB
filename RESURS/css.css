@@ -61,3 +61,10 @@ main{
     min-height: 200px;
   }
 
+#gen{
+  max-height: 300px;
+  overflow: scroll;
+}
+.line{
+  font-size: 25px;
+}

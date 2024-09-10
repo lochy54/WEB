@@ -40,6 +40,8 @@ async function load() {
       addRow(post.data[index]);
     }
   }
+  document.getElementById("spinner").style.display="none"
+
 }
 
 

@@ -49,7 +49,7 @@ async function modData(userData, email, generi, countries) {
             const session = client.startSession()
         try {
             const db = client.db("Uni");
-            const col = db.collection("Utenti");
+            var col = db.collection("Utenti");
             if (!userData.generi.every(v => generi['genres'].includes(v))) {
                 return { res: false, code: 400 };
             }
@@ -72,7 +72,7 @@ async function modData(userData, email, generi, countries) {
             return { res: false, code: 500 };
 
         }finally{
-            await session.close()
+            await session.endSession();
             await client.close();
         }}catch (error) {
             console.error(error);

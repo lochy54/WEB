@@ -1,33 +1,33 @@
 
-let token, user, size, genres;
+let token, user
+let genres
+var generi = []
+var artisti = []
 
 
 
 async function load() {
-    user = sessionStorage.getItem("user");
-    token = sessionStorage.getItem("token")
-    if(user==null){
-        window.location.replace("/html/main.html");
-    }
-    const get = await fetch("http://localhost:3000/genere").then(res => { sta = res.status; stat= res.statusText; return res.json() });
-    genres = get.genres;
-    const gen = document.getElementById("gen");
-    for (let i = 0; i < genres.length; i++) {
-  gen.innerHTML= gen.innerHTML+'<div class="col-6 col-lg-3"><input class="form-check-input" type="checkbox" value="'+genres[i]+'"id="'+genres[i]+'"/> <label class="form-check-label"> '+genres[i]+'</label></div>';
-  }
-  size=genres.length;
 
-  const post1 = await fetch("http://localhost:3000/mod", {
-        method: 'POST',
-  headers: {
-    'Content-Type': 'application/json;charset=utf-8'
-  },
-  body: JSON.stringify({token: token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
+  const get = await apicall("http://localhost:3000/genere",null,"GET",false)
+  genres = get.data.genres;
+  const gen = document.getElementById("gen");
+  for (let i = 0; i < genres.length; i++) {
+    gen.innerHTML = gen.innerHTML+'<div class="col-6 col-md-3"><input class="form-check-input" id="'+genres[i]+'" type="checkbox" onchange="generiPushPop(value)" value="'+genres[i]+'"id="'+i+' "/> <label class="form-check-label"> '+genres[i]+'</label></div>';
+}
 
-if(post1.res==false){
-    logout();
-}else{
-  data = post1.res
+user = sessionStorage.getItem("user");
+token = sessionStorage.getItem("token");
+if (user == undefined || token == undefined) {
+  await logout()
+}
+
+
+
+  const post = await apicall("http://localhost:3000/mod",{token: token},"POST",false)
+  if (post.sta == 401) {
+    await logout();
+  } else {
+  data = post.data
   document.getElementById("nome").value = data.nome;
   document.getElementById("cognome").value = data.cognome;
   document.getElementById("email").value = data.email;
@@ -36,12 +36,11 @@ if(post1.res==false){
   document.getElementById("passn").value = "";
   for (let j = 0; j < data.generi.length; j++) {
     document.getElementById(data.generi[j]).checked=true;
+    generi.push(data.generi[j])
   }
-
-
-
   for (let j = 0; j < data.artisti.length; j++) {
     addRow(data.artisti[j],"artist2","REM");
+    artisti.push(data.artisti[j])
   }
 
   var isoDate = new Date(data.data);
@@ -51,128 +50,79 @@ if(post1.res==false){
   document.getElementById("data").value = formattedDate;
 }
 
+}
 
+function generiPushPop(value){
+  if(generi.includes(value)){
+    generi = generi.filter((e)=>e!=value)
+  }else{
+    generi.push(value)
   }
-
-
-
-
-
-  function getSelectedGenres() {
-    var selectedGenres = [];
-    var checkboxes = document.querySelectorAll('.form-check-input');
-    
-    checkboxes.forEach(function(checkbox) {
-        if (checkbox.checked) {
-            selectedGenres.push(checkbox.value);
-        }
-    });
-    
-    return selectedGenres;
 }
 
 
 
 
-async function addArtist(){
+
+
+
+async function addArtist() {
   var cercato = document.getElementById("Artista").value;
-  document.getElementById("artist1").innerHTML="";
-
-if(cercato!=""){
-
-const post = await fetch("http://localhost:3000/artisti", {
-    method: 'POST',
-headers: {
-'Content-Type': 'application/json;charset=utf-8'
-},
-body: JSON.stringify({cercato: cercato}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
-
-if(post.res===false){
-  if(sta===400){
-    showAlert(sta+" "+stat , "danger");
-  }
-  }
-  art = post.artist.artists.items
-  for (let index = 0; index < art.length; index++) {
-    addRow(art[index].name,"artist1","ADD")
-  }
-
-}
-
-}
-
-function addRow(value,pos,bnt) {
-  var container = document.getElementById(pos);
-  var cardDiv = document.createElement("div");
-  cardDiv.className = "card mb-3 col-lg-11 ms-lg-4";
-    
-  var cardHeader = document.createElement("h5");
-  cardHeader.className = "card-header";
-  cardHeader.textContent = "Nome: "+value;
- var cardBody = document.createElement("div");
- cardBody.className = "card-body";
-
-
-  var add = document.createElement("button");
-  add.innerHTML=bnt
-  add.classList="btn btn-outline-danger btn-sm"
-  add.onclick = function() {
-    if(bnt=="REM"){
-    container.removeChild(cardDiv)
-    }else{
-      container.removeChild(cardDiv)
-      addRow(value,"artist2","REM")
+  let cercatotrim = cercato.trim()
+  document.getElementById("artist1").innerHTML = "";
+  if (cercatotrim!=""){
+  const post = await apicall("http://localhost:3000/artisti", {cercato: cercato} , "POST", false)
+      document.getElementById("artist1").innerHTML = "";
+      art = post.data.artists.items
+      for (let index = 0; index < art.length; index++) {
+        addRow(art[index].name,"artist1","ADD")
+      }
     }
-   }
-  cardBody.appendChild(add)
-  cardDiv.appendChild(cardHeader)
-  cardDiv.appendChild(cardBody)
-  container.appendChild(cardDiv)
-}
+  }
 
+function addRow(value, place, bnt) {
+
+  var container = document.getElementById(place);
+  var cardDiv = document.createElement("div");
+  cardDiv.className = "card mb-3";
+
+var cardHeader = document.createElement("h5");
+cardHeader.className = "card-header bg-transparent border-0";
+cardHeader.textContent = value;
+
+
+  cardDiv.onclick = function () {
+    if (bnt == "REM") {
+      container.removeChild(cardDiv);
+      artisti = artisti.filter((e)=>e!=value)
+    } else {
+      if(!artisti.includes(value)){artisti.push(value);addRow(value, "artist2", "REM");}
+    }
+  }
+  cardDiv.appendChild(cardHeader);;
+  container.appendChild(cardDiv);
+}
   
 
-function selectedArtist() {
-  var table = document.getElementById("artist2");
-  var tbody = table.getElementsByTagName('div');
-  var artistArray = [];
 
-  for (var i = 0; i < tbody.length; i=i+2) {
-    artistArray.push(tbody[i].childNodes[0].innerHTML.split(":")[1])  
-  }
 
-  return artistArray;
-}
 
 async function modData(){
 
   var data = {
-    token: token,
+    token : token,
     nome: document.getElementById("nome").value,
     cognome: document.getElementById("cognome").value,
     data: document.getElementById("data").value,
     paese:  document.getElementById("paese").options[document.getElementById("paese").selectedIndex].value,
     email: document.getElementById("email").value,
-    generi: getSelectedGenres(),
-    artisti: selectedArtist()
+    generi: generi,
+    artisti: artisti
 };
-const post = await fetch("http://localhost:3000/modData", {
-    method: 'PUT',
-headers: {
-'Content-Type': 'application/json;charset=utf-8'
-},
-body: JSON.stringify(data) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
-
-
-if(post.res==true){
-  showAlert(sta+" "+stat , "success");
-  sessionStorage.setItem("user",document.getElementById("email").value)
-  }else{
-  if(sta===500){
-    logout();
-  }
-  showAlert(sta+" "+stat  , "danger");}
-  load()
+const post = await apicall("http://localhost:3000/modData", data , "PUT", true)
+if (post.sta == 401) {
+  await logout();
+}
 }
 
 async function modPass(){
@@ -180,37 +130,18 @@ async function modPass(){
     token: token,
     passv: document.getElementById("passv").value,
     passn: document.getElementById("passn").value
-
-
 };
-const post = await fetch("http://localhost:3000/modPass", {
-    method: 'PUT',
-headers: {
-'Content-Type': 'application/json;charset=utf-8'
-},
-body: JSON.stringify(data) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
-
-
-if(post.res==true){
-  showAlert(sta+" "+stat , "success");
-  }else{
-  if(sta===500){
-    logout();
-  }
-  showAlert(sta+" "+stat  , "danger");}
-  load()
+const post = await apicall("http://localhost:3000/modPass", data , "PUT", true)
+if (post.sta == 401) {
+  await logout();
 }
+}
+
 
 async function elimina(){
-  const post = await fetch("http://localhost:3000/elimina", {
-    method: 'DELETE',
- headers: {
-'Content-Type': 'application/json;charset=utf-8'
-},
-body: JSON.stringify({token:token}) }).then(res => { sta = res.status; stat= res.statusText; return res.json() });
-if(sta===500){
-  showAlert(sta+" "+stat  , "danger");}
-else{
-  logout()
-}
+  const post = await apicall("http://localhost:3000/elimina", {token:token} , "DELETE", false)
+  if (post.sta == 401) {
+    await logout();
+  }
+  await logout();
 }

@@ -23,11 +23,20 @@ async function logout() {
 
 
 async function apicall(url, data, type, allert) {
-    const call = await fetch(url, {
-        method: type,
-        headers: { 'Content-Type': 'application/json;charset=utf-8' },
-        body: JSON.stringify(data)
-    }).then(res => {
+    let param
+    if(data==null){
+        param = {
+            method: type,
+            headers: { 'Content-Type': 'application/json;charset=utf-8' }
+        }
+    }else{
+        param = {
+            method: type,
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            body: JSON.stringify(data)
+        }
+    }
+    const call = await fetch(url, param).then(res => {
         sta = res.status; stat = res.statusText;  return res.json()});
     
     if (call !== false) {
