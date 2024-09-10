@@ -7,7 +7,9 @@
   },
   "host": "localhost:3000",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/genere": {
       "get": {
@@ -220,6 +222,41 @@
     "/register": {
       "put": {
         "description": "Registra un nuovo utrente nella piattaforma.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "example": "any"
+                },
+                "cognome": {
+                  "example": "any"
+                },
+                "data": {
+                  "example": "any"
+                },
+                "paese": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                },
+                "artisti": {
+                  "example": "any"
+                },
+                "generi": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "500": {
             "description": "Internal Server Error"
@@ -362,6 +399,38 @@
     "/modData": {
       "put": {
         "description": "Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "example": "any"
+                },
+                "cognome": {
+                  "example": "any"
+                },
+                "data": {
+                  "example": "any"
+                },
+                "paese": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "artisti": {
+                  "example": "any"
+                },
+                "generi": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "500": {
             "description": "Internal Server Error"
@@ -480,6 +549,38 @@
     "/salva": {
       "put": {
         "description": "Dato un token (attivo) di un profilo e un json di una playlist, crea la playlist.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "example": "any"
+                },
+                "tag": {
+                  "example": "any"
+                },
+                "descrizione": {
+                  "example": "any"
+                },
+                "canzoni": {
+                  "example": "any"
+                },
+                "public": {
+                  "example": "any"
+                },
+                "durata": {
+                  "example": "any"
+                },
+                "token": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "500": {
             "description": "Internal Server Error"
@@ -499,6 +600,41 @@
     "/salvaMod": {
       "put": {
         "description": "Dato un token (attivo) di un profilo e un json di una playlist creata dal profilo, salva le modifiche.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nome": {
+                  "example": "any"
+                },
+                "tag": {
+                  "example": "any"
+                },
+                "descrizione": {
+                  "example": "any"
+                },
+                "canzoni": {
+                  "example": "any"
+                },
+                "public": {
+                  "example": "any"
+                },
+                "durata": {
+                  "example": "any"
+                },
+                "token": {
+                  "example": "any"
+                },
+                "id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "500": {
             "description": "Internal Server Error"
