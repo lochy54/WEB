@@ -1,7 +1,6 @@
 import express from "express"; // Importing express module
 import { getgenere } from './RISPOSTE/getgenere.js';
 import { register } from './RISPOSTE/register.js';
-import mongoSanitize from 'express-mongo-sanitize';
 import {login,forgot} from './RISPOSTE/login.js';
 import {mod, modData, modPass} from './RISPOSTE/mod.js';
 import {elimina} from './RISPOSTE/elimina.js';
@@ -37,7 +36,6 @@ const countries = [
 
 // Middleware 
 app.use(express.json());
-app.use(mongoSanitize());
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");

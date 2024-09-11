@@ -41,7 +41,6 @@ async function addArtist() {
   document.getElementById("artist1").innerHTML = "";
   if (cercatotrim!=""){
   const post = await apicall("http://localhost:3000/artisti", {cercato: cercato} , "POST", false)
-      document.getElementById("artist1").innerHTML = "";
       art = post.data.artists.items
       for (let index = 0; index < art.length; index++) {
         addRow(art[index],"artist1","ADD")

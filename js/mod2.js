@@ -38,6 +38,7 @@ async function load() {
   }
   for (let index = 0; index < value.length; index++) {
     addRow(value[index], "artist2", "REM");
+    canzoni.push(value.id)
   }
 }
 
@@ -46,6 +47,7 @@ async function cerca() {
     cercato: document.getElementById("Artista").value,
     token: token,
   };
+  document.getElementById("artist1").innerHTML = "";
   let cercatotrim = data.cercato.trim();
   if (cercatotrim != "") {
     const post = await apicall(
@@ -54,7 +56,6 @@ async function cerca() {
       "POST",
       false
     );
-    document.getElementById("artist1").innerHTML = "";
     if (post.sta == 401) {
       await logout();
     } else {

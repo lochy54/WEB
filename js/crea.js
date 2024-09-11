@@ -14,9 +14,11 @@ async function cerca() {
   var data = { cercato: document.getElementById("Artista").value,
                token: token }
                let cercatotrim = data.cercato.trim()
+               document.getElementById("artist1").innerHTML = "";
+
                if (cercatotrim!=""){
+                
   const post = await apicall("http://localhost:3000/cerca", data , "POST", false)
-  document.getElementById("artist1").innerHTML = "";
     if (post.sta == 401) {
         await logout();
     } else {
@@ -117,7 +119,7 @@ async function save() {
     token: token,
   };
 
-  const post = await apicall("http://localhost:3000/salva",data,"PUT",false)
+  const post = await apicall("http://localhost:3000/salva",data,"PUT",true)
   if (post.sta == 401) {
       logout();
   }
