@@ -1,639 +1,448 @@
 # GITHUB
-+ https://github.com/lochy54/WEB 
-+ [Luca Carone Polettini](https://github.com/lochy54) MAT:05099A  
+
+- https://github.com/lochy54/WEB
+- [Luca Carone Polettini](https://github.com/lochy54) MAT:05099A
 
 # Relazione progetto
-Il progetto si propone di sviluppare un'applicazione web per la gestione e la condivisione di playlist musicali tra utenti. <br>
-L'applicazione permette di:
-+ Registrare un utente creando profili personalizzati.
-+ Gestire le playlist.
-+ Condividere le playlist create da una comunità.
 
-L'applicazione sarà sviluppata usando come framework bootstrap per renderla totalmente responsiva.
+Il progetto si propone di sviluppare un'applicazione web per la gestione e la condivisione di playlist musicali tra utenti. L'applicazione permette di:
+
+- Registrare un utente creando profili personalizzati.
+- Gestire le playlist.
+- Condividere le playlist create da una comunità.
+
+L'applicazione sarà sviluppata usando il framework Bootstrap per renderla totalmente responsive.
 
 # Analisi dei requisiti
-Il progetto è composto da tre principali macro-scenari: 
-+ Gestione degli utenti.
-+ Gestione delle playlist.
-+ Gestione delle condivisioni.
 
-Ogni utente una volta registrato può: creare e modificare il proprio profilo, organizzare playlist personalizzate attingendo ai dati forniti tramite le API REST di Spotify e condividere queste playlist con altri utenti. Le playlist possono essere cercate e visualizzate attraverso criteri di ricerca specifici come tag e titolo.
-# Proflio utente FRONT-END spiegazione interfaccie
-## Registrazine:
-Basterà inserire i relativi dati nel form di registrazione. 
+Il progetto è composto da tre principali macro-scenari:
 
-![alt text](img/image.png)
+1. Gestione degli utenti.
+2. Gestione delle playlist.
+3. Gestione delle condivisioni.
 
-Cliccando show custom si apriranno le info aggiuntive.
-
-![alt text](img/image-1.png)
-
-La ricerca degli artisti viene effettuata usando le api di spotyfi, una volta cercato un artista basterà aggiungerlo o rimuoverolo.
-
-![alt text](img/image-2.png)
-
-Una volta finita la registrazione basterà premere reigstra, successivamente
-apparirà un banner per capire se la registrazione è avvenuta con sucesso o meno.
-
-![alt text](img/image-3.png)
-
-## Login:
-Per effettuare un login basterà inserire i dati nel form e premere login.
-
-![alt text](img/image-4.png)
-## Forgot password
-Se la mail esiste invia una richiesta di reset password al server, essa viene stampata nella console.
-
-![alt text](img/image-5.png)
-> Forgot passwor:  { email: 'lochy54@outlook.it' }
-
-## Homepage utente
-Qui si potrà:
-+ Visualizzare il proprio profilo per:
-    + eliminarlo
-    + modificarlo.
-+ Effettuare logout.
-+ Creare una playlist (crea).
-+ Modificare una playlist (modifica)
-    + eliminarla
-    + modificarla.
-+ Cercare una playlist di un altro utente (eventualmente aggiungendo la playlist al proprio profilo).
-+ Visualizzare la libreria delle playlist personali + aggiunte.
-
-![alt text](img/image-6.png)
-
-## Profile
-Tramite questa interfaccia è possibile modificare tutti i dati del profilo.
-Una volta cambiato un dato basterà premere "modifica dati" per inviare la richiesta al server.
-
-Per cambiare la password sarà necessario inserire anche la vecchia password per motivi di sicurezza, successivamente si dovrà premere su "modifica password".
-
-Premendo show custom si potranno visualizzare anche le info aggiuntive sul profilo.
-
-Per eliminare il profilo basterà premere su elimina profilo.
-
-![alt text](img/image-7.png)
-
-Premendo il tasto home si tornerà alla schermata principale. 
-
-Una volta inviata la richiesta apparirà un banner con lo stato.
-## Logout
-Premendo logout si uscirà dal profilo tornando alla pagina di login.
-## Crea
-In questa pagina sarà possiblie creare una playlist inserendo:
-+ Titolo.
-+ Descrizione.
-+ Tag.
-+ Pubblica o privata.
-
-Una volta inseriti i campi obbligatori si potrà creare la playlist vuota o aggiungere ad essa delle canzoni.
-
-![alt text](img/image-8.png)
-
-Una volta cercata una canzone si potrà aggiungerla o rimuoverla a piacimento, una volta aggiunta una canzone il timer del "totale" aumenterà del tempo necessario.
-
-La ricerca delle canzioni viene effettuata attraverso le api di spotyfi.
-
-![alt text](img/image-9.png)
-
-Una volta inviata la richiesta apparirà un banner con lo stato.
-
-Premendo il tasto home si tornerà alla schermata principale.
-
-## Modifica
-In questa interfaccia si potrà selezionare una plyalist da noi creata per:
-+ Modificarla.
-+ Eliminarla.
-
-Premendo "MOD" si entrerà nella schermata di modifiche, la quale è analoga a quella di creazione.
-
-Per l'eliminazione basterà premere il tasto "DEL" ed apparirà un banner per la conferma dello stato.
-
-![alt text](img/image-10.png)
-
-## Cerca
-In questa pagina si potranno cercare playlist di altri utenti per aggiungerle alla nostra libreria. La ricerca potrà essere effettuata per tag o nome playlist.
-
-![alt text](img/image-11.png)
-
-Premendo il tasto open si andrà ad aprire la playlist per controllarne il contenuto.
-
-![alt text](img/image-12.png)
-
-Qui possiamo decidere se salvare la playlist nel nostro profilo o meno. E' possibile ricercare canzoni all'interno della playlist tramite la barra di ricerca.
-Una volta salvata una playlist si tornerà alla schermata di ricerca playlist.
-## Libreria 
-In questa schermata è possibile visualizzare tutte le playlist della libreria.
-+ Posso rimuovere delle playlist aggiunte da altri account
-+ Visualizzare le playlist (aggiunte+create)
-
-![alt text](img/image-14.png)
-
-Per rimuovere una playlist aggiunta basterà premere "RIM". Una volta inviata la richiesta sarà visualizzato un banner con lo stato di essa.
-
-Il tasto "OPEN" permette di aprire una playlist ,visualizarne il contenuto e cercare delle canzoni.
-
-La ricerca potrà essere effettuata per tag o nome playlist
-# Server BACK-END
-## Server
-Il back-end creato per gestire le risposte alle chiamate http del fornt-end utilizza express per creare un server sulla porta 3000.
-``` js
-const app = express(); // inizzializzazione
-const port = 3000; // port
-// Middleware 
-app.use(express.json());
-app.use(mongoSanitize());
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-})
-```
-All' interno di una funzione asincrona ci sarà l'avvio del server.
-``` js
-//setup generi ask ogni 5 min (potrebbero cambiare)
-(async () => {
- ------
-  // Start server
-  app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-  });
-})();
-```
-## Funzioni aggiuntive server
-Introduciamo 3 funzioni aggiuntive prima di analizzare le vartie routes:
-### chektoken: 
-
-Il server utilizza dei token di accesso generati ogni volta che un nuovo client effettua un login. Questi token saranno salvati dentro l'array dei token assieme ad un timestamp del tempo d'inserimento e la mail dell'utente. Il token sarà succesivamente inviato al client, come risposta, per richieste future.
-``` js
-var tokenlis = [];
-``` 
-Ogni volta che un client fa una richiesta al server deve includere il token. Se il token è contenuto nel server e il timestamp associato è minore di 10 minuti la richiesta sarà garantita e il  timestamp sarà aggiornato al tempo della nuova richiesta; in caso contrario la richiesta sarà rifiutata e il token sarà scartato.
-``` js
-//ce un token attivo , se cè aggiorno l'oriario
-function chektoken(value) {
-  const currentTime = new Date(); 
-  const tenMinutesAgo = new Date(currentTime.getTime() - (5 * 100 * 1000)); 
-
-  for (let index = 0; index < tokenlis.length; index++) {
-      if (tokenlis[index].token === value) {
-          if (tokenlis[index].time <= tenMinutesAgo) {
-              tokenlis.splice(index, 1);
-              return false;
-          } else {
-              tokenlis[index].time = currentTime; 
-              console.log("Token aggiornato");
-              return true;
-          }
-      }
-  }
-
-  // Se il token non è stato trovato
-  return false;
-}
-```
-### findtoken:
-Per effettuare alcune ricerche nel db è necessario usare la mail dell'utente; dato che nelle varie richieste dell'utente non viene mai inclusa la mail ma soltanto il token. Esiste una funzione che dato un token attivo restituisce una mail.
-``` js
-//dato un token trova l'email
-function findtoken(token){
-  for (let index = 0; index < tokenlis.length; index++) {
-    if (tokenlis[index].token === token) {
-        return tokenlis[index].user;
-        }}}
-```
-### getGeneri:
-
-Donde evitare di richiedere i generi a spotyfi ogni volta che un nuovo client effettua un modifica del profilo o una registrazione, ho introdotto questa funzione asincorna che ogni 5 minuti richiede i generi e li salva nell array dei generi del server.
-``` js
-//setup generi ask ogni 5 min (potrebbero cambiare)
-(async () => {
-  generi = await getgenere();
-  setInterval(async () => {
-    generi = await getgenere();
-  }, 5 * 60 * 1000);
----
-})();
-```
-### Zod
-Questo pacchetto viene ustato per controllare che i dati mandati dal client, nelle varie richieste, siano corretti e rispettino gli standard assegnati, prima di inserirli nel db.
-``` js
-import { z } from 'zod';
-const userDataSchema = z.object({
-    nome: z.string().min(2),
-    cognome: z.string().min(2),
-    data: z.date(), 
-    paese: z.string(),
-    email: z.string().email(),
-    artisti: z.array(z.string().min(2)).default([]),
-});
----
-try {
-    userData.data= new Date(userData.data);
-    userDataSchema.parse(userData);
-----
-```
-
-## Spotyfi api
-Questa parte di codice introduce una funzione che restituisce un client spotyfi che ci permette di fare chiamate sfruttando le api
-```js
-import request  from "request";
-import SpotifyWebApi from "spotify-web-api-node";
-async function gettoken() {
-    const client_id = '80c861fd6b084de3bddd82e305be6fcc';
-    const client_secret = '0d45b84ca78e436eaf57b2a7d8961944';
-    const authOptions = {
-        url: 'https://accounts.spotify.com/api/token',
-        headers: {
-          'Authorization': 'Basic ' + (new Buffer.from(client_id + ':' + client_secret).toString('base64'))
-        },
-        form: {
-          grant_type: 'client_credentials'
-        },
-        json: true
-    };
-    return new Promise((resolve, reject) => {
-        request.post(authOptions, function(error, response, body) {
-            if (!error && response.statusCode === 200) {
-                resolve(body.access_token);
-            } else {
-                reject(error);
-            }
-        });
-    });
-}
-async function getapi() {
-
-        var access_token = await gettoken();
-        var spotifyApi = new SpotifyWebApi();
-        spotifyApi.setAccessToken(access_token);
-        return spotifyApi;
-}
-export {getapi}
-```
-Utilizzando il client id e il client seacret (presi dalla pagina ufficiale di spotyfi) genero un token per effettuare richieste al server di spotyfi. Questo token sarà poi usato per inizializzare un client che sarà poi usato per le varie richieste http.
-## Mongodb
-### Connect
-Questa parte di codice inplementa una funzione che ritorna un mongoClient usato per fare chiamate al db.
-``` js
-import { MongoClient } from 'mongodb';
-async function connectToCluster() {
-    let mongoClient;
- 
-    try {
-        mongoClient = new MongoClient("mongodb://localhost:27017");
-        await mongoClient.connect(); 
-        return mongoClient;
-    } catch (error) {
-        throw new Error ('problemi di connesione');
-    }
- }
-export {connectToCluster};
-```
-Una volta connesso al db ritorna il client sul quale fare le operazioni.
-### Sanitize
-Utilizzo mongoSanitize per pulire tutte le query che effettuo verso il db (donde evitare una no-sql-Injection).
-``` js
-import mongoSanitize from 'express-mongo-sanitize';
-app.use(mongoSanitize());
-```
+Ogni utente, una volta registrato, può creare e modificare il proprio profilo, organizzare playlist personalizzate utilizzando i dati forniti dalle API REST di Spotify e condividere queste playlist con altri utenti. Le playlist possono essere cercate e visualizzate attraverso criteri di ricerca specifici, come tag e titolo.
 
 # MongoDB
-## Collezzioni
-Nel mio db ho 2 collezioni:
-### Utenti
+
+Nel mio db ho 2 collezioni.
+
+## Utenti
+
 ![alt text](img/image-15.png)
 Un utente è una persona che si è registrata al sito
-  + id: identificativo univoco dell profilo
-  + nome: nome del registrato
-  + cognome: cognome del registrato
-  + data: data di nascita del registrato
-  + paese: paese del registrato
-  + email: email del registrato
-  + password: password del profilo
-  + generi: generi che piaciono al registrato
-  + artisti: artisti che piaciono al registrato
+
+- id: identificativo univoco dell profilo
+- nome: nome del registrato
+- cognome: cognome del registrato
+- data: data di nascita del registrato
+- paese: paese del registrato
+- email: email del registrato
+- password: password del profilo
+- generi: generi che piaciono al registrato
+- artisti: artisti che piaciono al registrato
 
 negli utenti ho 2 indici unici:
 
 ![alt text](img/image-16.png)
 
 Oltre all'id ho impostato come indice unco anche l'email (ogni email può essere registrata una sola volta dato che identifica un utente nel db)
-### Playlist
+
+## Playlist
+
 ![alt text](img/image-13.png)
 
 Una playlist è una collezione di canzoni
-+ id:  identificativo univoco della playlist
-+ nome: nome della playlist
-+ tag: tag della playlist
-+ descrizione: breve descrizione testuale della playlist
-+ canzoni: array di id delle canzoni aggiunte alla playlist
-+ public: bool che identifica se la playlist è pubblica o privata
-+ durata: durata della playlist in ms
-+ email: lista di email che hanno la playlist in libreria
+
+- id: identificativo univoco della playlist
+- nome: nome della playlist
+- tag: tag della playlist
+- descrizione: breve descrizione testuale della playlist
+- canzoni: array di id delle canzoni aggiunte alla playlist
+- public: bool che identifica se la playlist è pubblica o privata
+- durata: durata della playlist in ms
+- email: lista di email che hanno la playlist in libreria
   - posizione 0 : creatore della playlist
   - posizione n: coloro che hanno aggiunto la playlist in libreria
 
-Dato che i collegameti profilo-playlist sono salvati un un record della playlist stessa, se il creatore di una playlist la elimina scomparà a tutti.
-
-nelle playlis ho 2 indici unici:
+Dato che i collegameti profilo-playlist sono salvati un un record della playlist stessa, se il creatore di una playlist la elimina scomparà a tutti. Nelle playlis ho 2 indici unici:
 
 ![alt text](img/image-17.png)
 
 Oltre all'id ho impostato come indice unco anche la coppia email-nomePlaylist (gli utenti non possono creare playlist con lo stesso nome di playlist già create dal loro profilo (attive)).
+
 # Swagger
+
 E attivo lo swagger dell varie route del server.
-``` js
+
+```js
 import swaggerUi from "swagger-ui-express";
 import swaggerDocument  from "./swagger-output.json" with { type: "json" };
 ---
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument ));
 ```
+
 Si può accedere ad esso sul localhost alla porta 3000 /api-docs.
-## Routes:
-### Genere
-Questa route serve per richiedere la lista dei generi utilizzando le api di spotyfi. Ritorna 200 e la lista di generi.
-``` js
+
+# Server BACK-END
+
+Il back-end creato per gestire le risposte alle chiamate HTTP del front-end utilizza Express per creare un server sulla porta 3000.
+
+```js
+// Middleware
+app.use(express.json());
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
+```
+
+All'interno di una funzione asincrona viene avviato il server.
+
+```js
+// Start server
+app.listen(port, () => {
+  console.log(port);
+});
+```
+
+# Funzioni aggiuntive server
+
+Introduciamo delle funzioni aggiuntive utilizzate nelle varie chiamate dal server.
+
+## chektoken
+
+Il server utilizza dei token di accesso generati ogni volta che un nuovo client effettua un login. Questi token saranno salvati dentro un array dei token assieme al timestamp del tempo d'inserimento e alla mail dell'utente. Il token sarà succesivamente inviato al client come risposta. Esso dovrà essere inserito in tutte le richieste future, ciò evita l'invio di dati sensibili da parte del client ( il servere conosce già la mail per ogni client che si è loggato ).
+
+```js
+var tokenlis = [];
+```
+
+Ogni volta che un client ( gia loggato ) fa una richiesta al server esso controlla il token associato. Se il token è contenuto nel server e il timestamp associato è minore di 10 minuti la richiesta sarà garantita e il timestamp sarà aggiornato, in caso contrario la richiesta sarà rifiutata e il token sarà scartato.
+
+```js
+//ce un token attivo , se cè aggiorno l'oriario
+function chektoken(value) {
+  const currentTime = new Date();
+  const tenMinutesAgo = new Date(currentTime.getTime() - 5 * 100 * 1000);
+
+  for (let index = 0; index < tokenlis.length; index++) {
+    if (tokenlis[index].token === value) {
+      if (tokenlis[index].time <= tenMinutesAgo) {
+        tokenlis.splice(index, 1);
+        return false;
+      } else {
+        tokenlis[index].time = currentTime;
+        console.log("Token aggiornato");
+        return true;
+      }
+    }
+  }
+
+  // Se il token non è stato trovato
+  return false;
+}
+```
+
+## findtoken
+
+Per effettuare alcune ricerche nel db è necessario usare la mail dell'utente. Esiste una funzione che dato un token attivo restituisce una mail.
+
+```js
+//dato un token trova l'email
+function findtoken(token) {
+  for (let index = 0; index < tokenlis.length; index++) {
+    if (tokenlis[index].token === token) {
+      return tokenlis[index].user;
+    }
+  }
+}
+```
+
+## getGeneri
+
+Donde evitare di richiedere i generi a spotyfi ogni volta che un nuovo client effettua un modifica del profilo o una registrazione ho introdotto questa funzione posizionata nella funzione asincrona dell'avvio del server. Ogni 5 minuti essa richiede i generi alle api e li salva nell array dei generi del server.
+
+```js
+let generi = [];
+//setup generi ask ogni 5 min (potrebbero cambiare)
+generi = await getgenere();
+setInterval(async () => {
+  generi = await getgenere();
+}, 5 * 60 * 1000);
+```
+
+## Zod
+
+Questo pacchetto viene ustato per controllare che i dati mandati dal client, nelle varie richieste, siano corretti e rispettino gli standard assegnati, prima di inserirli nel db.Nel caso i dati non siano uniformi con le aspettative gestisco l'errore con un try cach.
+
+```js
+import { z } from "zod";
+const userDataSchema = z.object({
+  email: z.string().email(),
+});
+
+try {
+  userDataSchema.parse({ email: email });
+  return { res: true, code: 200 };
+} catch (error) {
+  console.error(error);
+  return { res: false, code: 400 };
+}
+```
+
+## Spotyfi api
+
+Questa parte di codice introduce una funzione che restituisce un client spotyfi che ci permette di fare chiamate sfruttando le api.
+
+```js
+import request from "request";
+import SpotifyWebApi from "spotify-web-api-node";
+async function gettoken() {
+  const client_id = "80c861fd6b084de3bddd82e305be6fcc";
+  const client_secret = "0d45b84ca78e436eaf57b2a7d8961944";
+  const authOptions = {
+    url: "https://accounts.spotify.com/api/token",
+    headers: {
+      Authorization:
+        "Basic " +
+        new Buffer.from(client_id + ":" + client_secret).toString("base64"),
+    },
+    form: {
+      grant_type: "client_credentials",
+    },
+    json: true,
+  };
+  return new Promise((resolve, reject) => {
+    request.post(authOptions, function (error, response, body) {
+      if (!error && response.statusCode === 200) {
+        resolve(body.access_token);
+      } else {
+        reject(error);
+      }
+    });
+  });
+}
+async function getapi() {
+  var access_token = await gettoken();
+  var spotifyApi = new SpotifyWebApi();
+  spotifyApi.setAccessToken(access_token);
+  return spotifyApi;
+}
+```
+
+Utilizzando il client id e il client seacret (presi dalla pagina ufficiale di spotyfi) genero un token per effettuare richieste al server di spotyfi. Questo token sarà successivamente usato per inizializzare un client il quale verrà ritornato e utilizzato per le richieste http.
+
+## Mongodb
+
+Questa parte di codice contiene una funzione che ritorna un mongoClient usato per fare chiamate al db.
+
+```js
+import { MongoClient } from "mongodb";
+async function connectToCluster() {
+  let mongoClient;
+
+  try {
+    mongoClient = new MongoClient("mongodb://localhost:27017");
+    await mongoClient.connect();
+    return mongoClient;
+  } catch (error) {
+    throw new Error("problemi di connesione");
+  }
+}
+```
+
+Una volta connesso al db ritorna il client sul quale fare le operazioni.
+# Routes:
+Analizziamo le varie routes presenti sul back-end
+## /genere
+Questa route ritorna la lista dei generi salvati nel server. Rispende sempre con un 200 e una lista (caso peggiore lista vuota perchè le api non vanno)
+```js
+//ritorna lista generi
 app.get('/genere', (req, res) => {
   console.log("generi richiesti");
   res.status(200).json(generi);
 });
 ```
-### Elimina
-Questa route serve per eliminare un profilo. In caso l'eliminazione venga eseguita con sucesso rotorna 200, nel caso si sia verificato un errore in fase di risposta o eliminazione manda uno status 500. L'eliminazione viene effettuata trovando dall token di sicureazza la mail dell' utente.
-``` js
+## /elimina
+Dato un token (attivo) di un profilo elimina l'utente dalla piattaforma.
+Ritorna:
+
++ 500 Problemi in fase di collegamento col db o eliminazione
++ 401 Il token non è autorizzarto
++ 200 Eliminazione avvenuta con successo
+
+```js
+//elimina un profilo
 app.delete('/elimina', async (req, res) => {
-  console.log("Received elimination request with message:", req.body);
+  console.log("Richiesta eliminazione profilo", req.body);
   if(chektoken(req.body.token)){
     let v = await elimina(findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({res:false});
+    res.status(401).json(false);
   }
 });
 ```
-### modplaylist1
-Dato un token (attivo) di un profilo restutuisce le playlist create e ancora attive di quel profilo (200), nel caso si sia verificato un errore in fase di risposta o ricerca manda uno status 500. Le playlist vengono cercate partendo dall token di sicureazza, dal quale viene ricavata la mail dell'utente.
-``` js
+Se elimino un utente devo cancellare anche tutte le playlist a lui collegate. Potrebbe succedere che tra le chiamate per eliminare playlist e utente una vada a buon fine e l'altra no. All'interno della funzione elimina vengono usate le transaction garantendo così consistenza dei dati in caso di una eliminazione fallita o parziale. 
+
+Se una delle due chiamate fallisce si esegue una abort della transazione, altrimenti si esegue un commit salvando tutto alla fine.
+
+## modplaylist (cercacanzoni)
+Tutte le funzioni modplaylist n* utilizzano questa funzione per trovare i dati effettivi delle canzoni da restituire. Nel db le canzoni sono salvate solo con un codice identificativo, la funzione cercacanzoni scorre tutti gli id presenti in una playlist e ritorna una lista di canzoni. In caso si verifichi un errore nella connessione con spotyfi lo lancia.
+```js
+async function cercaCanzoni(playlist){
+    try {
+    var tracks = []
+    var spotifyApi = await getapi();
+    if (playlist.length!=0){
+        var data = await spotifyApi.getTracks(playlist , {limit: 10});
+        tracks = data.body;
+    }
+return tracks
+    }catch(e){
+        throw new Error("errore riecerca")
+    }
+}
+```
+## /modplaylist1
+Dato un token (attivo) di un profilo restutuisce le playlist ancora attive create da quel profilo.
+Ritorna:
++ 500 Problemi in fase di collegamento col db o ricerca
++ 401 Il token non è autorizzarto
++ 200 Ricerca avvenuta con successo
+
+```js
+//trova playlist create e ancora attive di un dato profilo 
 app.post('/modplaylist1', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Trovo playlist mp1:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist1(findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 ```
-### modplaylist2
-Dato un token (attivo) di un profilo e un nome di una playlist creata da quel profilo e ancora attiva trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
+## /modplaylist3
+Dato un token (attivo) di un profilo trova e ritorna le playlist ancora attive create e non da quel profilo.
+
++ 500 Problemi in fase di collegamento col db o ricerca
++ 401 Il token non è autorizzarto
++ 200 Ricerca avvenuta con successo
+
 ```js
-app.post('/modplaylist2', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist2(findtoken(req.body.token) ,req.body.playlist)
-    res.status(v.code).json(v);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
-```
-### modplaylist3
-Dato un token (attivo) di un profilo trova e ritorna le playlist create e non da quel profilo ancora attive (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
-```js
+//trova le playlist create e non dall'utente ancora attive
 app.post('/modplaylist3', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Trovo playlist mp3:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist3(findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 ```
-### modplaylist4
-Dato un token (attivo) di un profilo e un nome di una playlist creata o non da quel profilo e ancora attiva. Trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
-```js
-app.post('/modplaylist4', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist4(findtoken(req.body.token) ,req.body.playlist)
-    res.status(v.code).json(v);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
-```
+## /eliminaPlaylist
+Dato un token (attivo) di un profilo e un nome di una playlist creata da tale profilo, elimina la playlist. Tutti gli altri utenti che hanno salvato la playlist non la potranno più vedere.
 
-### eliminaPlaylist
-Dato un token (attivo) di un profilo e un nome di una playlist elimina la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. Tutti gli altri utenti che si sono salvati la playlist non la vedranno più.
-``` js
++ 500 Problemi in fase di collegamento col db o eliminazione
++ 401 Il token non è autorizzarto
++ 400 Il nome non esiste per quel profilo
++ 200 Eliminazione avvenuta con successo
+
+```js
+//elimina una playlist
 app.delete('/eliminaPlaylist', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Eliminazione playlist:", req.body);
   if(chektoken(req.body.token)){
     let v = await delPlaylist(findtoken(req.body.token),req.body.nome)
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 ```
-### togliPlaylist
-Dato un token (attivo) di un profilo e un nome di una playlist toglie la playlist di quel profilo (200), nel caso si sia verificato un errore in fase di eliminazione o risposta manda uno status 500. La playlist rimarrà attiva negli altri profili in cui è stata salvata.
-``` js
+## /togliPlaylist
+Dato un token (attivo) di un profilo e un nome di una playlist non creata da tale profilo, toglie la playlist di quel profilo. La playlist rimarrà attiva negli altri profili in cui è stata salvata.
+
++ 500 Problemi in fase di collegamento col db o modifica
++ 401 Il token non è autorizzarto
++ 400 Il nome non esiste per quel profilo
++ 200 Modifica avvenuta con successo
+
+```js
+//togli una playlist da un profilo
 app.delete('/togliPlaylist', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Tolgo la playlist:", req.body);  
   if(chektoken(req.body.token)){
-    let v = await remPlaylist(findtoken(req.body.token),req.body.nome)
-    res.status(v.code).json(v);
+    let v = await remPlaylist(findtoken(req.body.token),req.body.nome,req.body.email)
+    res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 ```
-### modplaylist5
-Dato un token (attivo) di un profilo trova e ritorna le playlist non create e non aggiunte dall'utente (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
-``` js
+## /modplaylist5
+Dato un token (attivo) di un profilo trova e ritorna le playlist ancora attive non create e non aggiunte dal profilo.
+
++ 500 Problemi in fase di collegamento col db o ricerca
++ 401 Il token non è autorizzarto
++ 200 Ricerca avvenuta con successo
+
+```js
+//trova le playlist non create e non aggiunte dall'utente
 app.post('/modplaylist5', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
+  console.log("Trovo playlist mp5:", req.body);
   if(chektoken(req.body.token)){
     let v = await modplaylist5(findtoken(req.body.token))
-    res.status(v.code).json(v);
+    res.status(v.code).json(v.res);
   }else{
-    res.status(401).json({ res:false});
+    res.status(401).json(false);
   }
 });
 ```
-### modplaylist6
-Dato un token (attivo) di un profilo e un nome di una playlist non creata da quel profilo e ancora attiva trova e ritorna le canzoni della playlist cercata (200), nel caso si sia verificato un errore in fase di ricerca o risposta manda uno status 500.
-``` js
-app.post('/modplaylist6', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modplaylist2(req.body.emailpass,req.body.playlist)
-    res.status(v.code).json(v);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
-```
-### register
-Registra un nuovo utrente nella piattaforma (200), nel caso ci siano problemi in fase di inserimento manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.
-``` js
+## /register
+Dato un json di un profilo lo egistra nella piattaforma.
+
++ 500 Problemi in fase di collegamento col db o salvataggio
++ 400 Zod ha rilevato delle inconsistenze nei dati
++ 200 Salvataggio avvenuta con successo
+
+```js
+//registra profilo
 app.put('/register', async (req, res) => {
-  console.log("Received registration request with message:", req.body);
-  let v = await register(req.body,generi)
-  console.log(v);
-  res.status(v.code).json(v);
+  console.log("Richiesta registrazione:", req.body);
+  let v = await register(req.body,generi,countries)
+  res.status(v.code).json(v.res);
 });
 ```
-### login
-Effettua il login di un utrente nella piattaforma (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400. Inoltre crea il token di accesso, lo salva nel server assieme al timestamp e lo manda all'utente (per chiamate future).
-``` js
+## /login
+Date le informazioni di accesso di un utente, ne effettua il login nella piattaforma. Crea il token di accesso , lo salva nel server assieme al timestamp e lo ritorna all'utente (per chiamate future).
+
++ 500 Problemi in fase di collegamento col db o ricerca
++ 400 Zod ha rilevato delle inconsistenze nei dati o utente non esiste
++ 200 Login avvenuto con successo
+
+```js
+//login profilo , aggiungi token 
 app.post('/login', async (req, res) => {
-  console.log("Received login request with message:", req.body);
+  console.log("Richiesta login:", req.body);
   let v = await login(req.body)
-  console.log(v);
-  res.status(v.code).json(v);
+  res.status(v.code).json(v.res);
   if(v.res!=false){
    if(!chektoken(v.res)){
       tokenlis.push({token: v.res , time: new Date() , user: req.body.email})
-      console.log(tokenlis);
+      console.log("tokenlist:",tokenlis);
   }}
 });
 ```
-### logout
-Effettua il logout di un utrente dalla piattaforma (200) rimuovendo il token dalla lista dei token presenti.
-``` js
-app.post('/logout', (req, res) => {
-  console.log("Received logout request with message:", req.body);
-      for (let index = 0; index < tokenlis.length; index++) {
-        if (tokenlis[index].token === req.body.token) {
-            tokenlis.splice(index, 1);
-            console.log("rimuovo "+req.body.token);
-          }}  
-    res.status(200).json({ res:true , code:200});
-});
-```
-### mod
-Dato un token (attivo) di un profilo restituisce i dati di tale profilo (200),nel caso ci siano problemi in fase di connessione manda uno status 500.
-``` js
-app.post('/mod', async (req, res) => {
-  console.log("Received mod request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await mod(findtoken(req.body.token))
-    res.status(v.code).json(v);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
-```
-### modPass
-Dato un token (attivo) di un profilo , la nuova password e la vecchia password imposta la password a quella nuova (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel casoci siano problemi di controllo dei dati inseriti manda uno status 400.
-``` js
-app.put('/modPass', async(req, res) => {
-  console.log("modifica richiesta: ", req.body);
-  if(chektoken(req.body.token)){
-    let v = await modPass(req.body,findtoken(req.body.token))
-    res.status(v.code).json(v);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
-```
-### modData
-Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo (200), nel caso ci siano problemi in fase di connessione manda uno status 500, nel caso ci siano problemi di controllo dei dati inseriti manda uno status 400.
-``` js
-app.put('/modData', async(req, res) => {
-  var tokenre = req.body.token;
-  delete req.body.token;
-  console.log("modifica richiesta: ", req.body);
-  if(chektoken(tokenre)){
-    let v = await modData(req.body,findtoken(tokenre),generi)
-    res.status(v.code).json(v);
-  for (let index = 0; index < tokenlis.length; index++) {
-    if (tokenlis[index].token === tokenre) {
-        tokenlis[index].user= req.body.email;
-        console.log(tokenlis)
-    }}
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
-```
+Nella funzione login il token viene generato partendo dall' email , la password e il timestamp.
 
-### ADDplaylist
- Dato un token (attivo) di un profilo, una mail del creante di una playlist e il nome della playlist al quale mi voglio aggiungere, aggiungo al mio profilo la playlist (200), nel caso ci siano problemi in fase di connessione o aggiunta manda uno status 500.
-``` js
-app.put('/ADDplaylist', async (req, res) => {
-  console.log("Received add request with message:", req.body);
-  if(chektoken(req.body.token)){
-    let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
-    res.status(v.code).json(v);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
+```js
+return {res: createHash('sha256').update(userData.email+userData.password+Date.now()).digest('base64'), code:200 };
 ```
-
-### cerca
- Dato un token (attivo) di un profilo e un dato da cercare (artista, nome canzone, album) cercca le canzoni più simili a quel caso e le restituisce(200), nel caso ci siano problemi in fase di connessione o ricerca manda uno status 500.
-``` js
-app.post('/cerca', async (req, res) => {
-  console.log("cercato", req.body.cercato);
-  if(chektoken(req.body.token)){
-    let v = await cercato(req.body.cercato)
-    res.status(v.code).json(v);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
-```
-### artisti
- Dato un artista da cercare, lo cerca e le restituisce(200), nel caso ci siano problemi in fase di connessione o ricerca manda uno status 500.
-``` js
-app.post('/artisti', async (req, res) => {
-  console.log("cercato", req.body.cercato);
-    let v = await artisti(req.body.cercato)
-    res.status(v.code).json(v);
-});
-```
-### salva
-Dato un token (attivo) di un profilo e un json di una playlist, la salva nel profilo(200). Nel caso ci siano problemi in fase di connessione o savltaggio manda uno status 500, nel caso ci siano problemi di controllo dei dati inseriti manda uno status 400.
-``` js
-app.put('/salva', async (req, res) => {
-  console.log("salva playlist: ", req.body);
-  if(chektoken(req.body.token)){
-    let v = await salva(req.body, findtoken(req.body.token))
-    res.status(v.code).json(v);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
-```
-
-### salvaMod
-Dato un token (attivo) di un profilo e un json di una playlist, salva le modifiche nel profilo(200). Nel caso ci siano problemi in fase di connessione o salvataggio manda uno status 500, nel caso ci siano problemi di controllo dei dati inseriti manda uno status 400.
-``` js
-app.put('/salvaMod', async (req, res) => {
-  console.log("salva playlist: ", req.body);
-  if(chektoken(req.body.token)){
-    let v = await salvaMod(req.body)
-    res.status(v.code).json(v);
-  }else{
-    res.status(401).json({ res:false});
-  }
-});
-```
-
-
-### forgot
-Riceve una richiesta di password forgot e la stampa in console.
-``` js
-app.post('/forgot', async (req, res) => {
-  console.log("Forgot passwor: ", req.body);
-    res.json(forgot(req.body.email));
-
-});
-```
+Il tutto viene criptato usando sha256.
+## /logout

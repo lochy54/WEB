@@ -52,6 +52,8 @@ let generi = [];
 var tokenlis = [];
 
 // Route handlers
+
+//ritorna lista generi
 app.get('/genere', (req, res) => {
   console.log("generi richiesti");
   res.status(200).json(generi);

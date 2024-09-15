@@ -13,7 +13,7 @@
   "paths": {
     "/genere": {
       "get": {
-        "description": "Questa route serve per richiedere la lista dei generi utilizzando le api di spotyfi.",
+        "description": "Questa route ritorna la lista dei generi salvati nel server.",
         "responses": {
           "200": {
             "description": "OK"
@@ -23,7 +23,7 @@
     },
     "/elimina": {
       "delete": {
-        "description": "Questa route serve per eliminare un profilo.",
+        "description": "Dato un token (attivo) di un profilo elimina l'utente.",
         "parameters": [
           {
             "name": "body",
@@ -75,9 +75,6 @@
           "401": {
             "description": "unauthorized"
           },
-          "400": {
-            "description": "bed request"
-          },
           "200": {
             "description": "ok"
           }
@@ -116,7 +113,7 @@
     },
     "/eliminaPlaylist": {
       "delete": {
-        "description": "Dato un token (attivo) di un profilo e un nome di una playlist creata da tale profilo, elimina la playlist. Tutti gli altri utenti che hanno salvato la playlist non la vedranno più.",
+        "description": "Dato un token (attivo) di un profilo e un nome di una playlist creata da tale profilo, elimina la playlist. Tutti gli altri utenti che hanno salvato la playlist  non la potranno più vedere.",
         "parameters": [
           {
             "name": "body",
@@ -221,7 +218,7 @@
     },
     "/register": {
       "put": {
-        "description": "Registra un nuovo utrente nella piattaforma.",
+        "description": "Dato un json di un profilo lo egistra nella piattaforma.",
         "parameters": [
           {
             "name": "body",
@@ -272,7 +269,7 @@
     },
     "/login": {
       "post": {
-        "description": "Effettua il login di un utrente nella piattaforma. Crea il token di accesso , lo salva nel server assieme al timestamp e lo manda all'utente (per chiamate future).",
+        "description": "Date le informazioni di accesso di un utente, ne effettua il login nella piattaforma. Crea il token di accesso , lo salva nel server assieme al timestamp e lo ritorna all'utente (per chiamate future).",
         "parameters": [
           {
             "name": "body",

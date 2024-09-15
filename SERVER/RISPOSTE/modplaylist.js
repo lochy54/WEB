@@ -80,7 +80,6 @@ async function modplaylist5(email){
 }
 
 async function cercaCanzoni(playlist){
-
     try {
     var tracks = []
     var spotifyApi = await getapi();
@@ -90,7 +89,7 @@ async function cercaCanzoni(playlist){
     }
 return tracks
     }catch(e){
-        return new Error ('problemi di connesione')
+        throw new Error("errore riecerca")
     }
 }
 
