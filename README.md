@@ -310,7 +310,7 @@ return tracks
 ## /modplaylist1
 Dato un token (attivo) di un profilo restutuisce le playlist ancora attive create da quel profilo.
 Ritorna:
-+ 500 Problemi in fase di collegamento col db o ricerca
++ 500 Problemi in fase di collegamento col db o ricerca, problemi in fase collegamneto api
 + 401 Il token non è autorizzarto
 + 200 Ricerca avvenuta con successo
 
@@ -329,7 +329,7 @@ app.post('/modplaylist1', async (req, res) => {
 ## /modplaylist3
 Dato un token (attivo) di un profilo trova e ritorna le playlist ancora attive create e non da quel profilo.
 
-+ 500 Problemi in fase di collegamento col db o ricerca
++ 500 Problemi in fase di collegamento col db o ricerca, problemi in fase collegamneto api
 + 401 Il token non è autorizzarto
 + 200 Ricerca avvenuta con successo
 
@@ -388,7 +388,7 @@ app.delete('/togliPlaylist', async (req, res) => {
 ## /modplaylist5
 Dato un token (attivo) di un profilo trova e ritorna le playlist ancora attive non create e non aggiunte dal profilo.
 
-+ 500 Problemi in fase di collegamento col db o ricerca
++ 500 Problemi in fase di collegamento col db o ricerca, problemi in fase collegamneto api
 + 401 Il token non è autorizzarto
 + 200 Ricerca avvenuta con successo
 
@@ -407,9 +407,9 @@ app.post('/modplaylist5', async (req, res) => {
 ## /register
 Dato un json di un profilo lo egistra nella piattaforma.
 
-+ 500 Problemi in fase di collegamento col db o salvataggio
++ 500 Problemi in fase di collegamento col db o inserimento
 + 400 Zod ha rilevato delle inconsistenze nei dati
-+ 200 Salvataggio avvenuta con successo
++ 200 Inserimento avvenuta con successo
 
 ```js
 //registra profilo
@@ -445,4 +445,188 @@ Nella funzione login il token viene generato partendo dall' email , la password 
 return {res: createHash('sha256').update(userData.email+userData.password+Date.now()).digest('base64'), code:200 };
 ```
 Il tutto viene criptato usando sha256.
-## /logout
+## /logout\
+Dato un token (attivo) di un profilo effettua il logout dell' utrente corrispondente dalla piattaforma, inoltre rimuove il token di accesso dalla lista dei token attivi. La risposta è solo 200, (caso peggiore il token viene scartato automaticamente dopo 10 minuti)
+```js
+//logout profilo
+app.post('/logout', (req, res) => {
+  console.log("Richieta logout:", req.body);
+      for (let index = 0; index < tokenlis.length; index++) {
+        if (tokenlis[index].token === req.body.token) {
+            tokenlis.splice(index, 1);
+            console.log("rimuovo token:"+req.body.token);
+          }}  
+    res.status(200).json(true);
+});
+```
+## /mod
+Dato un token (attivo) di un profilo restituisce i dati di tale profilo, esclusa password.
+
++ 500 Problemi in fase di collegamento col db o ricerca
++ 401 Il token non è autorizzarto
++ 200 Ricerca avvenuto con successo
+
+```js
+//modifica profilo (get data)
+app.post('/mod', async (req, res) => {
+  console.log("Mando dati profilo per modifica:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await mod(findtoken(req.body.token))
+    res.status(v.code).json(v.res);
+  }else{
+    res.status(401).json(false);
+  }
+});
+```
+## /modPass
+Dato un token (attivo) di un profilo , la nuova password e la vecchia password aggiorna la password del profilo.
+
++ 500 Problemi in fase di collegamento col db o modifica
++ 400 Zod ha rilevato delle inconsistenze nei dati, la vecchia password non corrispnde
++ 401 Il token non è autorizzarto
++ 200 Modifica avvenuto con successo
+
+```js
+//cambia la password di un profilo
+app.put('/modPass', async(req, res) => {
+  console.log("Richiesta modifica password: ", req.body);
+  if(chektoken(req.body.token)){
+    let v = await modPass(req.body,findtoken(req.body.token))
+    res.status(v.code).json(v.res);
+  }else{
+    res.status(401).json(false);
+  }
+});
+```
+## /modData
+Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo, inoltre modifica l'email associata al relativo token.
+
++ 500 Problemi in fase di collegamento col db o modifica
++ 400 Zod ha rilevato delle inconsistenze nei dati, il paese o la lista di generi non è conforme a quella presente sul server
++ 401 Il token non è autorizzarto
++ 200 Modifica avvenuto con successo
+
+```js
+//modifica i dati di un profilo
+app.put('/modData', async(req, res) => {
+  var tokenre = req.body.token;
+  delete req.body.token;
+  console.log("Ridviesta modifica dati: ", req.body);
+  if(chektoken(tokenre)){
+    let v = await modData(req.body,findtoken(tokenre),generi,countries)
+    res.status(v.code).json(v.res);
+  for (let index = 0; index < tokenlis.length; index++) {
+    if (tokenlis[index].token === tokenre) {
+        tokenlis[index].user= req.body.email;
+    }}
+  }else{
+    res.status(401).json(false);
+  }
+});
+```
+## /ADDplaylist
+Dato un token (attivo) di un profilo, la mail del creante di una playlist e il nome della playlist alla quale mi voglio sottoscrivere, sottoscrivo al mio profilo la playlist.
+
++ 500 Problemi in fase di collegamento col db o modifica
++ 400 La playlist non esiste
++ 401 Il token non è autorizzarto
++ 200 Modifica avvenuto con successo
+
+```js
+//aggiungi playlist a profilo 
+app.put('/ADDplaylist', async (req, res) => {
+  console.log("Aggiungo playlist a profilo:", req.body);
+  if(chektoken(req.body.token)){
+    let v = await ADDplay(findtoken(req.body.token),req.body.emailpass,req.body.playlist)
+    res.status(v.code).json(v.res);
+  }else{
+    res.status(401).json(false);
+  }
+});
+```
+## /cerca
+Dato un token (attivo) di un profilo e un dato da cercare (artista, nome canzone, album) cerca le canzoni più simili a quel dato e le restituisce.
+
++ 500 Problemi in fase di connesione api
++ 401 Il token non è autorizzarto
++ 200 Ricerca avvenuto con successo
+
+```js
+// cerca canzone
+app.post('/cerca', async (req, res) => {
+  console.log("Cercato generico:", req.body.cercato);
+  if(chektoken(req.body.token)){
+    let v = await cercato(req.body.cercato)
+    res.status(v.code).json(v.res);
+  }else{
+    res.status(401).json(false);
+  }
+});
+```
+## /artisti
+Dato un artista da cercare, lo cerca e le restituisce.
+
++ 500 Problemi in fase di connesione api
++ 200 Ricerca avvenuto con successo
+
+```js
+// cerca artisti
+app.post('/artisti', async (req, res) => {
+  console.log("Cercato artisti:", req.body.cercato);
+    let v = await artisti(req.body.cercato)
+    res.status(v.code).json(v.res);
+});
+```
+## /salva
+Dato un token (attivo) di un profilo e un json di una playlist, crea la playlist sottocrivendogli il profilo.
+
++ 500 Problemi in fase di collegamento col db o inserimento
++ 401 Il token non è autorizzarto
++ 400 Zod ha rilevato delle inconsistenze nei dati
++ 200 Inserimento avvenuto con successo
+
+```js
+//salva playlist
+app.put('/salva', async (req, res) => {
+  console.log("Rischiesta salvataggio playlist: ", req.body);
+  if(chektoken(req.body.token)){
+    let v = await salva(req.body, findtoken(req.body.token))
+    res.status(v.code).json(v.res);
+  }else{
+    res.status(401).json(false);
+  }
+});
+```
+## /salvaMod
+Dato un token (attivo) di un profilo e un json di una playlist creata dal profilo, salva le modifiche. (La ricerca della playlist viene effettuata per id)
+
++ 500 Problemi in fase di collegamento col db o modifica
++ 401 Il token non è autorizzarto
++ 400 Zod ha rilevato delle inconsistenze nei dati
++ 200 Modifica avvenuta con successo
+```js
+//salva modifiche playlist
+app.put('/salvaMod', async (req, res) => {
+  console.log("Richiesta salvataggio modifiche playlist: ", req.body);
+  if(chektoken(req.body.token)){
+    let v = await salvaMod(req.body, findtoken(req.body.token))
+    res.status(v.code).json(v.res);
+  }else{
+    res.status(401).json(false);
+  }
+});
+```
+## /forgot
+Riceve una richiesta di password forgot e la stampa nella console del server
+
++ 400 Zod ha rilevato delle inconsistenze nei dati
++ 200 Richiesta inviata con successo
+
+```js
+//forgot password
+app.post('/forgot', async (req, res) => {
+  console.log("Forgot pass: ", req.body);
+  let v = forgot(req.body.email);
+    res.status(v.code).json(v.res);
+});
+```

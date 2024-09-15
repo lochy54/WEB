@@ -149,7 +149,6 @@ app.post('/login', async (req, res) => {
       console.log("tokenlist:",tokenlis);
   }}
 });
-// sono arrivato qui da sistemare questa funzione manca rimuovere tutti i i status in risposta molti hanno solo v
 //logout profilo
 app.post('/logout', (req, res) => {
   console.log("Richieta logout:", req.body);

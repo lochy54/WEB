@@ -302,7 +302,7 @@
     },
     "/logout": {
       "post": {
-        "description": "Effettua il logout di un utrente dalla piattaforma rimuovendo il token di accesso dalla lista dei token attivi.",
+        "description": "Dato un token (attivo) di un profilo effettua il logout dell' utrente corrispondente dalla piattaforma, inoltre rimuove il token di accesso dalla lista dei token attivi.",
         "parameters": [
           {
             "name": "body",
@@ -326,7 +326,7 @@
     },
     "/mod": {
       "post": {
-        "description": "Dato un token (attivo) di un profilo restituisce i dati di tale profilo.",
+        "description": "Dato un token (attivo) di un profilo restituisce i dati di tale profilo, esclusa password.",
         "parameters": [
           {
             "name": "body",
@@ -356,7 +356,7 @@
     },
     "/modPass": {
       "put": {
-        "description": "Dato un token (attivo) di un profilo , la nuova password e la vecchia password cambia la password del profilo.",
+        "description": "Dato un token (attivo) di un profilo , la nuova password e la vecchia password aggiorna la password del profilo.",
         "parameters": [
           {
             "name": "body",
@@ -395,7 +395,7 @@
     },
     "/modData": {
       "put": {
-        "description": "Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo.",
+        "description": "Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo, inoltre modifica l'email associata al relativo token.",
         "parameters": [
           {
             "name": "body",
@@ -446,7 +446,7 @@
     },
     "/ADDplaylist": {
       "put": {
-        "description": "Dato un token (attivo) di un profilo, la mail del creante di una playlist e il nome della playlist al che voglio aggiungere, aggiungo al mio profilo la playlist.",
+        "description": "Dato un token (attivo) di un profilo, la mail del creante di una playlist e il nome della playlist alla quale mi voglio sottoscrivere, sottoscrivo al mio profilo la playlist.",
         "parameters": [
           {
             "name": "body",
@@ -485,7 +485,7 @@
     },
     "/cerca": {
       "post": {
-        "description": "Dato un token (attivo) di un profilo e un dato da cercare (artista, nome canzone, album) cercca le canzoni più simili a quel dato e le restituisce.",
+        "description": "Dato un token (attivo) di un profilo e un dato da cercare (artista, nome canzone, album) cerca le canzoni più simili a quel dato e le restituisce.",
         "parameters": [
           {
             "name": "body",
@@ -545,7 +545,7 @@
     },
     "/salva": {
       "put": {
-        "description": "Dato un token (attivo) di un profilo e un json di una playlist, crea la playlist.",
+        "description": "Dato un token (attivo) di un profilo e un json di una playlist, crea la playlist sottocrivendogli il profilo.",
         "parameters": [
           {
             "name": "body",
