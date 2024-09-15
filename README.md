@@ -286,9 +286,9 @@ app.delete('/elimina', async (req, res) => {
   }
 });
 ```
-Se elimino un utente devo cancellare anche tutte le playlist a lui collegate. Potrebbe succedere che tra le chiamate per eliminare playlist e utente una vada a buon fine e l'altra no. All'interno della funzione elimina vengono usate le transaction garantendo così consistenza dei dati in caso di una eliminazione fallita o parziale. 
+Se elimino un utente devo cancellare anche tutte le playlist a lui collegate. Potrebbe succedere che tra le chiamate una vada a buon fine e l'altra no. All'interno della funzione elimina vengono usate le transaction per garantire la consistenza dei dati in caso di una eliminazione fallita o parziale. 
 
-Se una delle due chiamate fallisce si esegue una abort della transazione, altrimenti si esegue un commit salvando tutto alla fine.
+Se una delle due chiamate fallisce si esegue una abort della transazione, altrimenti si esegue un commit salvando le modifiche.
 
 ## modplaylist (cercacanzoni)
 Tutte le funzioni modplaylist n* utilizzano questa funzione per trovare i dati effettivi delle canzoni da restituire. Nel db le canzoni sono salvate solo con un codice identificativo, la funzione cercacanzoni scorre tutti gli id presenti in una playlist e ritorna una lista di canzoni. In caso si verifichi un errore nella connessione con spotyfi lo lancia.
@@ -524,6 +524,11 @@ app.put('/modData', async(req, res) => {
   }
 });
 ```
+
+Se modifico la mail di un utente devo modificare anche tutte le playlist a essa collegate. Potrebbe succedere che tra le chiamate una vada a buon fine e l'altra no. All'interno della funzione modData vengono usate le transaction per garantire la consistenza dei dati in caso di una modifica fallita o parziale. 
+
+Se una delle due chiamate fallisce si esegue un' abort della transazione, altrimenti si esegue un commit salvando le modifiche.
+
 ## /ADDplaylist
 Dato un token (attivo) di un profilo, la mail del creante di una playlist e il nome della playlist alla quale mi voglio sottoscrivere, sottoscrivo al mio profilo la playlist.
 
