@@ -445,7 +445,7 @@ Nella funzione login il token viene generato partendo dall' email , la password 
 return {res: createHash('sha256').update(userData.email+userData.password+Date.now()).digest('base64'), code:200 };
 ```
 Il tutto viene criptato usando sha256.
-## /logout\
+## /logout
 Dato un token (attivo) di un profilo effettua il logout dell' utrente corrispondente dalla piattaforma, inoltre rimuove il token di accesso dalla lista dei token attivi. La risposta è solo 200, (caso peggiore il token viene scartato automaticamente dopo 10 minuti)
 ```js
 //logout profilo
@@ -635,3 +635,85 @@ app.post('/forgot', async (req, res) => {
     res.status(v.code).json(v.res);
 });
 ```
+# Funzioni shared client
+All'interno del client sono presenti delle funzioni importanti codivise tra tutte le pagine
+## Show alert
+All'interno di ogni pagina è presente un alert, il quale è impostato a dsplay none.
+```html
+  <div class="mt-3" id="myAlert">
+    <strong id="strong"></strong>
+    <button type="button" class="btn-close" aria-label="Close" onclick="closeAlert()"></button>
+  </div>
+```
+Questo alert viene ustato per visualizzare lo stato delle chiamate. Esso verrà aperto e chiuso con le funzioni:
+```js
+function showAlert(message, alertType) {
+    document.getElementById("strong").innerHTML = message;
+    document.getElementById("myAlert").className = "alert mt-3 text-center alert-" + alertType;
+    document.getElementById("myAlert").style.display = "block";
+}
+function closeAlert() {
+    document.getElementById("myAlert").style.display = "none";
+}
+```
+La funzione showAlert prende in input:
++ il messaggio da mostrare
++ il tipo di alert (danger etcc..)
+
+## Logout
+Questa funzione ha il compito di pulire la sessionstorage e inviare la chiamata di logout al server.
+```js
+async function logout() {
+    var token = sessionStorage.getItem('token')
+    var res = await apicall("http://localhost:3000/logout", {token:token}, "POST", false)
+    if(res.res){
+    sessionStorage.clear;
+    window.location.replace("/html/main.html");
+    }
+}
+```
+## Api-Call
+Questa funzine ha il compito di madare una chiamata http al server.
+Prende in input:
++ URL chiamata
++ body chiamata
++ tipologia chiamata
++ show alert
+
+Nel caso la chiamata sia una get il body non verrà considerato. Nel caso showallert sia a false non verranno mostreti gli esiti positivi di una chiamata.
+```js
+async function apicall(url, data, type, allert) {
+  let param;
+  if (data == null) {
+    param = {
+      method: type,
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+    };
+  } else {
+    param = {
+      method: type,
+      headers: { "Content-Type": "application/json;charset=utf-8" },
+      body: JSON.stringify(data),
+    };
+  }
+  const call = await fetch(url, param).then((res) => {
+    sta = res.status;
+    stat = res.statusText;
+    return res.json();
+  });
+
+  if (call !== false) {
+    if (allert) {
+      showAlert(sta + " " + stat, "success");
+    }
+    return { res: true, data: call, sta: sta };
+  } else if (sta != 401) {
+    showAlert(sta + " " + stat, "danger");
+    return { res: false, data: call, sta: sta };
+  } else {
+    return { res: false, data: call, sta: sta };
+  }
+}
+```
+I casi di risposta con codice 400-500 verranno sempre mostrati come alert.
+
