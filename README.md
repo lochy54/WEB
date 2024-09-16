@@ -635,6 +635,98 @@ app.post('/forgot', async (req, res) => {
     res.status(v.code).json(v.res);
 });
 ```
+# Struttura sito web
+## Footer (uguale per tutte le pagine)
+![alt text](image-12.png)
++ Le icone portano ai link dei social
++ Testo interattivo (solo per i tag `<p>`)
+## Login 
+Form di login 
+![alt text](image.png)
+Qui posso:
++ Effettuare il login 
++ Spostarmi nella pagina di register
++ Inviare una richiesta di forgot password
+
+Form forgot password
+![alt text](image-1.png)
+## Register
+Form di registrazione
+![alt text](image-2.png)
+Qui posso:
++ Effettuare il Register 
++ Spostarmi nella pagina di login
++ Aprire la tendina dei parametri opzionali
+
+Tendina parametri opzionali
+![alt text](image-3.png)
+Qui posso:
++ Aggiungere un genere
++ Cernare ed aggiungere un artista
+
+![alt text](image-4.png)
+## Homepage
+Form di homepage 
+![alt text](image-5.png)
+Qui posso:
++ Aprire getione profilo
++ Aprire strumento creazione playlist
++ Aprire strumento cerca playlist di altri utenti (pubbliche)
++ Aprire strumento visualizza libreria
++ Aprire strumento modifica playlist
++ Effettuare il logout
+## Profile
+Form di modifica
+![alt text](image-7.png)
+Qui posso:
++ Salvare le modifiche (dati) 
++ Salvare le modifiche (password, richesta vecchia e nuova password) 
++ Eliminare il profilo (si sarà reindirizzati nella pagina di login)
++ Aprire la tendina dei parametri opzionali (analoga a register)
++ Tornare nella HomePage
+## Cerca
+Form cerca playlist di altri utenti (pubbliche)
+![alt text](image-6.png)
+Qui posso:
++ Visualizzare il contenuto di una playlist (cliccandoci sopra)
+
+![alt text](image-8.png)
+Possibilità di filtrare i risultati tramite la barra di ricerca 
+
++ Aggiungere la playlist al mio profilo (tasto bianco)
++ Filtrare i risultati tramite la barra di ricerca 
++ Tornare nella pagina gestisci profilo
++ Tornare nella HomePage
++ Effettuare il logout
+## Libreria
+Form libreria
+![alt text](image-9.png)
+Qui posso:
++ Visualizzare il contenuto di una playlist (cliccandoci sopra)
++ Eliminare una playlist precedentemente aggiunta al mio profilo (tasto rosso)
++ Filtrare i risultati tramite la barra di ricerca 
++ Tornare nella pagina gestisci profilo
++ Tornare nella HomePage
++ Effettuare il
+## Crea
+Form creazione playlist
+![alt text](image-11.png)
+Qui posso:
+// da fare
++ Tornare nella pagina gestisci profilo
++ Tornare nella HomePage
++ Effettuare il logout
+## Modifica
+Form gestisci playlist (presenti playlist create solo dall'utente)
+![alt text](image-10.png)
+Qui posso:
++ Visualizzare il contenuto di una playlist (cliccandoci sopra)
++ Eliminare una playlist creata (tasto rosso)
++ Aprire il tool di modifica playlist (tasto bianco) (interfaccia omessa poichè uguale allo strumento di creazione playlist)
++ Filtrare i risultati tramite la barra di ricerca 
++ Tornare nella pagina gestisci profilo
++ Tornare nella HomePage
++ Effettuare il logout
 # Funzioni shared client
 All'interno del client sono presenti delle funzioni importanti codivise tra tutte le pagine
 ## Show alert
