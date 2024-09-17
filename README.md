@@ -689,11 +689,13 @@ Qui posso:
 Form di modifica
 ![alt text](img/image-7.png)
 Qui posso:
-+ Salvare le modifiche dati **(tasto mod data)** //arrivato qi
-+ Salvare le modifiche password (richesta vecchia e nuova password) 
-+ Eliminare il profilo (si sarà reindirizzati nella pagina di login)
-+ Aprire la tendina dei parametri opzionali (analoga a register)
-+ Tornare nella HomePage
++ Salvare le modifiche dati **(tasto mod data)** 
++ Salvare le modifiche password *(richista vecchia password)*  **(tasto mod password)** 
++ Eliminare il profilo **(tasto elimina profilo)**
++ Aprire la tendina dei parametri opzionali *(analoga a register)* **(tasto show custom)**
++ Tornare nella HomePage **(tasto home)**
++ Effettuare il logout **(tasto logout)**
+//arrivato qui
 ## Cerca
 Form cerca playlist di altri utenti (pubbliche)
 ![alt text](img/image-6.png)
