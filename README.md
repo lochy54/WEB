@@ -5,75 +5,82 @@
 
 # Relazione progetto
 
-Il progetto si propone di sviluppare un'applicazione web per la gestione e la condivisione di playlist musicali tra utenti. L'applicazione permette di:
+Il progetto si propone di sviluppare un'applicazione web per la gestione e la condivisione di playlist musicali tra utenti. <br> L'applicazione permette di:
 
-- Registrare un utente creando profili personalizzati.
-- Gestire le playlist.
-- Condividere le playlist create da una comunità.
+- **Registrare un utente creando profili personalizzati**.
+- **Gestire le playlist**.
+- **Condividere le playlist create da una comunità**.
 
-L'applicazione sarà sviluppata usando il framework Bootstrap per renderla totalmente responsive.
+L'applicazione sarà sviluppata usando il framework **Bootstrap** per renderla totalmente responsiva.
 
 # Analisi dei requisiti
 
 Il progetto è composto da tre principali macro-scenari:
 
-1. Gestione degli utenti.
-2. Gestione delle playlist.
-3. Gestione delle condivisioni.
+1. **Gestione degli utenti**.
+2. **Gestione delle playlist**.
+3. **Gestione delle condivisioni**.
 
-Ogni utente, una volta registrato, può creare e modificare il proprio profilo, organizzare playlist personalizzate utilizzando i dati forniti dalle API REST di Spotify e condividere queste playlist con altri utenti. Le playlist possono essere cercate e visualizzate attraverso criteri di ricerca specifici, come tag e titolo.
+Ogni utente, una volta registrato, può:
++ Creare e modificare il proprio profilo.
++ Organizzare playlist personalizzate utilizzando i dati forniti dalle **API REST di Spotify**.
++ Condividere queste playlist con altri utenti. 
+
+Le playlist possono essere cercate e visualizzate attraverso dei criteri di ricerca specifici, come **tag** e **titolo**.
 
 # MongoDB
 
-Nel mio db ho 2 collezioni.
+Nel mio db ho 2 collezioni:
++ **Utenti**.
++ **Playlist**.
 
 ## Utenti
 
 ![alt text](img/image-15.png)
-Un utente è una persona che si è registrata al sito
+Un **utente** è una persona che si è registrata al sito, contiene:
 
-- id: identificativo univoco dell profilo
-- nome: nome del registrato
-- cognome: cognome del registrato
-- data: data di nascita del registrato
-- paese: paese del registrato
-- email: email del registrato
-- password: password del profilo
-- generi: generi che piaciono al registrato
-- artisti: artisti che piaciono al registrato
+- **id**: identificativo univoco dell profilo.
+- **nome**: nome del registrato.
+- **cognome**: cognome del registrato.
+- **data**: data di nascita del registrato.
+- **paese**: paese del registrato.
+- **email**: email del registrato.
+- **password**: password del profilo.
+- **generi**: generi che piaciono al registrato.
+- **artisti**: artisti che piaciono al registrato.
 
-negli utenti ho 2 indici unici:
+Negli **utenti** ho 2 indici unici:
 
 ![alt text](img/image-16.png)
 
-Oltre all'id ho impostato come indice unco anche l'email (ogni email può essere registrata una sola volta dato che identifica un utente nel db)
+Oltre all'**id** ho impostato come indice unco anche l'**email** (ogni email può essere registrata una sola volta dato che identifica un utente nel db)
 
 ## Playlist
 
 ![alt text](img/image-13.png)
 
-Una playlist è una collezione di canzoni
+Una **playlist** è una collezione di canzoni, contiene:
 
-- id: identificativo univoco della playlist
-- nome: nome della playlist
-- tag: tag della playlist
-- descrizione: breve descrizione testuale della playlist
-- canzoni: array di id delle canzoni aggiunte alla playlist
-- public: bool che identifica se la playlist è pubblica o privata
-- durata: durata della playlist in ms
-- email: lista di email che hanno la playlist in libreria
-  - posizione 0 : creatore della playlist
-  - posizione n: coloro che hanno aggiunto la playlist in libreria
+- **id**: identificativo univoco della playlist.
+- **nome**: nome della playlist.
+- **tag**: tag della playlist.
+- **descrizione**: breve descrizione testuale della playlist.
+- **canzoni**: array di id delle canzoni aggiunte alla playlist.
+- **public**: bool che identifica se la playlist è pubblica o privata.
+- **durata**: durata della playlist in ms.
+- **email**: lista di email che hanno la playlist in libreria.
+  - posizione 0 : creatore della playlist.
+  - posizione n: coloro che hanno aggiunto la playlist in libreria.
 
-Dato che i collegameti profilo-playlist sono salvati un un record della playlist stessa, se il creatore di una playlist la elimina scomparà a tutti. Nelle playlis ho 2 indici unici:
+Dato che i collegameti **profilo-playlist** sono salvati un un record della playlist stessa, se il creatore di una playlist la elimina scomparà a tutti. Nelle **playlist** ho 2 indici unici:
 
 ![alt text](img/image-17.png)
 
-Oltre all'id ho impostato come indice unco anche la coppia email-nomePlaylist (gli utenti non possono creare playlist con lo stesso nome di playlist già create dal loro profilo (attive)).
+Oltre all'**id** ho impostato come indice unco anche la coppia **email-nomePlaylist** (gli utenti non possono creare playlist con lo stesso nome di playlist già create dal loro profilo (attive)).
 
 # Swagger
 
-E attivo lo swagger dell varie route del server.
+E attivo lo **swagger** dell varie route del server.
 
 ```js
 import swaggerUi from "swagger-ui-express";
@@ -86,8 +93,7 @@ Si può accedere ad esso sul localhost alla porta 3000 /api-docs.
 
 # Server BACK-END
 
-Il back-end creato per gestire le risposte alle chiamate HTTP del front-end utilizza Express per creare un server sulla porta 3000.
-
+Il back-end utilizza **Express** per creare un server sulla porta 3000.
 ```js
 // Middleware
 app.use(express.json());
@@ -114,13 +120,13 @@ Introduciamo delle funzioni aggiuntive utilizzate nelle varie chiamate dal serve
 
 ## chektoken
 
-Il server utilizza dei token di accesso generati ogni volta che un nuovo client effettua un login. Questi token saranno salvati dentro un array dei token assieme al timestamp del tempo d'inserimento e alla mail dell'utente. Il token sarà succesivamente inviato al client come risposta. Esso dovrà essere inserito in tutte le richieste future, ciò evita l'invio di dati sensibili da parte del client ( il servere conosce già la mail per ogni client che si è loggato ).
+Il server utilizza dei **token** di accesso generati ogni volta che un nuovo client effettua un login. Questi **token** saranno salvati dentro un array dei assieme al timestamp d'inserimento e alla mail dell'utente. Il **token** sarà succesivamente inviato al client come risposta. Esso dovrà essere inserito in tutte le richieste future. Questo evita l'invio di dati sensibili da parte del client ( il servere conosce già la mail per ogni client che si è loggato ).
 
 ```js
 var tokenlis = [];
 ```
 
-Ogni volta che un client ( gia loggato ) fa una richiesta al server esso controlla il token associato. Se il token è contenuto nel server e il timestamp associato è minore di 10 minuti la richiesta sarà garantita e il timestamp sarà aggiornato, in caso contrario la richiesta sarà rifiutata e il token sarà scartato.
+Ogni volta che un client ( gia loggato ) fa una richiesta al server esso ne controlla il **token** associato. Se il token è contenuto nel server e il timestamp è minore di 10 minuti la richiesta sarà garantita e il timestamp sarà aggiornato, in caso contrario la richiesta sarà rifiutata e il **token** sarà scartato.
 
 ```js
 //ce un token attivo , se cè aggiorno l'oriario
@@ -148,7 +154,7 @@ function chektoken(value) {
 
 ## findtoken
 
-Per effettuare alcune ricerche nel db è necessario usare la mail dell'utente. Esiste una funzione che dato un token attivo restituisce una mail.
+Per effettuare alcune ricerche nel **db** è necessario usare la **mail** dell'utente. Esiste una funzione che dato un **token** attivo ne restituisce la mail.
 
 ```js
 //dato un token trova l'email
@@ -163,7 +169,7 @@ function findtoken(token) {
 
 ## getGeneri
 
-Donde evitare di richiedere i generi a spotyfi ogni volta che un nuovo client effettua un modifica del profilo o una registrazione ho introdotto questa funzione posizionata nella funzione asincrona dell'avvio del server. Ogni 5 minuti essa richiede i generi alle api e li salva nell array dei generi del server.
+Donde evitare di richiedere i generi a spotyfi ogni volta che un nuovo **client** effettua un modifica del profilo o una registrazione ho introdotto questa funzione posizionata nella ciamata asincrona dell'avvio del server. Ogni 5 minuti essa richiede i generi alle **api** e li salva nell array dei generi del server.
 
 ```js
 let generi = [];
@@ -176,9 +182,10 @@ setInterval(async () => {
 
 ## Zod
 
-Questo pacchetto viene ustato per controllare che i dati mandati dal client, nelle varie richieste, siano corretti e rispettino gli standard assegnati, prima di inserirli nel db.Nel caso i dati non siano uniformi con le aspettative gestisco l'errore con un try cach.
+Questo pacchetto viene ustato per controllare che i dati mandati dal client, nelle varie richieste, siano corretti e rispettino gli standard assegnati, prima di inserirli nel **db**.Nel caso i dati non siano uniformi con le aspettative gestisco l'errore con un try cach.
 
 ```js
+//esempio
 import { z } from "zod";
 const userDataSchema = z.object({
   email: z.string().email(),
@@ -195,7 +202,7 @@ try {
 
 ## Spotyfi api
 
-Questa parte di codice introduce una funzione che restituisce un client spotyfi che ci permette di fare chiamate sfruttando le api.
+Questa parte di codice introduce una funzione che restituisce un **client spotyfi** che ci permette di fare chiamate sfruttando le api.
 
 ```js
 import request from "request";
@@ -233,11 +240,11 @@ async function getapi() {
 }
 ```
 
-Utilizzando il client id e il client seacret (presi dalla pagina ufficiale di spotyfi) genero un token per effettuare richieste al server di spotyfi. Questo token sarà successivamente usato per inizializzare un client il quale verrà ritornato e utilizzato per le richieste http.
+Utilizzando il **client id** e il **client seacret** (presi dalla pagina ufficiale di spotyfi) genero un **token**. Questo token sarà successivamente usato per inizializzare un client il quale verrà ritornato e utilizzato per le richieste http. Nel caso quet' ultimo ritorni un errore, esso verrà getsito dalle funzioni chiamanti.
 
 ## Mongodb
 
-Questa parte di codice contiene una funzione che ritorna un mongoClient usato per fare chiamate al db.
+Questa parte di codice contiene una funzione che ritorna un **mongoClient** usato per fare chiamate al **db**. Nel caso quet' ultimo lanci un errore, esso verrà getsito dalle  funzioni chiamanti.
 
 ```js
 import { MongoClient } from "mongodb";
@@ -253,12 +260,10 @@ async function connectToCluster() {
   }
 }
 ```
-
-Una volta connesso al db ritorna il client sul quale fare le operazioni.
 # Routes:
-Analizziamo le varie routes presenti sul back-end
+Analizziamo le varie routes presenti sul back-end.
 ## /genere
-Questa route ritorna la lista dei generi salvati nel server. Rispende sempre con un 200 e una lista (caso peggiore lista vuota perchè le api non vanno)
+Questa route ritorna la lista dei generi salvati nel server. Rispende sempre con un 200 e una lista (caso peggiore lista vuota perchè le api non vanno).
 ```js
 //ritorna lista generi
 app.get('/genere', (req, res) => {
@@ -267,7 +272,7 @@ app.get('/genere', (req, res) => {
 });
 ```
 ## /elimina
-Dato un token (attivo) di un profilo elimina l'utente dalla piattaforma.
+Dato un **token** (attivo) di un profilo elimina l'utente dalla piattaforma.
 Ritorna:
 
 + 500 Problemi in fase di collegamento col db o eliminazione
@@ -286,12 +291,12 @@ app.delete('/elimina', async (req, res) => {
   }
 });
 ```
-Se elimino un utente devo cancellare anche tutte le playlist a lui collegate. Potrebbe succedere che tra le chiamate una vada a buon fine e l'altra no. All'interno della funzione elimina vengono usate le transaction per garantire la consistenza dei dati in caso di una eliminazione fallita o parziale. 
+Se elimino un utente devo cancellare anche tutte le playlist a lui collegate. Potrebbe succedere che tra le chiamate una vada a buon fine e l'altra no. All'interno della funzione elimina vengono usate le **transaction** per garantire la consistenza dei dati in caso di una eliminazione fallita o parziale. 
 
 Se una delle due chiamate fallisce si esegue una abort della transazione, altrimenti si esegue un commit salvando le modifiche.
 
 ## modplaylist (cercacanzoni)
-Tutte le funzioni modplaylist n* utilizzano questa funzione per trovare i dati effettivi delle canzoni da restituire. Nel db le canzoni sono salvate solo con un codice identificativo, la funzione cercacanzoni scorre tutti gli id presenti in una playlist e ritorna una lista di canzoni. In caso si verifichi un errore nella connessione con spotyfi lo lancia.
+Tutte le funzioni **modplaylist n*** utilizzano questa funzione per trovare i dati effettivi delle canzoni da restituire. Nel **db** le canzoni sono salvate solo con un codice identificativo, la funzione cercacanzoni scorre tutti gli **id** presenti in una playlist e ritorna una lista di canzoni. In caso si verifichi un errore nella connessione con spotyfi lo lancia e lo lascia gestire alle funzioni chiamanti.
 ```js
 async function cercaCanzoni(playlist){
     try {
@@ -308,7 +313,7 @@ return tracks
 }
 ```
 ## /modplaylist1
-Dato un token (attivo) di un profilo restutuisce le playlist ancora attive create da quel profilo.
+Dato un **token** (attivo) di un profilo restutuisce le playlist ancora attive create da quel profilo.
 Ritorna:
 + 500 Problemi in fase di collegamento col db o ricerca, problemi in fase collegamneto api
 + 401 Il token non è autorizzarto
@@ -327,7 +332,7 @@ app.post('/modplaylist1', async (req, res) => {
 });
 ```
 ## /modplaylist3
-Dato un token (attivo) di un profilo trova e ritorna le playlist ancora attive create e non da quel profilo.
+Dato un **token** (attivo) di un profilo trova e ritorna le playlist ancora attive create e non da quel profilo.
 
 + 500 Problemi in fase di collegamento col db o ricerca, problemi in fase collegamneto api
 + 401 Il token non è autorizzarto
@@ -346,7 +351,7 @@ app.post('/modplaylist3', async (req, res) => {
 });
 ```
 ## /eliminaPlaylist
-Dato un token (attivo) di un profilo e un nome di una playlist creata da tale profilo, elimina la playlist. Tutti gli altri utenti che hanno salvato la playlist non la potranno più vedere.
+Dato un **token** (attivo) di un profilo e un nome di una playlist creata da tale profilo, elimina la playlist. Tutti gli altri utenti che hanno salvato la playlist non la potranno più vedere.
 
 + 500 Problemi in fase di collegamento col db o eliminazione
 + 401 Il token non è autorizzarto
@@ -366,7 +371,7 @@ app.delete('/eliminaPlaylist', async (req, res) => {
 });
 ```
 ## /togliPlaylist
-Dato un token (attivo) di un profilo e un nome di una playlist non creata da tale profilo, toglie la playlist di quel profilo. La playlist rimarrà attiva negli altri profili in cui è stata salvata.
+Dato un **token** (attivo) di un profilo e un nome di una playlist non creata da tale profilo, toglie la playlist di quel profilo. La playlist rimarrà attiva negli altri profili in cui è stata salvata.
 
 + 500 Problemi in fase di collegamento col db o modifica
 + 401 Il token non è autorizzarto
@@ -386,7 +391,7 @@ app.delete('/togliPlaylist', async (req, res) => {
 });
 ```
 ## /modplaylist5
-Dato un token (attivo) di un profilo trova e ritorna le playlist ancora attive non create e non aggiunte dal profilo.
+Dato un **token** (attivo) di un profilo trova e ritorna le playlist ancora attive non create e non aggiunte dal profilo.
 
 + 500 Problemi in fase di collegamento col db o ricerca, problemi in fase collegamneto api
 + 401 Il token non è autorizzarto
@@ -420,7 +425,7 @@ app.put('/register', async (req, res) => {
 });
 ```
 ## /login
-Date le informazioni di accesso di un utente, ne effettua il login nella piattaforma. Crea il token di accesso , lo salva nel server assieme al timestamp e lo ritorna all'utente (per chiamate future).
+Date le informazioni di accesso di un utente, ne effettua il **login** nella piattaforma. Crea il **token** di accesso , lo salva nel server assieme al timestamp e lo ritorna all'utente (per chiamate future).
 
 + 500 Problemi in fase di collegamento col db o ricerca
 + 400 Zod ha rilevato delle inconsistenze nei dati o utente non esiste
@@ -439,14 +444,15 @@ app.post('/login', async (req, res) => {
   }}
 });
 ```
-Nella funzione login il token viene generato partendo dall' email , la password e il timestamp.
+Nella funzione login il **token** viene generato partendo dall' email , la password e il timestamp.
 
 ```js
-return {res: createHash('sha256').update(userData.email+userData.password+Date.now()).digest('base64'), code:200 };
+return {res: createHash('sha256').update(
+  userData.email+userData.password+Date.now()).digest('base64'), code:200 };
 ```
 Il tutto viene criptato usando sha256.
 ## /logout
-Dato un token (attivo) di un profilo effettua il logout dell' utrente corrispondente dalla piattaforma, inoltre rimuove il token di accesso dalla lista dei token attivi. La risposta è solo 200, (caso peggiore il token viene scartato automaticamente dopo 10 minuti)
+Dato un **token** (attivo) di un profilo effettua il logout dell' utrente corrispondente dalla piattaforma, inoltre rimuove il **token** di accesso dalla lista dei token attivi. La risposta è solo 200, (caso peggiore il token viene scartato automaticamente dopo 10 minuti).
 ```js
 //logout profilo
 app.post('/logout', (req, res) => {
@@ -460,7 +466,7 @@ app.post('/logout', (req, res) => {
 });
 ```
 ## /mod
-Dato un token (attivo) di un profilo restituisce i dati di tale profilo, esclusa password.
+Dato un **token** (attivo) di un profilo restituisce i dati di tale profilo, esclusa password.
 
 + 500 Problemi in fase di collegamento col db o ricerca
 + 401 Il token non è autorizzarto
@@ -479,7 +485,7 @@ app.post('/mod', async (req, res) => {
 });
 ```
 ## /modPass
-Dato un token (attivo) di un profilo , la nuova password e la vecchia password aggiorna la password del profilo.
+Dato un **token** (attivo) di un profilo , la nuova password e la vecchia password aggiorna la password del profilo.
 
 + 500 Problemi in fase di collegamento col db o modifica
 + 400 Zod ha rilevato delle inconsistenze nei dati, la vecchia password non corrispnde
@@ -499,7 +505,7 @@ app.put('/modPass', async(req, res) => {
 });
 ```
 ## /modData
-Dato un token (attivo) di un profilo e un json di campi da modificare aggiorna i dati del profilo, inoltre modifica l'email associata al relativo token.
+Dato un **token** (attivo) di un profilo e un **json** di campi da modificare aggiorna i dati del profilo, inoltre modifica l'email associata al relativo token.
 
 + 500 Problemi in fase di collegamento col db o modifica
 + 400 Zod ha rilevato delle inconsistenze nei dati, il paese o la lista di generi non è conforme a quella presente sul server
@@ -530,7 +536,7 @@ Se modifico la mail di un utente devo modificare anche tutte le playlist a essa 
 Se una delle due chiamate fallisce si esegue un' abort della transazione, altrimenti si esegue un commit salvando le modifiche.
 
 ## /ADDplaylist
-Dato un token (attivo) di un profilo, la mail del creante di una playlist e il nome della playlist alla quale mi voglio sottoscrivere, sottoscrivo al mio profilo la playlist.
+Dato un **token** (attivo) di un profilo, la **mail** del creante di una playlist e il nome della playlist alla quale mi voglio sottoscrivere, sottoscrivo al mio profilo la playlist.
 
 + 500 Problemi in fase di collegamento col db o modifica
 + 400 La playlist non esiste
@@ -550,7 +556,7 @@ app.put('/ADDplaylist', async (req, res) => {
 });
 ```
 ## /cerca
-Dato un token (attivo) di un profilo e un dato da cercare (artista, nome canzone, album) cerca le canzoni più simili a quel dato e le restituisce.
+Dato un **token** (attivo) di un profilo e un dato da cercare (artista, nome canzone, album) cerca le canzoni più simili a quel dato e le restituisce.
 
 + 500 Problemi in fase di connesione api
 + 401 Il token non è autorizzarto
@@ -569,7 +575,7 @@ app.post('/cerca', async (req, res) => {
 });
 ```
 ## /artisti
-Dato un artista da cercare, lo cerca e le restituisce.
+Dato un **artista** da cercare, lo cerca e le restituisce.
 
 + 500 Problemi in fase di connesione api
 + 200 Ricerca avvenuto con successo
@@ -583,7 +589,7 @@ app.post('/artisti', async (req, res) => {
 });
 ```
 ## /salva
-Dato un token (attivo) di un profilo e un json di una playlist, crea la playlist sottocrivendogli il profilo.
+Dato un **token** (attivo) di un profilo e un **json** di una playlist, crea la playlist sottocrivendogli il profilo.
 
 + 500 Problemi in fase di collegamento col db o inserimento
 + 401 Il token non è autorizzarto
@@ -603,7 +609,7 @@ app.put('/salva', async (req, res) => {
 });
 ```
 ## /salvaMod
-Dato un token (attivo) di un profilo e un json di una playlist creata dal profilo, salva le modifiche. (La ricerca della playlist viene effettuata per id)
+Dato un **token** (attivo) di un profilo e un **json** di una playlist creata dal profilo, salva le modifiche. (La ricerca della playlist viene effettuata per id)
 
 + 500 Problemi in fase di collegamento col db o modifica
 + 401 Il token non è autorizzarto
@@ -622,7 +628,7 @@ app.put('/salvaMod', async (req, res) => {
 });
 ```
 ## /forgot
-Riceve una richiesta di password forgot e la stampa nella console del server
+Riceve una richiesta di **password forgot** e la stampa nella console del server
 
 + 400 Zod ha rilevato delle inconsistenze nei dati
 + 200 Richiesta inviata con successo
@@ -636,61 +642,65 @@ app.post('/forgot', async (req, res) => {
 });
 ```
 # Struttura sito web
+Vediamo adesso come sono organizzate le varie pagine web.
 ## Footer (uguale per tutte le pagine)
-![alt text](image-12.png)
+![alt text](img/image-12.png)
 + Le icone portano ai link dei social
 + Testo interattivo (solo per i tag `<p>`)
 ## Login 
 Form di login 
-![alt text](image.png)
+![alt text](img/image.png)
 Qui posso:
-+ Effettuare il login 
-+ Spostarmi nella pagina di register
-+ Inviare una richiesta di forgot password
++ Effettuare il login **(tasto login)**
++ Spostarmi nella pagina di register **(tasto create new)**
++ Inviare una richiesta di forgot password **(tasto forgot password)**
 
-Form forgot password
-![alt text](image-1.png)
+Una volta aperto il form di forgot password posso:
++ Inviare una richiesta di forgot **(tasto send)**
++ Chiudere il form con il tasto **(tsto close)**
+![alt text](img/image-1.png)
 ## Register
 Form di registrazione
-![alt text](image-2.png)
+![alt text](img/image-2.png)
 Qui posso:
-+ Effettuare il Register 
-+ Spostarmi nella pagina di login
-+ Aprire la tendina dei parametri opzionali
++ Effettuare il Register **(tasto register)**
++ Spostarmi nella pagina di login **(tasto login)**
++ Aprire la tendina dei parametri opzionali **(tasto show custom)**
 
-Tendina parametri opzionali
-![alt text](image-3.png)
-Qui posso:
-+ Aggiungere un genere
-+ Cernare ed aggiungere un artista
+Nella tendina dei parametri opzionali posso aggiungere alla mia registrazione delle prefertenze tipo:
++ **Genere**
 
-![alt text](image-4.png)
+![alt text](img/image-3.png)
+
++ **Artista**
+
+![alt text](img/image-4.png)
 ## Homepage
 Form di homepage 
-![alt text](image-5.png)
+![alt text](img/image-5.png)
 Qui posso:
-+ Aprire getione profilo
-+ Aprire strumento creazione playlist
-+ Aprire strumento cerca playlist di altri utenti (pubbliche)
-+ Aprire strumento visualizza libreria
-+ Aprire strumento modifica playlist
-+ Effettuare il logout
++ Aprire getione profilo **(taso profile)**
++ Aprire lo strumento creazione playlist **(tasto crea)**
++ Aprire lo strumento cerca playlist di altri utenti (pubbliche) **(tasto cerca)**
++ Visualizzare la libreria **(tasto libreria)**
++ Aprire strumento modifica playlist **(tasto modifica)**
++ Effettuare il logout **(tasto logout)**
 ## Profile
 Form di modifica
-![alt text](image-7.png)
+![alt text](img/image-7.png)
 Qui posso:
-+ Salvare le modifiche (dati) 
-+ Salvare le modifiche (password, richesta vecchia e nuova password) 
++ Salvare le modifiche dati **(tasto mod data)** //arrivato qi
++ Salvare le modifiche password (richesta vecchia e nuova password) 
 + Eliminare il profilo (si sarà reindirizzati nella pagina di login)
 + Aprire la tendina dei parametri opzionali (analoga a register)
 + Tornare nella HomePage
 ## Cerca
 Form cerca playlist di altri utenti (pubbliche)
-![alt text](image-6.png)
+![alt text](img/image-6.png)
 Qui posso:
 + Visualizzare il contenuto di una playlist (cliccandoci sopra)
 
-![alt text](image-8.png)
+![alt text](img/image-8.png)
 Possibilità di filtrare i risultati tramite la barra di ricerca 
 
 + Aggiungere la playlist al mio profilo (tasto bianco)
@@ -700,7 +710,7 @@ Possibilità di filtrare i risultati tramite la barra di ricerca
 + Effettuare il logout
 ## Libreria
 Form libreria
-![alt text](image-9.png)
+![alt text](img/image-9.png)
 Qui posso:
 + Visualizzare il contenuto di una playlist (cliccandoci sopra)
 + Eliminare una playlist precedentemente aggiunta al mio profilo (tasto rosso)
@@ -710,15 +720,20 @@ Qui posso:
 + Effettuare il
 ## Crea
 Form creazione playlist
-![alt text](image-11.png)
+![alt text](img/image-11.png)
 Qui posso:
-// da fare
+
++ Creare una nuova playlist (inserendo i dati e premendo save)
++ Aprire il menù aggiungi canzoni
+
+![alt text](img/image-14.png)
+Per aggiungere una canzone basterà cliccarci sopra, essa apparirà automaticamente nel form canzoni inserite. Per rimuovere una canzone presente nel form canzoni inserite basterà clicarici sopra.
 + Tornare nella pagina gestisci profilo
 + Tornare nella HomePage
 + Effettuare il logout
 ## Modifica
 Form gestisci playlist (presenti playlist create solo dall'utente)
-![alt text](image-10.png)
+![alt text](img/image-10.png)
 Qui posso:
 + Visualizzare il contenuto di una playlist (cliccandoci sopra)
 + Eliminare una playlist creata (tasto rosso)
