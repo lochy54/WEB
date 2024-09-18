@@ -658,6 +658,7 @@ Qui posso:
 Una volta aperto il form di forgot password posso:
 + Inviare una richiesta di forgot **(tasto send)**
 + Chiudere il form con il tasto **(tsto close)**
+
 ![alt text](img/image-1.png)
 ## Register
 Form di registrazione
