@@ -674,7 +674,9 @@ Nella tendina dei parametri opzionali posso aggiungere alla mia registrazione de
 
 + **Artista**
 
+Una volta aperto il menu, per aggiungere un artista basterà cliccarci sopra, esso apparirà automaticamente nel form artisti inseriti. Per rimuovere un artista presente nel form artisti inseriti basterà clicarici sopra.
 ![alt text](img/image-4.png)
+
 ## Homepage
 Form di homepage 
 ![alt text](img/image-5.png)
@@ -692,60 +694,61 @@ Qui posso:
 + Salvare le modifiche dati **(tasto mod data)** 
 + Salvare le modifiche password *(richista vecchia password)*  **(tasto mod password)** 
 + Eliminare il profilo **(tasto elimina profilo)**
-+ Aprire la tendina dei parametri opzionali *(analoga a register)* **(tasto show custom)**
++ Aprire la tendina dei parametri opzionali *(interfaccia omessa poichè analoga a register)* **(tasto show custom)**
 + Tornare nella HomePage **(tasto home)**
 + Effettuare il logout **(tasto logout)**
-//arrivato qui
 ## Cerca
 Form cerca playlist di altri utenti (pubbliche)
 ![alt text](img/image-6.png)
 Qui posso:
-+ Visualizzare il contenuto di una playlist (cliccandoci sopra)
-
-![alt text](img/image-8.png)
-Possibilità di filtrare i risultati tramite la barra di ricerca 
-
-+ Aggiungere la playlist al mio profilo (tasto bianco)
++ Visualizzare il contenuto di una playlist **(cliccandoci sopra)**
++ Aggiungere la playlist al mio profilo **(tasto bianco)**
 + Filtrare i risultati tramite la barra di ricerca 
-+ Tornare nella pagina gestisci profilo
-+ Tornare nella HomePage
-+ Effettuare il logout
++ Tornare nella pagina gestisci profilo **(tasto profile)**
++ Tornare nella HomePage **(tasto home)**
++ Effettuare il logout **(tasto logout)**
+
+Una volta clicato sopra una playlist si aprirà il form di visualizzazione brani. Qui è possibile filtrare i risultati tramite la barra di ricerca.
+![alt text](img/image-8.png)
+
 ## Libreria
 Form libreria
 ![alt text](img/image-9.png)
 Qui posso:
-+ Visualizzare il contenuto di una playlist (cliccandoci sopra)
-+ Eliminare una playlist precedentemente aggiunta al mio profilo (tasto rosso)
++ Visualizzare il contenuto di una playlist **(cliccandoci sopra)**
++ Eliminare una playlist precedentemente aggiunta al mio profilo **(tasto rosso)**
 + Filtrare i risultati tramite la barra di ricerca 
-+ Tornare nella pagina gestisci profilo
-+ Tornare nella HomePage
-+ Effettuare il
++ Tornare nella pagina gestisci profilo **(tasto profile)**
++ Tornare nella HomePage **(tasto home)**
++ Effettuare il logout **(tasto logout)**
 ## Crea
 Form creazione playlist
 ![alt text](img/image-11.png)
 Qui posso:
 
-+ Creare una nuova playlist (inserendo i dati e premendo save)
-+ Aprire il menù aggiungi canzoni
++ Creare una nuova playlist **(tasto save)**
++ Aprire il menù aggiungi canzoni **(tasto aggiungi canzoni)**
++ Tornare nella pagina gestisci profilo **(tasto profile)**
++ Tornare nella HomePage **(tasto home)**
++ Effettuare il logout **(tasto logout)**
+
+Una volta aperto il menu, per aggiungere una canzone basterà cliccarci sopra, essa apparirà automaticamente nel form canzoni inserite. Per rimuovere una canzone presente nel form canzoni inserite basterà clicarici sopra.
 
 ![alt text](img/image-14.png)
-Per aggiungere una canzone basterà cliccarci sopra, essa apparirà automaticamente nel form canzoni inserite. Per rimuovere una canzone presente nel form canzoni inserite basterà clicarici sopra.
-+ Tornare nella pagina gestisci profilo
-+ Tornare nella HomePage
-+ Effettuare il logout
+
 ## Modifica
 Form gestisci playlist (presenti playlist create solo dall'utente)
 ![alt text](img/image-10.png)
 Qui posso:
-+ Visualizzare il contenuto di una playlist (cliccandoci sopra)
-+ Eliminare una playlist creata (tasto rosso)
-+ Aprire il tool di modifica playlist (tasto bianco) (interfaccia omessa poichè uguale allo strumento di creazione playlist)
++ Visualizzare il contenuto di una playlist **(cliccandoci sopra)**
++ Eliminare una playlist creata **(tasto rosso)**
++ Aprire il tool di modifica playlist *(interfaccia omessa poichè uguale allo strumento di creazione playlist)* **(tasto bianco)** 
 + Filtrare i risultati tramite la barra di ricerca 
-+ Tornare nella pagina gestisci profilo
-+ Tornare nella HomePage
-+ Effettuare il logout
++ Tornare nella pagina gestisci profilo **(tasto profile)**
++ Tornare nella HomePage **(tasto home)**
++ Effettuare il logout **(tasto logout)**
 # Funzioni shared client
-All'interno del client sono presenti delle funzioni importanti codivise tra tutte le pagine
+All'interno del client sono presenti delle funzioni importanti codivise tra tutte le pagine.
 ## Show alert
 All'interno di ogni pagina è presente un alert, il quale è impostato a dsplay none.
 ```html
