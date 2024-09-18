@@ -16,7 +16,6 @@ async function login(){
     const post = await apicall("http://localhost:3000/forgot",{ email: document.getElementById("emailForgot").value }, "POST",true)
 }
 
-// da implementare che siapre il coso
 function forgot(){
     if(document.getElementById("forgot").style.display=="block"){
       document.getElementById("forgot").style.display="none"
