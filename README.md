@@ -303,7 +303,7 @@ async function cercaCanzoni(playlist){
     var tracks = []
     var spotifyApi = await getapi();
     if (playlist.length!=0){
-        var data = await spotifyApi.getTracks(playlist , {limit: 10});
+        var data = await spotifyApi.getTracks(playlist);
         tracks = data.body;
     }
 return tracks
